@@ -1,0 +1,70 @@
+name: nova_kudos_flutter
+description: A new Flutter application for company rewarding proccess.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.1 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_bloc: ^8.1.1
+  kiwi: ^4.0.3
+  intl: ^0.17.0
+  flutter_localizations:
+    sdk: flutter
+  flutter_screenutil: ^5.6.0
+  bot_toast: ^4.0.3
+  flutter_secure_storage: ^6.0.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  freezed: ^2.2.1
+  flutter_svg: ^1.1.6
+  cached_network_image: ^3.2.2
+  skeleton_text: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  build_runner: ^2.1.5
+  json_serializable: ^6.1.4
+  hive_generator: ^2.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  assets:
+    - assets/fonts/
+
+  fonts:
+    - family: Kalameh
+      fonts:
+        - asset: assets/fonts/kalameh-thin.ttf
+          weight: 100
+        - asset: assets/fonts/kalameh-extraLight.ttf
+          weight: 200
+        - asset: assets/fonts/kalameh-light.ttf
+          weight: 300
+        - asset: assets/fonts/kalameh-regular.ttf
+          weight: 400
+        - asset: assets/fonts/kalameh-medium.ttf
+          weight: 500
+        - asset: assets/fonts/kalameh-semiBold.ttf
+          weight: 600
+        - asset: assets/fonts/kalameh-bold.ttf
+          weight: 700
+        - asset: assets/fonts/kalameh-extraBold.ttf
+          weight: 800
+        - asset: assets/fonts/kalameh-black.ttf
+          weight: 900
+
+
+
