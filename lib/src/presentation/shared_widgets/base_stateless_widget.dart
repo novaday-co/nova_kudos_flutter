@@ -20,11 +20,13 @@ abstract class BaseStatelessWidget extends StatelessWidget {
 
   Widget body(BuildContext context);
 
-  Function? onPageReload(BuildContext context) => null;
+  void onPageReload(BuildContext context) => (){};
 
-  Function? onBuild(BuildContext context) => null;
+  void onBuild(BuildContext context) => (){};
 
   CustomAppbar? appBar(BuildContext context) => null;
+
+  Color? backgroundColor(BuildContext context) => null;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ abstract class BaseStatelessWidget extends StatelessWidget {
         return (await onPop.call(context)) ?? true;
       },
       child: Scaffold(
+        backgroundColor: backgroundColor(context),
         appBar: appBar(context),
         body: SafeArea(
           child: Padding(
