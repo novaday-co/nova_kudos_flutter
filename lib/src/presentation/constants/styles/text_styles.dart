@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nova_kudos_flutter/main.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 
@@ -88,7 +87,7 @@ class Styles {
     textBaseline: TextBaseline.alphabetic,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w700,
-    fontSize: 18.sp,
+    fontSize: 18,
     color: Theme.of(context).colorScheme.tertiary,
     fontFamilyFallback: const [
       englishFont,
@@ -100,7 +99,7 @@ class Styles {
     textBaseline: TextBaseline.alphabetic,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w500,
-    fontSize: 20.sp,
+    fontSize: 20,
     color: Theme.of(context).colorScheme.tertiaryContainer,
     fontFamilyFallback: const [
       englishFont,
@@ -112,7 +111,7 @@ class Styles {
     textBaseline: TextBaseline.alphabetic,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w500,
-    fontSize: 18.sp,
+    fontSize: 18,
     color: Theme.of(context).colorScheme.tertiaryContainer,
     fontFamilyFallback: const [
       englishFont,
@@ -124,7 +123,7 @@ class Styles {
     textBaseline: TextBaseline.alphabetic,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w500,
-    fontSize: 16.sp,
+    fontSize: 16,
     color: Theme.of(context).colorScheme.tertiary,
     fontFamilyFallback: const [
       englishFont,

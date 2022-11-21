@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/styles/text_styles.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
@@ -135,11 +132,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (widget.errorText != null)
           Column(
             children: [
-              SizedBox(height: 8.h),
+              const SizedBox(height: 8),
               TextWidget.medium(
                 widget.errorText!,
                 context: context,
-                additionalStyle: TextStyle(fontSize: 14.sp),
+                additionalStyle: const TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -193,18 +190,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            height: 28.sp,
-            width: 28.sp,
+            height: 28,
+            width: 28,
             child: IconWidget(
               icon: Icons.close,
               iconColor: Theme.of(context).colorScheme.tertiary,
-              height: 28.sp,
+              height: 28,
               onPressed: () {
                 controller.clear();
                 setState(() {});
                 widget.onChanged?.call("");
               },
-              width: 28.sp,
+              width: 28,
             ),
           ),
         ],

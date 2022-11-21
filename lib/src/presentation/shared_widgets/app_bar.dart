@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
@@ -40,7 +39,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
         child: TextWidget.bold(
           title ?? "",
           context: context,
-          additionalStyle: TextStyle(fontSize: 18.sp).merge(titleStyle),
+          additionalStyle: TextStyle(fontSize: 18).merge(titleStyle),
         ),
       ),
       centerTitle: centerTitle,
@@ -70,5 +69,5 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
   Widget get child => const SizedBox();
 
   @override
-  Size get preferredSize => Size.fromHeight(64.h);
+  Size get preferredSize => Size.fromHeight(64);
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/custom_text_field.dart';
 
