@@ -39,7 +39,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
         child: TextWidget.bold(
           title ?? "",
           context: context,
-          additionalStyle: TextStyle(fontSize: 18).merge(titleStyle),
+          additionalStyle: const TextStyle(fontSize: 18).merge(titleStyle),
         ),
       ),
       centerTitle: centerTitle,
@@ -47,21 +47,23 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
       titleSpacing: 0,
       backgroundColor:
           backgroundColor ?? Theme.of(context).colorScheme.background,
-      leading: hasBackButton ? Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconWidget(
-            icon: Assets.arrowRight,
-            onPressed: onPressBack,
-            borderRadius: 1000,
-            height: 40,
-            width: 40,
-            size: 5,
-            hasBorder: true,
-            borderColor: Theme.of(context).colorScheme.outline,
-          ),
-        ],
-      ):leading,
+      leading: hasBackButton
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconWidget(
+                  icon: Assets.arrowRight,
+                  onPressed: onPressBack,
+                  borderRadius: 1000,
+                  height: 40,
+                  width: 40,
+                  size: 5,
+                  hasBorder: true,
+                  borderColor: Theme.of(context).colorScheme.outline,
+                ),
+              ],
+            )
+          : leading,
     );
   }
 

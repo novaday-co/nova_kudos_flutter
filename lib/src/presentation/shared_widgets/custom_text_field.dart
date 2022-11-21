@@ -84,10 +84,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
           focusNode: widget.focusNode,
           controller: controller,
           style: widget.textStyle ??
-              Theme.of(context).textTheme.subtitle2!.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    fontWeight: FontWeight.w500,
-                  ),
+              Styles.bodyText1(context).copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+                fontWeight: FontWeight.w400,
+              ),
           maxLines: widget.maxLines,
           maxLength: widget.maxLength,
           keyboardType: widget.maxLines == null
@@ -100,8 +100,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
           decoration: InputDecoration(
             contentPadding: widget.padding ??
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             fillColor: Colors.white,
             filled: true,
             counterText: "",
@@ -112,9 +111,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hintStyle: Styles.subtitle1(context).copyWith(fontSize: 16),
             labelStyle: Styles.subtitle1(context).copyWith(fontSize: 16),
             labelText: widget.label,
-            hintText:  widget.hintText,
+            hintText: widget.hintText,
           ),
-          onChanged: (value){
+          onChanged: (value) {
             widget.onChanged?.call(value);
             setState(() {});
           },
