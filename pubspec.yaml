@@ -43,6 +43,8 @@ flutter:
 
   assets:
     - assets/fonts/
+    - assets/svg/
+    - assets/icons/
 
   fonts:
     - family: Kalameh
