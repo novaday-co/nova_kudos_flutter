@@ -7,6 +7,7 @@ import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/injector.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/animated_page_route_builder.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/navigation_observer.dart';
+import 'package:nova_kudos_flutter/src/presentation/config/screen_responsive.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/colors/light_theme.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -28,23 +29,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final botToastBuilder = BotToastInit();
 
-    return MaterialApp(
-      title: 'Nova Kudos',
-      theme: lightTheme,
-      debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
-      navigatorObservers: [
-        KiwiContainer().resolve<NavigationObserver>(),
-        BotToastNavigatorObserver(),
-      ],
-      builder: (context, child) => botToastBuilder(context, child),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      onGenerateRoute: (settings) => AnimatedPageRouteBuilder(settings),
+    return Responsive(
+      builder: (context) => MaterialApp(
+        title: 'Nova Kudos',
+        theme: lightTheme,
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
+        navigatorObservers: [
+          KiwiContainer().resolve<NavigationObserver>(),
+          BotToastNavigatorObserver(),
+        ],
+        supportedLocales: const [
+          Locale('fa', 'IR'),
+        ],
+        locale: const Locale('fa', 'IR'),
+        builder: (context, child) => botToastBuilder(context, child),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        onGenerateRoute: (settings) => AnimatedPageRouteBuilder(settings),
+      ),
     );
   }
 }
