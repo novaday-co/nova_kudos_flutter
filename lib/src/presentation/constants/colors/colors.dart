@@ -25,9 +25,9 @@ class DisabledTextColor{
 }
 
 class BackgroundColor{
-  static Color get light => const Color(0xffDFDFDF);
+  static Color get light => const Color(0xffFAFAFA);
 
-  static Color get dark => const Color(0xffDFDFDF);
+  static Color get dark => const Color(0xffFAFAFA);
 }
 
 class YellowColor{
@@ -59,4 +59,8 @@ class DisabledColor{
 
   static Color get dark => const Color(0xffE9E9EA);
 }
+class InputBorderColor{
+  static Color get light => const Color(0xff4E4E4E);
 
+  static Color get dark => const Color(0xff4E4E4E);
+}
