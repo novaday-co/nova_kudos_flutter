@@ -17,6 +17,7 @@ ThemeData get lightTheme {
     bottomSheetTheme: BottomSheetThemeData(
       backgroundColor: BackgroundColor.light,
     ),
+    hoverColor: HoverColor.light,
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: BackgroundColor.light,
@@ -26,17 +27,19 @@ ThemeData get lightTheme {
       backgroundColor: BackgroundColor.light,
     ),
     colorScheme: ColorScheme.light(
-        brightness: Brightness.light,
-        primary: PrimaryColor.light,
-        background: BackgroundColor.light,
-        tertiary: TextPrimaryColor.light,
-        onTertiary: TextSubtitleColor.light,
-        tertiaryContainer: DisabledTextColor.light,
-        surfaceTint: DisabledColor.light,
-        outline: BorderColor.light,
-        surface: YellowColor.light,
-        onSurface: BlueColor.light,
-        surfaceVariant: GreenColor.light,
-        onSurfaceVariant: InputBorderColor.light),
+      brightness: Brightness.light,
+      primary: PrimaryColor.light,
+      background: BackgroundColor.light,
+      tertiary: TextPrimaryColor.light,
+      onTertiary: TextSubtitleColor.light,
+      tertiaryContainer: DisabledTextColor.light,
+      onTertiaryContainer: TextButtonColor.light,
+      surfaceTint: DisabledColor.light,
+      outline: BorderColor.light,
+      surface: YellowColor.light,
+      onSurface: BlueColor.light,
+      surfaceVariant: GreenColor.light,
+      onSurfaceVariant: InputBorderColor.light,
+    ),
   );
 }

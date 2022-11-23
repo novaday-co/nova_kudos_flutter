@@ -12,6 +12,12 @@ class TextPrimaryColor{
   static Color get dark => const Color(0xff353535);
 }
 
+class TextButtonColor{
+  static Color get light => const Color(0xffFFFFFF);
+
+  static Color get dark => const Color(0xffFFFFFF);
+}
+
 class TextSubtitleColor{
   static Color get light => const Color(0xff818181);
 
@@ -63,4 +69,9 @@ class InputBorderColor{
   static Color get light => const Color(0xff4E4E4E);
 
   static Color get dark => const Color(0xff4E4E4E);
+}
+class HoverColor{
+  static Color get light => const Color(0xffFF6C88);
+
+  static Color get dark => const Color(0xffFF6C88);
 }
