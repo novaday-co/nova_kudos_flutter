@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar.dart';
+import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar_widget.dart';
 
 abstract class BaseStatelessWidget extends StatelessWidget {
   final bool fabOnly;

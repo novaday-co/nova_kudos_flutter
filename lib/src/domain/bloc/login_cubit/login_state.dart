@@ -1,5 +1,18 @@
-abstract class LoginState{}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class LoginInitState extends LoginState{
+part 'login_state.freezed.dart';
 
+abstract class LoginState {}
+
+class LoginInitState extends LoginState {}
+
+@freezed
+class LoginPhoneNumberValidationState extends LoginState
+    with _$LoginPhoneNumberValidationState {
+
+  const factory LoginPhoneNumberValidationState.valid() =
+      LoginValidPhoneNumberState;
+
+  const factory LoginPhoneNumberValidationState.invalid() =
+      LoginInValidPhoneNumberState;
 }

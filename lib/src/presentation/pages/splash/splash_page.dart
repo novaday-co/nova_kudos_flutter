@@ -4,10 +4,10 @@ import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dar
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar.dart';
+import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/base_stateless_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/icon_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/lottie_animations.dart';
+import 'package:nova_kudos_flutter/src/presentation/shared_widgets/lottie_animations_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
 
 class SplashPage extends BaseStatelessWidget {
