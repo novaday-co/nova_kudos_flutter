@@ -1,4 +1,7 @@
 {
   "appName": "Nova Kudos",
-  "version": "version"
+  "version": "version",
+  "login": "ورود یا ثبت نام",
+  "phoneNumber": "شماره موبایل",
+  "verificationCode": "دریافت کد ورود"
 }

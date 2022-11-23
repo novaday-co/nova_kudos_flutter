@@ -9,9 +9,15 @@ ThemeData get lightTheme {
     dividerColor: Colors.transparent,
     scaffoldBackgroundColor: BackgroundColor.light,
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: TextPrimaryColor.light,
+      selectionColor: PrimaryColor.light,
+      selectionHandleColor: PrimaryColor.light,
+    ),
     bottomSheetTheme: BottomSheetThemeData(
       backgroundColor: BackgroundColor.light,
     ),
+    hoverColor: HoverColor.light,
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: BackgroundColor.light,
@@ -27,11 +33,13 @@ ThemeData get lightTheme {
       tertiary: TextPrimaryColor.light,
       onTertiary: TextSubtitleColor.light,
       tertiaryContainer: DisabledTextColor.light,
+      onTertiaryContainer: TextButtonColor.light,
       surfaceTint: DisabledColor.light,
       outline: BorderColor.light,
       surface: YellowColor.light,
       onSurface: BlueColor.light,
       surfaceVariant: GreenColor.light,
+      onSurfaceVariant: InputBorderColor.light,
     ),
   );
 }

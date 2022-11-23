@@ -13,6 +13,9 @@ class IconWidget extends StatelessWidget {
   final Color? borderColor;
   final double? borderRadius;
   final double? padding;
+  final double? width;
+  final double? height;
+
 
   const IconWidget({
     Key? key,
@@ -26,6 +29,8 @@ class IconWidget extends StatelessWidget {
     this.padding,
     this.hasBorder = false,
     this.rtlSupport = false,
+    this.width,
+    this.height
   })  : assert(icon != null),
         super(key: key);
 
@@ -33,17 +38,22 @@ class IconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(padding ?? 0),
+      width: width,
+      height: height,
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius:
             borderRadius != null ? BorderRadius.circular(borderRadius!) : null,
-        border: hasBorder ? Border.all() : null,
+        border: hasBorder ? Border.all(
+          color: borderColor ?? Colors.transparent,
+        ) : null,
       ),
-      child: IconButton(
-        onPressed: onPressed,
-        icon: _configIcon(context),
-        splashRadius: 20,
-        iconSize: size,
+      child: InkWell(
+        onTap: onPressed,
+        radius: 25,
+        borderRadius:
+        borderRadius != null ? BorderRadius.circular(borderRadius!) : null,
+        child: _configIcon(context),
       ),
     );
   }
@@ -54,7 +64,6 @@ class IconWidget extends StatelessWidget {
         icon,
         color: iconColor ?? Theme.of(context).colorScheme.tertiary,
         size: size ?? 18,
-        textDirection: context.isRTL ? TextDirection.rtl : TextDirection.ltr,
       );
     }
     return SvgPicture.asset(

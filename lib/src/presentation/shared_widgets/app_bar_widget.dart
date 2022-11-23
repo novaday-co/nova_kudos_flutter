@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
 
@@ -34,24 +34,36 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
           Theme.of(context).appBarTheme.systemOverlayStyle!.copyWith(
                 statusBarColor: statusBarColor,
               ),
-      title: TextWidget.bold(
-        title ?? "",
-        context: context,
-        additionalStyle: titleStyle,
+      title: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: TextWidget.bold(
+          title ?? "",
+          context: context,
+          additionalStyle: const TextStyle(fontSize: 18).merge(titleStyle),
+        ),
       ),
       centerTitle: centerTitle,
       actions: actions,
+      titleSpacing: 0,
       backgroundColor:
           backgroundColor ?? Theme.of(context).colorScheme.background,
-      leading: Visibility(
-        visible: hasBackButton,
-        replacement: leading ?? const SizedBox.shrink(),
-        child: IconWidget(
-          icon: Icons.arrow_back_ios_new,
-          onPressed: onPressBack,
-          rtlSupport: true,
-        ),
-      ),
+      leading: hasBackButton
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconWidget(
+                  icon: Assets.arrowRight,
+                  onPressed: onPressBack,
+                  borderRadius: 1000,
+                  height: 40,
+                  width: 40,
+                  size: 5,
+                  hasBorder: true,
+                  borderColor: Theme.of(context).colorScheme.outline,
+                ),
+              ],
+            )
+          : leading,
     );
   }
 
@@ -59,5 +71,5 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
   Widget get child => const SizedBox();
 
   @override
-  Size get preferredSize => Size.fromHeight(64.h);
+  Size get preferredSize => Size.fromHeight(64);
 }
