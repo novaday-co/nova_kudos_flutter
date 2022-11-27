@@ -24,6 +24,7 @@ class LoginPage extends BaseStatelessWidget {
 
   @override
   Widget body(BuildContext context) {
+    String? phoneNumber;
     return Center(
       child: Column(
         children: [
@@ -32,6 +33,7 @@ class LoginPage extends BaseStatelessWidget {
             textInputType: TextInputType.phone,
             onChanged: (value) {
               context.read<LoginCubit>().validatePhoneNumber(value);
+              phoneNumber = value;
             },
           ),
           Visibility(
@@ -60,7 +62,8 @@ class LoginPage extends BaseStatelessWidget {
                   Navigator.pushNamed(
                     context,
                     Routes.verifyCode,
-                    arguments: VerifyCodePageParam(phoneNumber: '09197662903'),
+                    arguments:
+                        VerifyCodePageParam(phoneNumber: phoneNumber ?? ''),
                   );
                 }
               },
