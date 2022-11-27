@@ -29,6 +29,8 @@ dependencies:
   lottie: ^2.0.0
   package_info_plus: ^3.0.2
   responsive_framework: ^0.2.0
+  pin_code_fields: ^7.4.0
+  otp_autofill: ^2.1.0
 
 dev_dependencies:
   flutter_test:
