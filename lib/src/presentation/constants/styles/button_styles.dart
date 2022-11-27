@@ -31,7 +31,8 @@ class ButtonStyles {
         ),
         padding: MaterialStateProperty.all(EdgeInsets.zero),
         overlayColor: MaterialStateColor.resolveWith(
-            (states) => Theme.of(context).hoverColor),
+          (states) => Theme.of(context).colorScheme.inverseSurface,
+        ),
         elevation: MaterialStateProperty.all<double>(0),
         textStyle: MaterialStateProperty.resolveWith(
           (state) {
@@ -66,7 +67,8 @@ class ButtonStyles {
           return foregroundColor ?? Theme.of(context).colorScheme.primary;
         }),
         overlayColor: MaterialStateColor.resolveWith(
-                (states) => Theme.of(context).hoverColor),
+          (states) => Theme.of(context).colorScheme.inverseSurface,
+        ),
         shape: MaterialStateProperty.resolveWith(
           (states) {
             Color color = borderColor ?? Theme.of(context).colorScheme.primary;
@@ -107,7 +109,8 @@ class ButtonStyles {
           return foregroundColor ?? Theme.of(context).colorScheme.primary;
         }),
         overlayColor: MaterialStateColor.resolveWith(
-                (states) => Theme.of(context).hoverColor),
+          (states) => Theme.of(context).colorScheme.inverseSurface,
+        ),
         shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(1000),
         )),
