@@ -3,6 +3,8 @@ import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
 
+const double PADDING_FROM_TOP = 32;
+
 class CustomAppbar extends StatelessWidget implements PreferredSize {
   final String? title;
   final TextStyle? titleStyle;
@@ -35,7 +37,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
                 statusBarColor: statusBarColor,
               ),
       title: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, top: PADDING_FROM_TOP),
         child: TextWidget.bold(
           title ?? "",
           context: context,
@@ -43,27 +46,46 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
         ),
       ),
       centerTitle: centerTitle,
-      actions: actions,
+      actions: actions != null
+          ? [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: PADDING_FROM_TOP),
+                child: Row(
+                  children: actions!,
+                ),
+              )
+            ]
+          : null,
       titleSpacing: 0,
+      toolbarHeight: 120,
       backgroundColor:
           backgroundColor ?? Theme.of(context).colorScheme.background,
       leading: hasBackButton
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconWidget(
-                  icon: Assets.arrowRight,
-                  onPressed: onPressBack,
-                  borderRadius: 1000,
-                  height: 40,
-                  width: 40,
-                  size: 5,
-                  hasBorder: true,
-                  borderColor: Theme.of(context).colorScheme.outline,
-                ),
-              ],
+          ? Padding(
+              padding: const EdgeInsets.only(top: PADDING_FROM_TOP),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconWidget(
+                    icon: Assets.arrowRight,
+                    onPressed: onPressBack,
+                    borderRadius: 1000,
+                    height: 40,
+                    width: 40,
+                    size: 5,
+                    hasBorder: true,
+                    borderColor: Theme.of(context).colorScheme.outline,
+                  ),
+                ],
+              ),
             )
-          : leading,
+          : (leading != null
+              ? Padding(
+                  padding: const EdgeInsets.only(top: PADDING_FROM_TOP),
+                  child: leading,
+                )
+              : null),
     );
   }
 
@@ -71,5 +93,5 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
   Widget get child => const SizedBox();
 
   @override
-  Size get preferredSize => Size.fromHeight(64);
+  Size get preferredSize => const Size.fromHeight(80);
 }

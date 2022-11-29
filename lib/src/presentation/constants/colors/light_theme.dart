@@ -17,7 +17,6 @@ ThemeData get lightTheme {
     bottomSheetTheme: BottomSheetThemeData(
       backgroundColor: BackgroundColor.light,
     ),
-    hoverColor: HoverColor.light,
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: BackgroundColor.light,
@@ -40,6 +39,7 @@ ThemeData get lightTheme {
       onSurface: BlueColor.light,
       surfaceVariant: GreenColor.light,
       onSurfaceVariant: InputBorderColor.light,
+      inverseSurface: HoverColor.light,
     ),
   );
 }

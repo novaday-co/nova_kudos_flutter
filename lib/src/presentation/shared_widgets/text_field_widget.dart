@@ -103,6 +103,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             fillColor: Colors.white,
             filled: true,
+            hoverColor: Colors.white,
             counterText: "",
             suffixIcon: suffixIcon(),
             enabledBorder: _getEnabledBorder(context),

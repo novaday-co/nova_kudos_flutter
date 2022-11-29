@@ -7,7 +7,7 @@ class Assets{
   static const String loadingSecondary = "assets/lottie/loading_white.json";
 
   ///Icons
-  static const String arrowRight = "assets/icons/arrow-circle-right.svg";
+  static const String arrowRight = "assets/icons/arrow_circle.svg";
 
 
 }

@@ -84,7 +84,11 @@ class CustomButton extends StatelessWidget {
       height: 48,
       width: width ?? context.screenWidth,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: onPressed != null ? (){
+          if(loadingStatus == ButtonLoadingStatus.normal){
+            onPressed!.call();
+          }
+        }:null,
         style: style,
         child: Container(
           clipBehavior: Clip.antiAlias,
@@ -134,7 +138,7 @@ class CustomButton extends StatelessWidget {
           margin: EdgeInsets.zero,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(1000)),
-            color: Theme.of(context).hoverColor,
+            color: Theme.of(context).colorScheme.inverseSurface,
           ),
         ),
         Center(child: buttonTitleWidget(context)),
