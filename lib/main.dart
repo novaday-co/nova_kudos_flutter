@@ -16,17 +16,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Injector.inject();
   BlocOverrides.runZoned(
-        () =>
-        runApp(
-          const MyApp(),
-        ),
+    () => runApp(
+      const MyApp(),
+    ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp
-
-  ({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,32 +42,29 @@ class MyApp extends StatelessWidget {
         Locale('fa', 'IR'),
       ],
       locale: const Locale('fa', 'IR'),
-      builder: (context, child) =>
-          ResponsiveWrapper.builder(
-            GestureDetector(
-                onPanDown: (detail) =>
-                    FocusManager.instance.primaryFocus?.unfocus(),
-                child: botToastBuilder(context, child),
-          ),
-      defaultScale: false,
-      breakpoints: [
-        const ResponsiveBreakpoint.resize(450, name: MOBILE),
-        const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-        const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-        const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-        const ResponsiveBreakpoint.resize(1800, name: DESKTOP),
-        const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+      builder: (context, child) => ResponsiveWrapper.builder(
+        GestureDetector(
+          onPanDown: (detail) => FocusManager.instance.primaryFocus?.unfocus(),
+          child: botToastBuilder(context, child),
+        ),
+        defaultScale: false,
+        maxWidth: 900,
+        breakpoints: [
+          const ResponsiveBreakpoint.resize(450, name: MOBILE),
+          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+          const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+          const ResponsiveBreakpoint.resize(1800, name: DESKTOP),
+          const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+        ],
+      ),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
-    ),
-    localizationsDelegates: const [
-    AppLocalizations.delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    ],
-    onGenerateRoute: (settings) => AnimatedPageRouteBuilder(settings
-    )
-    ,
+      onGenerateRoute: (settings) => AnimatedPageRouteBuilder(settings),
     );
   }
 }
