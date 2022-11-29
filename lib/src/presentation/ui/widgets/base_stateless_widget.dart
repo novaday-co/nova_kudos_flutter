@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 
 abstract class BaseStatelessWidget<C extends Cubit> extends StatelessWidget {
   final bool fabOnly;
