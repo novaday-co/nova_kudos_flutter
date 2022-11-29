@@ -4,10 +4,11 @@ import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_cubit.dart'
 import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/base_stateless_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/button_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_field_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_field_widget.dart';
 
 class LoginPage extends BaseStatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -78,6 +79,6 @@ class LoginPage extends BaseStatelessWidget {
   }
 
   void _listenToLoginState(BuildContext context, LoginState state) {
-    Navigator.pushNamed(context, Routes.completeProfile);
+    Navigator.pushNamed(context, Routes.completeProfile,arguments: CompleteProfilePageParams(phoneNumber: phoneNumber));
   }
 }
