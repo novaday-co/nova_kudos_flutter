@@ -3,5 +3,6 @@
   "version": "version",
   "login": "ورود یا ثبت نام",
   "phoneNumber": "شماره موبایل",
-  "verificationCode": "دریافت کد ورود"
+  "verificationCode": "دریافت کد ورود",
+  "authorizeCode": "اعتبارسنجی کد"
 }

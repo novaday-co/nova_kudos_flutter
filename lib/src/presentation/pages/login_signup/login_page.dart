@@ -50,12 +50,6 @@ class LoginPage extends BaseStatelessWidget {
               text: context.getStrings.verificationCode,
               loadingType: ButtonLoadingType.percentage,
               loadingStatus: ButtonLoadingStatus.normal,
-              backgroundColor: (state is LoginValidPhoneNumberState)
-                  ? null
-                  : Theme.of(context).colorScheme.surfaceTint,
-              foregroundColor: (state is LoginValidPhoneNumberState)
-                  ? null
-                  : Theme.of(context).colorScheme.tertiaryContainer,
               isPrimaryCircularLoading: false,
               onPressed: () {
                 if (state is LoginValidPhoneNumberState) {
