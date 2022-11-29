@@ -3,5 +3,9 @@
   "version": "version",
   "login": "ورود یا ثبت نام",
   "phoneNumber": "شماره موبایل",
-  "verificationCode": "دریافت کد ورود"
+  "verificationCode": "دریافت کد ورود",
+  "username": "Username",
+  "jobTitle": "Job title",
+  "saveChanges": "Save changes",
+  "changeProfilePicture": "تغییر عکس پروفایل"
 }
