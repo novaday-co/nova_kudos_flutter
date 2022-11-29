@@ -166,11 +166,11 @@ class _CodeInputWidgetState extends State<CodeInputWidget> {
 
   @override
   void dispose() async {
+    focusNode.dispose();
     errorAnimationController.close();
     smsController.dispose();
     otpInteractor.stopListenForCode();
     controller.dispose();
-    focusNode.dispose();
     await controller.stopListen();
     super.dispose();
   }
