@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_state.dart';
+import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/base_stateless_widget.dart';
@@ -9,7 +10,7 @@ import 'package:nova_kudos_flutter/src/presentation/shared_widgets/button_widget
 import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_field_widget.dart';
 
 class LoginPage extends BaseStatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   CustomAppbar? appBar(BuildContext context) {
@@ -20,6 +21,9 @@ class LoginPage extends BaseStatelessWidget {
     );
   }
 
+  String phoneNumber = "";
+
+
   @override
   Widget body(BuildContext context) {
     return Center(
@@ -28,27 +32,25 @@ class LoginPage extends BaseStatelessWidget {
           CustomTextField(
             label: context.getStrings.phoneNumber,
             textInputType: TextInputType.phone,
-            onChanged: (value){
+            onChanged: (value) {
+              phoneNumber = value;
               context.read<LoginCubit>().validatePhoneNumber(value);
             },
           ),
-          Visibility(
-            visible: context.isKeyboardUp,
-            replacement: const Spacer(),
-            child: const SizedBox(
-              height: 24,
-            ),
-          ),
-          BlocBuilder<LoginCubit, LoginState>(
+          const Spacer(),
+          BlocConsumer<LoginCubit, LoginState>(
+            listener: _listenToLoginState,
+            listenWhen: _listenWhenToLoginState,
             buildWhen: _buildWhenPhoneNumberInput,
             builder: (context, state) => CustomButton.fill(
               context: context,
               text: context.getStrings.verificationCode,
               loadingType: ButtonLoadingType.percentage,
-              loadingStatus: ButtonLoadingStatus.complete,
-              onPressed:  () {
-
-              } ,
+              loadingStatus: _buttonLoadingStatus(state),
+              isEnable: state is LoginValidPhoneNumberState,
+              onPressed: () {
+                context.read<LoginCubit>().postLogin(phoneNumber: phoneNumber);
+              },
             ),
           ),
         ],
@@ -56,9 +58,26 @@ class LoginPage extends BaseStatelessWidget {
     );
   }
 
+  ButtonLoadingStatus _buttonLoadingStatus(LoginState state){
+    if(state is LoadingLoginRequestState){
+      return ButtonLoadingStatus.loading;
+    }
+    if(state is SuccessLoginRequestState){
+      return ButtonLoadingStatus.complete;
+    }
+    return ButtonLoadingStatus.normal;
+  }
+
   bool _buildWhenPhoneNumberInput(LoginState previous, LoginState current) {
-    return current is LoginPhoneNumberValidationState;
+    return current is LoginPhoneNumberValidationState ||
+        current is LoginRequestState;
+  }
+
+  bool _listenWhenToLoginState(LoginState previous, LoginState current) {
+    return current is SuccessLoginRequestState;
+  }
+
+  void _listenToLoginState(BuildContext context, LoginState state) {
+    Navigator.pushNamed(context, Routes.completeProfile);
   }
 }
-
-
