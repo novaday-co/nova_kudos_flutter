@@ -14,7 +14,9 @@ class Assets{
   static const String gold = "assets/png/gold.png";
   static const String silver = "assets/png/silver.png";
   static const String bronze = "assets/png/bronze.png";
-
+  static const String goldMedal = "assets/png/gold_medal.png";
+  static const String silverMedal = "assets/png/silver_medal.png";
+  static const String bronzeMedal = "assets/png/bronze_medal.png";
 
 
 
