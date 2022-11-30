@@ -11,6 +11,7 @@ import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/widgets/co
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
+import 'package:sprintf/sprintf.dart';
 
 class VerifyCodePage extends BaseStatelessWidget {
   VerifyCodePage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class VerifyCodePage extends BaseStatelessWidget {
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
       hasBackButton: true,
-      title: 'تایید کد ارسال شده به ${params?.phoneNumber}',
+      title: sprintf(context.getStrings.confirmCodeSendTo,[params?.phoneNumber??'']),
       centerTitle: false,
       onPressBack: () {
         Navigator.pop(context);

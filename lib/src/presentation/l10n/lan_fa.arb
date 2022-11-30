@@ -9,7 +9,8 @@
   "username": "نام کاربری",
   "jobTitle": "عنوان شغلی",
   "saveChanges": "ذخیره تغییرات",
-  "changeProfilePicture": "تغییر عکس پروفایل"
+  "changeProfilePicture": "تغییر عکس پروفایل",
+  "confirmCodeSendTo": "تایید کد ارسال شده به %s"
 
 
 }
