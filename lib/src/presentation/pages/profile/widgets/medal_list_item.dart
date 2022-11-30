@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/profile/widgets/circular_medal_item.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/datetime_extension.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
+import 'package:sprintf/sprintf.dart';
 
 class MedalListItem extends StatelessWidget {
   final int index;
-  final MedalEnum medalEnum;
+  final Achievement achievement;
 
-  const MedalListItem({Key? key, required this.index, required this.medalEnum})
-      : super(key: key);
+  const MedalListItem({
+    Key? key,
+    required this.index,
+    required this.achievement,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +27,29 @@ class MedalListItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: backgroundColor(context)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ImageLoaderWidget.fromAsset(
-            imageUrl: medalIcon,
-            width: 24,
-            height: 24,
+          Row(
+            children: [
+              ImageLoaderWidget.fromAsset(
+                imageUrl: medalIcon,
+                width: 24,
+                height: 24,
+              ),
+              TextWidget.bold(
+                achievement.title ?? '',
+                context: context,
+                additionalStyle: const TextStyle(fontSize: 12),
+              )
+            ],
+          ),
+          TextWidget.regular(
+            sprintf(
+              context.getStrings.inDate,
+              [achievement.dateTime!.formattedJalaliDate],
+            ),
+            context: context,
+            additionalStyle: const TextStyle(fontSize: 12),
           )
         ],
       ),
@@ -46,7 +70,7 @@ class MedalListItem extends StatelessWidget {
   }
 
   String get medalIcon {
-    switch (medalEnum) {
+    switch (achievement.medalEnum!) {
       case MedalEnum.gold:
         return Assets.goldMedal;
       case MedalEnum.silver:
