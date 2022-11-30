@@ -31,6 +31,7 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,C extends Cu
       },
       child: Scaffold(
         key: scaffoldKey,
+        backgroundColor: backgroundColor(context),
         drawer: drawer(),
         appBar: appBar(context),
         bottomNavigationBar: bottomNavigation(),
@@ -47,6 +48,8 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,C extends Cu
   }
 
   void onBuild(BuildContext context) => {};
+
+  Color? backgroundColor(BuildContext context) => null;
 
   WillPopCallback? onPop() => null;
 
