@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
-enum MedalEnum { gold, silver, bronze }
 
 class CircularMedalItem extends StatelessWidget {
   final MedalEnum medalEnum;
