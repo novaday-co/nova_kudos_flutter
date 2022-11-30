@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/profile/profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
@@ -30,7 +31,10 @@ class RouteGenerator {
             create: (context) => CompleteProfileCubit(),
             child: const CompleteProfilePage(),
           ),
-      Routes.profile: (context) => const ProfilePage()
+      Routes.profile: (context) => BlocProvider(
+            create: (context) => ProfileCubit(),
+            child: const ProfilePage(),
+          )
     };
   }
 }

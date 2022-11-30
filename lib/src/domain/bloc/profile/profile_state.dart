@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart';
 
 part 'profile_state.freezed.dart';
 
@@ -7,11 +8,11 @@ abstract class ProfileState {}
 class InitProfileState extends ProfileState {}
 
 @freezed
-class ProfileRequestState extends ProfileState {
-  const factory ProfileRequestState.loading() = LoadingProfileRequestState;
+class GetProfileRequestState extends ProfileState with _$GetProfileRequestState {
+  const factory GetProfileRequestState.loading() = LoadingGetProfileRequestState;
 
-  const factory ProfileRequestState.success() = SuccessProfileRequestState;
+  const factory GetProfileRequestState.success(List<Achievement> achievements) = SuccessGetProfileRequestState;
 
-  const factory ProfileRequestState.failed(String? error) =
-      FailedProfileRequestState;
+  const factory GetProfileRequestState.failed(String? error) =
+      FailedGetProfileRequestState;
 }
