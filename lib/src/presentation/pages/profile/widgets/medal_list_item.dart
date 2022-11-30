@@ -3,6 +3,7 @@ import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/datetime_extension.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 import 'package:sprintf/sprintf.dart';
@@ -19,39 +20,38 @@ class MedalListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 44,
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: backgroundColor(context)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              ImageLoaderWidget.fromAsset(
-                imageUrl: medalIcon,
-                width: 24,
-                height: 24,
-              ),
-              TextWidget.bold(
-                achievement.title ?? '',
-                context: context,
-                additionalStyle: const TextStyle(fontSize: 12),
-              )
-            ],
-          ),
-          TextWidget.regular(
-            sprintf(
-              context.getStrings.inDate,
-              [achievement.dateTime!.formattedJalaliDate],
+    return BackgroundWidget(
+      borderRadius: 16,
+      backgroundColor: backgroundColor(context),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                ImageLoaderWidget.fromAsset(
+                  imageUrl: medalIcon,
+                  width: 24,
+                  height: 24,
+                ),
+                TextWidget.bold(
+                  achievement.title ?? '',
+                  context: context,
+                  additionalStyle: const TextStyle(fontSize: 12),
+                )
+              ],
             ),
-            context: context,
-            additionalStyle: const TextStyle(fontSize: 12),
-          )
-        ],
+            TextWidget.regular(
+              sprintf(
+                context.getStrings.inDate,
+                [achievement.dateTime!.formattedJalaliDate],
+              ),
+              context: context,
+              additionalStyle: const TextStyle(fontSize: 12),
+            )
+          ],
+        ),
       ),
     );
   }

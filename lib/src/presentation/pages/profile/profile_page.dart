@@ -134,7 +134,7 @@ class ProfilePage extends BaseStatelessWidget {
         ),
       ],
       pinnedHeaderSliverHeightBuilder: () => 210,
-      body: ListView.builder(
+      body: ListView.separated(
         itemCount: medals.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -143,6 +143,9 @@ class ProfilePage extends BaseStatelessWidget {
             index: index,
             achievement: medals[index],
           );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(height: 4);
         },
       ),
     );
