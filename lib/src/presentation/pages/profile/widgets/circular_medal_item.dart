@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
-
+import 'package:sprintf/sprintf.dart';
 
 class CircularMedalItem extends StatelessWidget {
   final MedalEnum medalEnum;
@@ -36,7 +37,7 @@ class CircularMedalItem extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         TextWidget.medium(
-          medalTitle,
+          medalTitle(context),
           context: context,
           additionalStyle: const TextStyle(
             fontSize: 14,
@@ -44,7 +45,7 @@ class CircularMedalItem extends StatelessWidget {
           ),
         ),
         TextWidget.regular(
-          '$score امتیاز ',
+          sprintf(context.getStrings.scoreNumber, [score]),
           context: context,
           additionalStyle: const TextStyle(
             fontSize: 14,
@@ -66,14 +67,14 @@ class CircularMedalItem extends StatelessWidget {
     }
   }
 
-  String get medalTitle {
+  String medalTitle(BuildContext context) {
     switch (medalEnum) {
       case MedalEnum.gold:
-        return "مدال طلا";
+        return context.getStrings.goldMedal;
       case MedalEnum.silver:
-        return "مدال نقره";
+        return context.getStrings.silverMedal;
       case MedalEnum.bronze:
-        return "مدال برنز";
+        return context.getStrings.bronzeMedal;
     }
   }
 
