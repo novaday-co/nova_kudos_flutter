@@ -4,8 +4,11 @@
   "login": "ورود یا ثبت نام",
   "phoneNumber": "شماره موبایل",
   "verificationCode": "دریافت کد ورود",
+  "authorizeCode": "اعتبارسنجی کد",
+  "resendCode": "ارسال دوباره کد",
   "username": "Username",
   "jobTitle": "Job title",
   "saveChanges": "Save changes",
-  "changeProfilePicture": "تغییر عکس پروفایل"
+  "changeProfilePicture": "تغییر عکس پروفایل",
+  "confirmCodeSendTo": "تایید کد ارسال شده به %s"
 }

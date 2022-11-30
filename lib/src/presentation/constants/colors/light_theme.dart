@@ -28,6 +28,7 @@ ThemeData get lightTheme {
     colorScheme: ColorScheme.light(
       brightness: Brightness.light,
       primary: PrimaryColor.light,
+      error: PrimaryColor.light,
       background: BackgroundColor.light,
       tertiary: TextPrimaryColor.light,
       onTertiary: TextSubtitleColor.light,

@@ -5,6 +5,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_state.dart'
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/param/verify_code_page_param.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
@@ -79,6 +80,6 @@ class LoginPage extends BaseStatelessWidget {
   }
 
   void _listenToLoginState(BuildContext context, LoginState state) {
-    Navigator.pushNamed(context, Routes.completeProfile,arguments: CompleteProfilePageParams(phoneNumber: phoneNumber));
+    Navigator.pushNamed(context, Routes.verifyCode,arguments: VerifyCodePageParam(phoneNumber: phoneNumber));
   }
 }
