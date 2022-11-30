@@ -9,6 +9,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CodeInputWidget extends StatefulWidget {
   final Function(String value) onSubmitted;
+  final Function(String value)? onChanged;
   final bool isEnabled;
   final bool hasError;
   final String? errorText;
@@ -16,6 +17,7 @@ class CodeInputWidget extends StatefulWidget {
   const CodeInputWidget({
     Key? key,
     required this.onSubmitted,
+    this.onChanged,
     this.isEnabled = true,
     this.hasError = false,
     this.errorText
@@ -87,6 +89,7 @@ class _CodeInputWidgetState extends State<CodeInputWidget> {
                     hasError=false;
                     errorTriggered=false;
                     setState(() {});
+                    widget.onChanged?.call(value);
                   },
                   onCompleted: (String value){
                     widget.onSubmitted.call(value);
@@ -96,7 +99,7 @@ class _CodeInputWidgetState extends State<CodeInputWidget> {
                   cursorColor: Theme.of(context).colorScheme.primary,
                   textInputAction: TextInputAction.done,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  focusNode: focusNode,
+                 focusNode: focusNode,
                   keyboardType: TextInputType.number,
                   errorTextSpace: 0,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
