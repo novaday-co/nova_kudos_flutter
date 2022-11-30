@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'landing_page_state.freezed.dart';
+part 'landing_state.freezed.dart';
 
-abstract class LandingPageState {}
+abstract class LandingState {}
 
-class LandingInitState extends LandingPageState {}
+class LandingInitState extends LandingState {}
 
 @freezed
-class PageSwitchState extends LandingPageState with _$PageSwitchState {
+class PageSwitchState extends LandingState with _$PageSwitchState {
   const factory PageSwitchState.homePage(int index) = HomePageState;
   const factory PageSwitchState.shopPage(int index) = ShopPageState;
   const factory PageSwitchState.membersPage(int index) = MembersPageState;

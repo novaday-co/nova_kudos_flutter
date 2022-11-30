@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/landing_page_cubit/landing_page_state.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/landing_cubit/landing_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/landing_page/widgets/bottom_navigation_widget.dart';
 
 
-class LandingPageCubit extends Cubit<LandingPageState> {
-  LandingPageCubit() : super(LandingInitState());
+class LandingCubit extends Cubit<LandingState> {
+  LandingCubit() : super(LandingInitState());
 
   void switchToPageByIndex(int index) {
     switch (index) {
