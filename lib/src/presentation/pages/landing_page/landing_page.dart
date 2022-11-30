@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/landing_page_cubit/landing_page_cubit.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/landing_page_cubit/landing_page_state.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/landing_cubit/landing_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/landing_cubit/landing_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/home_page/home_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/landing_page/widgets/bottom_navigation_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/members_page/members_page.dart';
@@ -17,7 +17,7 @@ class LandingPage extends BaseStatefulWidget {
 }
 
 class _LandingPageState
-    extends BaseStatefulWidgetState<LandingPage, LandingPageCubit> {
+    extends BaseStatefulWidgetState<LandingPage, LandingCubit> {
   late PageController pageController;
 
   @override
@@ -34,14 +34,14 @@ class _LandingPageState
 
   @override
   Widget? bottomNavigation() {
-    return BlocConsumer<LandingPageCubit, LandingPageState>(
+    return BlocConsumer<LandingCubit, LandingState>(
       listener: _listenToBottomNavigation,
       buildWhen: _buildWhenBottomNavigation,
       listenWhen: _buildWhenBottomNavigation,
       builder: (context, state) => CustomBottomNavigation(
         selectedPage: state is PageSwitchState ? state.index : 0,
         onTapItem: (navigationPage) {
-          context.read<LandingPageCubit>().switchToPageByName(navigationPage);
+          context.read<LandingCubit>().switchToPageByName(navigationPage);
         },
       ),
     );
@@ -62,11 +62,11 @@ class _LandingPageState
   }
 
   bool _buildWhenBottomNavigation(
-      LandingPageState? previous, LandingPageState? current) {
+      LandingState? previous, LandingState? current) {
     return current is PageSwitchState;
   }
 
-  void _listenToBottomNavigation(BuildContext context, LandingPageState state) {
+  void _listenToBottomNavigation(BuildContext context, LandingState state) {
     if (state is PageSwitchState) {
       pageController.animateToPage(
         state.index,
