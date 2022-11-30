@@ -7,6 +7,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/complete_profile_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/login_signup/login_page.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/profile/profile_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/splash/splash_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/verify_code_page.dart';
 
@@ -19,16 +20,17 @@ class RouteGenerator {
           ),
       Routes.login: (context) => BlocProvider(
             create: (context) => LoginCubit(),
-            child:  LoginPage(),
+            child: LoginPage(),
           ),
       Routes.verifyCode: (context) => BlocProvider(
             create: (context) => VerifyCodeCubit(),
             child: VerifyCodePage(),
           ),
       Routes.completeProfile: (context) => BlocProvider(
-        create: (context) => CompleteProfileCubit(),
-        child: const CompleteProfilePage(),
-      )
+            create: (context) => CompleteProfileCubit(),
+            child: const CompleteProfilePage(),
+          ),
+      Routes.profile: (context) => const ProfilePage()
     };
   }
 }
