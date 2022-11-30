@@ -36,6 +36,12 @@ class BackgroundColor{
   static Color get dark => const Color(0xffFAFAFA);
 }
 
+class BackgroundSecondaryColor{
+  static Color get light => const Color(0xffFFFFFF);
+
+  static Color get dark => const Color(0xffFFFFFF);
+}
+
 class YellowColor{
   static Color get light => const Color(0xffFFCC00);
 

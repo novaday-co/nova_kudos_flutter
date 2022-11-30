@@ -30,6 +30,7 @@ ThemeData get lightTheme {
       primary: PrimaryColor.light,
       error: PrimaryColor.light,
       background: BackgroundColor.light,
+      onBackground: BackgroundSecondaryColor.light,
       tertiary: TextPrimaryColor.light,
       onTertiary: TextSubtitleColor.light,
       tertiaryContainer: DisabledTextColor.light,
