@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_state.dart';
+import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/param/verify_code_page_param.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/widgets/code_input_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/widgets/count_down_widget.dart';
@@ -13,6 +15,7 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dar
 class VerifyCodePage extends BaseStatelessWidget {
   VerifyCodePage({Key? key}) : super(key: key);
   late VerifyCodePageParam? params;
+  String otp = "";
 
   @override
   CustomAppbar? appBar(BuildContext context) {
@@ -20,7 +23,7 @@ class VerifyCodePage extends BaseStatelessWidget {
       hasBackButton: true,
       title: 'تایید کد ارسال شده به ${params?.phoneNumber}',
       centerTitle: false,
-      onPressBack: (){
+      onPressBack: () {
         Navigator.pop(context);
       },
     );
@@ -31,18 +34,36 @@ class VerifyCodePage extends BaseStatelessWidget {
     return Column(
       children: [
         CodeInputWidget(
-          onSubmitted: (value) {},
+          onSubmitted: (value) {
+            otp = value;
+            context.read<VerifyCodeCubit>().postVerify(
+                phoneNumber: params?.phoneNumber ?? '', otp: otp);
+          },
+          onChanged: (value){
+            context.read<VerifyCodeCubit>().validateVerifyCode(value);
+          },
           hasError: false,
           errorText: '',
         ),
         const SizedBox(height: 25),
-        CustomButton.fill(
-          context: context,
-          text: context.getStrings.authorizeCode,
-          loadingType: ButtonLoadingType.percentage,
-          loadingStatus: ButtonLoadingStatus.normal,
-          isPrimaryCircularLoading: false,
-          onPressed: () {},
+        BlocConsumer<VerifyCodeCubit, VerifyCodeState>(
+          listener: _listenToVerifyCode,
+          listenWhen: _listenWhenToVerifyCodeState,
+          buildWhen: _buildWhenVerifyCode,
+          builder: (context, state) {
+            return CustomButton.fill(
+              context: context,
+              text: context.getStrings.authorizeCode,
+              loadingType: ButtonLoadingType.percentage,
+              loadingStatus: _buttonLoadingStatus(state),
+              isPrimaryCircularLoading: false,
+              isEnable: state is VerifyCodeValidValidationState,
+              onPressed: () {
+                context.read<VerifyCodeCubit>().postVerify(
+                    phoneNumber: params?.phoneNumber ?? '', otp: otp);
+              },
+            );
+          },
         ),
         const SizedBox(height: 32),
         Center(
@@ -54,11 +75,10 @@ class VerifyCodePage extends BaseStatelessWidget {
                 remained = state.remained;
               }
               return CountDownWidget(
-                isLoading: state is LoadingResendCodeState,
+                isLoading: state is LoadingResendCodeRequestState,
                 remained: remained,
                 onTimeoutClick: () {
                   context.read<VerifyCodeCubit>().postResendCode();
-
                 },
               );
             },
@@ -80,9 +100,37 @@ class VerifyCodePage extends BaseStatelessWidget {
   ///region Bloc When Conditions Functions
 
   bool _buildWhenTimer(VerifyCodeState previous, VerifyCodeState current) {
-    return current is TimerStates || current is LoadingResendCodeState;
+    return current is TimerStates || current is LoadingResendCodeRequestState;
+  }
+  bool _buildWhenVerifyCode(VerifyCodeState previous, VerifyCodeState current) {
+    return current is VerifyRequestState || current is VerifyCodeValidationState;
+  }
+
+  ///endregion
+  ///region Bloc Listeners
+
+  void _listenToVerifyCode(BuildContext context,VerifyCodeState state) {
+    Navigator.pushNamed(context, Routes.completeProfile,arguments: CompleteProfilePageParams(phoneNumber: params?.phoneNumber??''));
+
   }
 
   ///endregion
 
+
+  ///region Listen When Conditions Functions
+
+  bool _listenWhenToVerifyCodeState(VerifyCodeState previous, VerifyCodeState current) {
+    return current is SuccessVerifyRequestState;
+  }
+
+  ///endregion
+  ButtonLoadingStatus _buttonLoadingStatus(VerifyCodeState state){
+    if(state is LoadingVerifyRequestState){
+      return ButtonLoadingStatus.loading;
+    }
+    if(state is SuccessVerifyRequestState){
+      return ButtonLoadingStatus.complete;
+    }
+    return ButtonLoadingStatus.normal;
+  }
 }

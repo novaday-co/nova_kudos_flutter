@@ -27,12 +27,24 @@ class VerifyCodeCubit extends Cubit<VerifyCodeState> {
       },
     );
   }
+  void validateVerifyCode(String? input) {
+    if (input != null && input.length>=4) {
+      emit(const VerifyCodeValidationState.valid());
+    } else {
+      emit(const VerifyCodeValidationState.invalid());
+    }
+  }
+  void postVerify({required String phoneNumber,required String otp})async{
+    emit(const LoadingVerifyRequestState());
+    await Future.delayed(const Duration(seconds: 2));
+    emit(const SuccessVerifyRequestState());
+  }
 
   void postResendCode() async {
-    emit(const LoadingResendCodeState());
+    emit(const LoadingResendCodeRequestState());
     await Future.delayed(const Duration(seconds: 2));
     _reset();
-    emit(const SuccessResendCodeState());
+    emit(const SuccessResendCodeRequestState());
   }
 
   void _reset() {

@@ -15,10 +15,29 @@ class TimerStates extends VerifyCodeState {
 }
 
 @freezed
-class ResendCodeStates extends VerifyCodeState {
-  const factory ResendCodeStates.loading() = LoadingResendCodeState;
+class VerifyCodeValidationState extends VerifyCodeState {
+  const factory VerifyCodeValidationState.valid() =
+  VerifyCodeValidValidationState;
 
-  const factory ResendCodeStates.success() = SuccessResendCodeState;
+  const factory VerifyCodeValidationState.invalid() =
+  VerifyCodeInValidValidationState;
+}
 
-  const factory ResendCodeStates.failed(String? error) = FailedResendCodeState;
+@freezed
+class ResendCodeRequestStates extends VerifyCodeState {
+  const factory ResendCodeRequestStates.loading() = LoadingResendCodeRequestState;
+
+  const factory ResendCodeRequestStates.success() = SuccessResendCodeRequestState;
+
+  const factory ResendCodeRequestStates.failed(String? error) = FailedResendCodeRequestState;
+}
+
+@freezed
+class VerifyRequestState extends VerifyCodeValidValidationState {
+  const factory VerifyRequestState.loading() = LoadingVerifyRequestState;
+
+  const factory VerifyRequestState.success() = SuccessVerifyRequestState;
+
+  const factory VerifyRequestState.failed(String? error) =
+  FailedVerifyRequestState;
 }
