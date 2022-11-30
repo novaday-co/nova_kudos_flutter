@@ -7,10 +7,10 @@ class VerifyCodeCubit extends Cubit<VerifyCodeState> {
   late Timer timer;
 
   VerifyCodeCubit() : super(InitVerifyCodeState()) {
-    loadTimer();
+    initialTimer();
   }
 
-  void loadTimer() {
+  void initialTimer() {
     var countDownTime = 60;
     var remainedTime = countDownTime;
     emit(const TimerStates.update(60));
@@ -27,14 +27,16 @@ class VerifyCodeCubit extends Cubit<VerifyCodeState> {
       },
     );
   }
+
   void validateVerifyCode(String? input) {
-    if (input != null && input.length>=4) {
+    if (input != null && input.length >= 4) {
       emit(const VerifyCodeValidationState.valid());
     } else {
       emit(const VerifyCodeValidationState.invalid());
     }
   }
-  void postVerify({required String phoneNumber,required String otp})async{
+
+  void postVerify({required String phoneNumber, required String otp}) async {
     emit(const LoadingVerifyRequestState());
     await Future.delayed(const Duration(seconds: 2));
     emit(const SuccessVerifyRequestState());
@@ -49,7 +51,7 @@ class VerifyCodeCubit extends Cubit<VerifyCodeState> {
 
   void _reset() {
     timer.cancel();
-    loadTimer();
+    initialTimer();
   }
 
   @override

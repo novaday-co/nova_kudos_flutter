@@ -36,10 +36,11 @@ class VerifyCodePage extends BaseStatelessWidget {
         CodeInputWidget(
           onSubmitted: (value) {
             otp = value;
-            context.read<VerifyCodeCubit>().postVerify(
-                phoneNumber: params?.phoneNumber ?? '', otp: otp);
+            context
+                .read<VerifyCodeCubit>()
+                .postVerify(phoneNumber: params?.phoneNumber ?? '', otp: otp);
           },
-          onChanged: (value){
+          onChanged: (value) {
             context.read<VerifyCodeCubit>().validateVerifyCode(value);
           },
           hasError: false,
@@ -97,40 +98,45 @@ class VerifyCodePage extends BaseStatelessWidget {
     super.onBuild(context);
   }
 
+  ButtonLoadingStatus _buttonLoadingStatus(VerifyCodeState state) {
+    if (state is LoadingVerifyRequestState) {
+      return ButtonLoadingStatus.loading;
+    }
+    if (state is SuccessVerifyRequestState) {
+      return ButtonLoadingStatus.complete;
+    }
+    return ButtonLoadingStatus.normal;
+  }
+
   ///region Bloc When Conditions Functions
 
   bool _buildWhenTimer(VerifyCodeState previous, VerifyCodeState current) {
     return current is TimerStates || current is LoadingResendCodeRequestState;
   }
+
   bool _buildWhenVerifyCode(VerifyCodeState previous, VerifyCodeState current) {
-    return current is VerifyRequestState || current is VerifyCodeValidationState;
+    return current is VerifyRequestState ||
+        current is VerifyCodeValidationState;
   }
 
   ///endregion
   ///region Bloc Listeners
 
-  void _listenToVerifyCode(BuildContext context,VerifyCodeState state) {
-    Navigator.pushNamed(context, Routes.completeProfile,arguments: CompleteProfilePageParams(phoneNumber: params?.phoneNumber??''));
-
+  void _listenToVerifyCode(BuildContext context, VerifyCodeState state) {
+    Navigator.pushNamed(context, Routes.completeProfile,
+        arguments:
+            CompleteProfilePageParams(phoneNumber: params?.phoneNumber ?? ''));
   }
 
   ///endregion
 
-
   ///region Listen When Conditions Functions
 
-  bool _listenWhenToVerifyCodeState(VerifyCodeState previous, VerifyCodeState current) {
+  bool _listenWhenToVerifyCodeState(
+      VerifyCodeState previous, VerifyCodeState current) {
     return current is SuccessVerifyRequestState;
   }
 
   ///endregion
-  ButtonLoadingStatus _buttonLoadingStatus(VerifyCodeState state){
-    if(state is LoadingVerifyRequestState){
-      return ButtonLoadingStatus.loading;
-    }
-    if(state is SuccessVerifyRequestState){
-      return ButtonLoadingStatus.complete;
-    }
-    return ButtonLoadingStatus.normal;
-  }
+
 }
