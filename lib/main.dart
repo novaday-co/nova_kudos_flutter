@@ -8,6 +8,7 @@ import 'package:nova_kudos_flutter/src/injector.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/animated_page_route_builder.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/navigation_observer.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/colors/light_theme.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widget_behavior/scroll_behavior.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -43,9 +44,12 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('fa', 'IR'),
       builder: (context, child) => ResponsiveWrapper.builder(
-        GestureDetector(
-          onPanDown: (detail) => FocusManager.instance.primaryFocus?.unfocus(),
-          child: botToastBuilder(context, child),
+        ScrollConfiguration(
+          behavior: AccessScrollBehavior(),
+          child: GestureDetector(
+            onPanDown: (detail) => FocusManager.instance.primaryFocus?.unfocus(),
+            child: botToastBuilder(context, child),
+          ),
         ),
         defaultScale: false,
         maxWidth: 900,
