@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 
-abstract class BaseStatefulWidget<W extends StatefulWidget>
+abstract class BaseStatefulWidget<W extends StatefulWidget, C extends Cubit>
     extends StatefulWidget {
   final bool includeHorizontalPadding;
   final bool includeVerticalPadding;
@@ -16,7 +17,7 @@ abstract class BaseStatefulWidget<W extends StatefulWidget>
   State<W> createState();
 }
 
-abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget>
+abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,C extends Cubit>
     extends State<T> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -36,9 +37,8 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget>
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: widget.includeHorizontalPadding ? 16:0,
-              vertical: widget.includeVerticalPadding ? 16:0
-            ),
+                horizontal: widget.includeHorizontalPadding ? 16 : 0,
+                vertical: widget.includeVerticalPadding ? 16 : 0),
             child: body(context),
           ),
         ),
@@ -46,7 +46,7 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget>
     );
   }
 
-  Function? onBuild(BuildContext context) => null;
+  void onBuild(BuildContext context) => {};
 
   WillPopCallback? onPop() => null;
 

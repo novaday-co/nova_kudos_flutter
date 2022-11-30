@@ -40,6 +40,7 @@ ThemeData get lightTheme {
       surfaceVariant: GreenColor.light,
       onSurfaceVariant: InputBorderColor.light,
       inverseSurface: HoverColor.light,
+      onPrimary: SecondaryRed.light,
     ),
   );
 }

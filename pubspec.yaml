@@ -29,6 +29,9 @@ dependencies:
   lottie: ^2.0.0
   package_info_plus: ^3.0.2
   responsive_framework: ^0.2.0
+  flutter_media_picker:
+    git:
+      url: https://github.com/novaday-co/flutter_media_picker.git
 
 dev_dependencies:
   flutter_test:
