@@ -10,5 +10,12 @@ class Assets{
   static const String arrowRight = "assets/icons/icon_arrow_circle.svg";
   static const String iconNotFound = "assets/icons/icon_not_found.svg";
 
+  ///png
+  static const String gold = "assets/png/gold.png";
+  static const String silver = "assets/png/silver.png";
+  static const String bronze = "assets/png/bronze.png";
+
+
+
 
 }
