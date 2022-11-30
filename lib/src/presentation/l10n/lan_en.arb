@@ -5,5 +5,9 @@
   "phoneNumber": "شماره موبایل",
   "verificationCode": "دریافت کد ورود",
   "authorizeCode": "اعتبارسنجی کد",
-  "resendCode": "ارسال دوباره کد"
+  "resendCode": "ارسال دوباره کد",
+  "username": "Username",
+  "jobTitle": "Job title",
+  "saveChanges": "Save changes",
+  "changeProfilePicture": "تغییر عکس پروفایل"
 }

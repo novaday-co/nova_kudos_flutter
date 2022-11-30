@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 

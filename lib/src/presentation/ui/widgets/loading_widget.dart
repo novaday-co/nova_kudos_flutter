@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/lottie_animations_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/lottie_animations_widget.dart';
 
 class Loading extends StatelessWidget {
   final bool? primaryLoading;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/icon_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
 const double PADDING_FROM_TOP = 32;
 

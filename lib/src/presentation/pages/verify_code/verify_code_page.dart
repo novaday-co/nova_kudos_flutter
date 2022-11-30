@@ -6,9 +6,9 @@ import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_e
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/param/verify_code_page_param.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/widgets/code_input_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/widgets/count_down_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/app_bar_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/base_stateless_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/button_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
 
 class VerifyCodePage extends BaseStatelessWidget {
   VerifyCodePage({Key? key}) : super(key: key);

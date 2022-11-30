@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/styles/button_styles.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/loading_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/loading_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
 enum ButtonLoadingType { percentage, circular }
 
@@ -18,6 +18,7 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final double? width;
   final ButtonLoadingType? loadingType;
+  final bool isEnable;
   final ButtonLoadingStatus? loadingStatus;
 
   CustomButton.fill({
@@ -29,6 +30,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.text,
     this.isPrimaryCircularLoading,
+    this.isEnable = true,
     this.loadingType = ButtonLoadingType.circular,
     this.loadingStatus = ButtonLoadingStatus.normal,
     Color? backgroundColor,
@@ -49,6 +51,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.text,
     this.isPrimaryCircularLoading,
+    this.isEnable = true,
     this.loadingType = ButtonLoadingType.circular,
     this.loadingStatus = ButtonLoadingStatus.normal,
     Color? borderColor,
@@ -69,6 +72,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.text,
     this.isPrimaryCircularLoading,
+    this.isEnable = true,
     this.loadingType = ButtonLoadingType.circular,
     this.loadingStatus = ButtonLoadingStatus.normal,
   })  : style = ButtonStyles.text(
@@ -84,12 +88,15 @@ class CustomButton extends StatelessWidget {
       height: 48,
       width: width ?? context.screenWidth,
       child: ElevatedButton(
-        onPressed: onPressed != null ? (){
-          if(loadingStatus == ButtonLoadingStatus.normal){
-            onPressed!.call();
-          }
-        }:null,
+        onPressed: isEnable
+            ? () {
+                if (loadingStatus != ButtonLoadingStatus.loading) {
+                  onPressed?.call();
+                }
+              }
+            : null,
         style: style,
+        statesController: MaterialStatesController(),
         child: Container(
           clipBehavior: Clip.antiAlias,
           decoration: const BoxDecoration(

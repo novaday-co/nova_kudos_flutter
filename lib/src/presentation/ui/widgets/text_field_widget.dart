@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/styles/text_styles.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/icon_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/shared_widgets/text_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
 class CustomTextField extends StatefulWidget {
   final String? errorText;
@@ -176,7 +176,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Radius.circular(1000),
       ),
       borderSide: BorderSide(
-        color: Theme.of(context).colorScheme.onSurfaceVariant,
+        color: widget.readOnly
+            ? Theme.of(context).colorScheme.outline
+            : Theme.of(context).colorScheme.onSurfaceVariant,
       ),
     );
   }
@@ -186,7 +188,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       return widget.suffixIcon!;
     }
     return Visibility(
-      visible: controller.text.isNotEmpty,
+      visible: controller.text.isNotEmpty && widget.readOnly == false,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

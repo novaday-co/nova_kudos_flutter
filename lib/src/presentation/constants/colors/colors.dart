@@ -70,8 +70,27 @@ class InputBorderColor{
 
   static Color get dark => const Color(0xff4E4E4E);
 }
+
 class HoverColor{
   static Color get light => const Color(0xffFF6C88);
 
   static Color get dark => const Color(0xffFF6C88);
+}
+
+class SecondaryRed{
+  static Color get light => const Color(0xffFFEBEA);
+
+  static Color get dark => const Color(0xffFFEBEA);
+}
+
+class ShimmerBaseColor {
+  static Color get light => const Color(0xffF5F5F5);
+
+  static Color get dark => const Color(0xff3f3f4a);
+}
+
+class ShimmerHighlightColor {
+  static Color get light => const Color(0xffecebeb);
+
+  static Color get dark => const Color(0xff797979);
 }

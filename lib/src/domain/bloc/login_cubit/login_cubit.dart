@@ -12,4 +12,12 @@ class LoginCubit extends Cubit<LoginState> {
       emit(const LoginPhoneNumberValidationState.invalid());
     }
   }
+
+  Future<void> postLogin({
+    required String phoneNumber,
+  }) async {
+    emit(const LoginRequestState.loading());
+    await Future.delayed(const Duration(seconds: 2));
+    emit(const LoginRequestState.success());
+  }
 }
