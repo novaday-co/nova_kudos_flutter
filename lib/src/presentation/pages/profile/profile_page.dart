@@ -51,10 +51,10 @@ class _ProfilePageState
       builder: (context, state) {
         if (state is GetProfileRequestState) {
           return state.when(
-              loading: ()=>const ProfilePageSkeleton(),
+              loading: () => const ProfilePageSkeleton(),
               success: (achievement) => ExtendedNestedScrollView(
-                pinnedHeaderSliverHeightBuilder: () => 210,
-                headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                    pinnedHeaderSliverHeightBuilder: () => 210,
+                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
                       SliverToBoxAdapter(
                         child: Column(
                           children: const [
@@ -112,9 +112,8 @@ class _ProfilePageState
                           achievement: achievement[index],
                         );
                       },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(height: 4);
-                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(height: 4),
                     ),
                   ),
               failed: (error) => const SizedBox.shrink());
