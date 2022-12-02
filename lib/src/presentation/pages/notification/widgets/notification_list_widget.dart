@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/notification_cubit/notification_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/notification_cubit/notification_state.dart';
 import 'package:nova_kudos_flutter/src/domain/model/notification/notification_model.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/notification/widgets/notification_item_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/notification/widgets/notification_page_skeleton.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget.dart';
@@ -15,12 +16,14 @@ class NotificationListWidget extends StatefulWidget {
 }
 
 class _NotificationListWidgetState extends State<NotificationListWidget> {
-
   @override
   void initState() {
-    // TODO: implement initState
+    postFrameCallback(() {
+      context.read<NotificationCubit>().getNotification();
+    });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BackgroundWidget(
@@ -30,10 +33,10 @@ class _NotificationListWidgetState extends State<NotificationListWidget> {
         builder: (context, state) {
           if (state is NotificationRequestState) {
             return state.when(
-              loading: () => Container(),
+              loading: () => const NotificationPageSkeleton(),
               success: (notifications) => ListView.builder(
                 shrinkWrap: true,
-                itemCount: 15,
+                itemCount: notifications.length,
                 itemBuilder: (context, index) {
                   return NotificationItemWidget(
                     notificationModel: notifications[index],
@@ -43,7 +46,6 @@ class _NotificationListWidgetState extends State<NotificationListWidget> {
               failed: (error) => const SizedBox.shrink(),
             );
           }
-          return NotificationPageSkeleton();
           return const SizedBox.shrink();
         },
       ),
