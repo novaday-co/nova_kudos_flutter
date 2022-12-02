@@ -10,7 +10,17 @@
   "jobTitle": "عنوان شغلی",
   "saveChanges": "ذخیره تغییرات",
   "changeProfilePicture": "تغییر عکس پروفایل",
-  "confirmCodeSendTo": "تایید کد ارسال شده به %s"
+  "confirmCodeSendTo": "تایید کد ارسال شده به %s",
+  "inDate": "در تاریخ %s",
+  "myMedals": "مدال های من",
+  "scoreNumber": "%s امتیاز",
+  "goldMedal": "مدال طلا",
+  "silverMedal": "مدال نقره",
+  "bronzeMedal": "مدال برنز",
+  "profile": "پروفایل"
+
+
+
 
 
 }
