@@ -28,8 +28,8 @@ class _ProfilePageState
     extends BaseStatefulWidgetState<ProfilePage, ProfileCubit> {
   @override
   CustomAppbar? appBar(BuildContext context) {
-    return const CustomAppbar(
-      title: 'پروفایل',
+    return CustomAppbar(
+      title: context.getStrings.profile,
       hasBackButton: true,
     );
   }
@@ -50,76 +50,74 @@ class _ProfilePageState
       buildWhen: _buildWhenProfileRequest,
       builder: (context, state) {
         if (state is GetProfileRequestState) {
-          return state.when(loading: () {
-            return const ProfilePageSkeleton();
-          }, success: (achievement) {
-            return ExtendedNestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: const [
-                      RowUserProfile(),
-                      SizedBox(height: 25),
-                    ],
-                  ),
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: CustomSliverPersistentHeader(
-                    maxHeight: 210,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextWidget.bold(
-                          context.getStrings.myMedals,
-                          context: context,
-                          additionalStyle: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          return state.when(
+              loading: ()=>const ProfilePageSkeleton(),
+              success: (achievement) => ExtendedNestedScrollView(
+                pinnedHeaderSliverHeightBuilder: () => 210,
+                headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                      SliverToBoxAdapter(
+                        child: Column(
                           children: const [
-                            CircularMedalItem(
-                              medalEnum: MedalEnum.gold,
-                              score: 20,
-                            ),
-                            CircularMedalItem(
-                              medalEnum: MedalEnum.silver,
-                              score: 10,
-                            ),
-                            CircularMedalItem(
-                              medalEnum: MedalEnum.bronze,
-                              score: 5,
-                            ),
+                            RowUserProfile(),
+                            SizedBox(height: 25),
                           ],
                         ),
-                        const SizedBox(height: 24),
-                      ],
+                      ),
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: CustomSliverPersistentHeader(
+                          maxHeight: 210,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextWidget.bold(
+                                context.getStrings.myMedals,
+                                context: context,
+                                additionalStyle: const TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  CircularMedalItem(
+                                    medalEnum: MedalEnum.gold,
+                                    score: 20,
+                                  ),
+                                  CircularMedalItem(
+                                    medalEnum: MedalEnum.silver,
+                                    score: 10,
+                                  ),
+                                  CircularMedalItem(
+                                    medalEnum: MedalEnum.bronze,
+                                    score: 5,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 24),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                    body: ListView.separated(
+                      itemCount: achievement.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return MedalListItem(
+                          index: index,
+                          achievement: achievement[index],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(height: 4);
+                      },
                     ),
                   ),
-                ),
-              ],
-              pinnedHeaderSliverHeightBuilder: () => 210,
-              body: ListView.separated(
-                itemCount: achievement.length,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return MedalListItem(
-                    index: index,
-                    achievement: achievement[index],
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(height: 4);
-                },
-              ),
-            );
-          }, failed: (error) {
-            return const SizedBox.shrink();
-          });
+              failed: (error) => const SizedBox.shrink());
         } else {
           return const SizedBox.shrink();
         }
