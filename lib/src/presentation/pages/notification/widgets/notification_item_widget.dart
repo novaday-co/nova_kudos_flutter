@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/domain/model/notification/notification_model.dart';
+import 'package:nova_kudos_flutter/src/presentation/constants/styles/text_styles.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
@@ -24,20 +25,28 @@ class NotificationItemWidget extends StatelessWidget {
             boxShape: BoxShape.circle,
           ),
           const SizedBox(width: 8),
-          TextWidget.regular(
-            notificationModel.text ?? '',
-            context: context,
-            additionalStyle: const TextStyle(fontSize: 14),
-          ),
-          const SizedBox(width: 8),
-          TextWidget.regular(
-            notificationModel.diffTime ?? '',
-            context: context,
-            additionalStyle: const TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w400,
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextWidget.regular(
+                    notificationModel.text ?? '',
+                    context: context,
+                    additionalStyle: const TextStyle(fontSize: 14),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                TextWidget.regular(
+                  notificationModel.diffTime ?? '',
+                  context: context,
+                  additionalStyle: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
-          ),
+          )
         ],
       ),
     );
