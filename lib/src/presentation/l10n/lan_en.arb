@@ -17,5 +17,8 @@
   "goldMedal": "مدال طلا",
   "silverMedal": "مدال نقره",
   "bronzeMedal": "مدال برنز",
-  "profile": "پروفایل"
+  "profile": "پروفایل",
+  "coinBalance": "موجودی سکه",
+  "rialBalance": "موجودی ریالی",
+  "recentAchievement": "ترین های ماه قبل",
 }
