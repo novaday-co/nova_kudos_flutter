@@ -71,7 +71,7 @@ class UserSettingsWidget extends StatelessWidget {
                 onTap: () {
                   showKodusDialog(
                     context,
-                    (context) => DialogDefaultStyle(
+                    (_) => DialogDefaultStyle(
                       title: context.getStrings.logOutFromAccount,
                       question: context.getStrings.sureYouWantToLogout,
                       onAccept: () async {
