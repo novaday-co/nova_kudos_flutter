@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/string_extension.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
 class ProgressLineWidget extends StatefulWidget {
@@ -39,7 +40,7 @@ class _ProgressLineWidgetState extends State<ProgressLineWidget>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    postFrameCallback(() {
       width =
           widget.width ?? (context.findRenderObject() as RenderBox).size.width;
       durationSeconds = widget.endTime.difference(widget.startTime).inSeconds;

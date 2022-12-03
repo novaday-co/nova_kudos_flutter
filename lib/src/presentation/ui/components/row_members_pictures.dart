@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
@@ -21,13 +22,14 @@ class RowMembersPictures extends StatefulWidget {
   State<RowMembersPictures> createState() => _RowMembersPicturesState();
 }
 
-class _RowMembersPicturesState extends State<RowMembersPictures> with AutomaticKeepAliveClientMixin {
+class _RowMembersPicturesState extends State<RowMembersPictures>
+    with AutomaticKeepAliveClientMixin {
   bool startAnimation = false;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    postFrameCallback(() {
       startAnimation = true;
       setState(() {});
     });
