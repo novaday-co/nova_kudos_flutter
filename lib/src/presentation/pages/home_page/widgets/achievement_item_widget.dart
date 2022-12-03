@@ -46,8 +46,9 @@ class AchievementItemWidget extends StatelessWidget {
             context: context,
             maxLines: 1,
             additionalStyle: TextStyle(
-                fontSize: 14,
-                color: Theme.of(context).colorScheme.tertiaryContainer),
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.onTertiary,
+            ),
           ),
           const SizedBox(
             height: 4,
@@ -57,8 +58,9 @@ class AchievementItemWidget extends StatelessWidget {
             context: context,
             maxLines: 1,
             additionalStyle: TextStyle(
-                fontSize: 10,
-                color: Theme.of(context).colorScheme.tertiaryContainer),
+              fontSize: 10,
+              color: Theme.of(context).colorScheme.onTertiary,
+            ),
           )
         ],
       ),
