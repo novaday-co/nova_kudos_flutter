@@ -1,7 +1,9 @@
 class CompleteProfilePageParams {
-  final String phoneNumber;
+   String? phoneNumber;
+   bool isEdit;
 
   CompleteProfilePageParams({
-    required this.phoneNumber,
+     this.phoneNumber,
+     this.isEdit = false,
   });
 }
