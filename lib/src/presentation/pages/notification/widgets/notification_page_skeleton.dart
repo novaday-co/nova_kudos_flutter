@@ -20,11 +20,11 @@ class NotificationPageSkeleton extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: const [
-                SkeletonWidget.circular(width: 32, height: 32),
+                SkeletonWidget.circular(width: 36, height: 36),
                 SizedBox(width: 8),
-                SkeletonWidget.rectangular(width: 193, height: 14),
+                SkeletonWidget.rectangular(width: 193, height: 17),
                 SizedBox(width: 8),
-                SkeletonWidget.rectangular(width: 35, height: 10),
+                SkeletonWidget.rectangular(width: 35, height: 13),
               ],
             ),
           );
