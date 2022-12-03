@@ -29,6 +29,9 @@ class _ProfilePageState
     return CustomAppbar(
       title: context.getStrings.profile,
       hasBackButton: true,
+      onPressBack: (){
+        Navigator.pop(context);
+      },
     );
   }
 
