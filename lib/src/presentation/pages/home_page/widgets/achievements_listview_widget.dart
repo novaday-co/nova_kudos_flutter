@@ -12,26 +12,29 @@ class RecentAchievementWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: TextWidget.semiBold(
-                context.getStrings.recentAchievement,
-                context: context,
-                additionalStyle: const TextStyle(fontSize: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextWidget.semiBold(
+                  context.getStrings.recentAchievement,
+                  context: context,
+                  additionalStyle: const TextStyle(fontSize: 16),
+                ),
               ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.profile);
-              },
-              child: TextWidget.regular(
-                context.getStrings.myMedals,
-                context: context,
-                additionalStyle: const TextStyle(fontSize: 14),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.profile);
+                },
+                child: TextWidget.regular(
+                  context.getStrings.myMedals,
+                  context: context,
+                  additionalStyle: const TextStyle(fontSize: 14),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         const SizedBox(
           height: 8,
@@ -46,6 +49,7 @@ class RecentAchievementWidget extends StatelessWidget {
               width: 8,
             ),
             itemCount: 6,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             scrollDirection: Axis.horizontal,
           ),
         ),
