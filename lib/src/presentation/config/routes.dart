@@ -5,6 +5,7 @@ abstract class Routes {
   static const verifyCode = _Paths.verifyCode;
   static const completeProfile = _Paths.completeProfile;
   static const profile = _Paths.profile;
+  static const landingPage = _Paths.landingPage;
 }
 
 abstract class _Paths {
@@ -13,4 +14,5 @@ abstract class _Paths {
   static const verifyCode = '/verify-code';
   static const completeProfile = '/complete_profile';
   static const profile = '/profile';
+  static const landingPage = '/landing_page';
 }
