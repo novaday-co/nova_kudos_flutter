@@ -5,8 +5,8 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
-class HomeBalanceWidget extends StatelessWidget {
-  const HomeBalanceWidget({Key? key}) : super(key: key);
+class RowBalanceComponent extends StatelessWidget {
+  const RowBalanceComponent({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
