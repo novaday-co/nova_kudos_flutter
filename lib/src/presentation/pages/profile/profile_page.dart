@@ -1,7 +1,6 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_state.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/profile/profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/profile/profile_state.dart';
 import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart';
@@ -13,7 +12,6 @@ import 'package:nova_kudos_flutter/src/presentation/pages/profile/widgets/profil
 import 'package:nova_kudos_flutter/src/presentation/ui/components/row_user_profile.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/custom_sliver_persistent_header.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
@@ -36,11 +34,9 @@ class _ProfilePageState
 
   @override
   void initState() {
-    postFrameCallback(
-      () {
-        context.read<ProfileCubit>().getProfileMedal();
-      },
-    );
+    postFrameCallback(() {
+      context.read<ProfileCubit>().getProfileMedal();
+    });
     super.initState();
   }
 
@@ -58,7 +54,11 @@ class _ProfilePageState
                       SliverToBoxAdapter(
                         child: Column(
                           children: const [
-                            RowUserProfile(),
+                            RowUserProfile(
+                              imageUrl: "https://loremflickr.com/640/360",
+                              name: "سارا تهرانی",
+                              jobTitle: "برنامه نویس موبایل",
+                            ),
                             SizedBox(height: 25),
                           ],
                         ),
