@@ -30,8 +30,24 @@
   "voluntaryEvents": "ایونت های داوطلبانه",
   "sendGiftCard": "ارسال کارت هدیه",
   "seeAll": "مشاهده همه",
-  "submit": "تایید"
-
+  "submit": "تایید",
+  "settings": "تنظیمات",
+  "editProfile": "ویرایش پروفایل",
+  "novadayCompany": "شرکت نوادی",
+  "transactions": "تراکنش ها",
+  "depositRequest": "درخواست های برداشت",
+  "logout": "خروج از حساب کاربری",
+  "editCompany": "ویرایش شرکت",
+  "manageUsers": "مدیریت کاربران",
+  "manageShop": "مدیریت بازارچه",
+  "manageGiftCards": "مدیریت کارت های هدیه",
+  "usersTransactions": "تراکنش کاربران",
+  "manageCoinFee": "مدیریت نرخ سکه",
+  "manageEvents": "مدیریت رویدادها",
+  "statistics": "آمار",
+  "deleteCompany": "حذف شرکت",
+  "managerMenu": "منو مدیریت",
+  "cancel": "انصراف"
 
 
 }
