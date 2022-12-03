@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/components/row_user_profile.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
@@ -27,7 +28,9 @@ class HomeHeaderWidget extends StatelessWidget {
           hasBorder: true,
           padding: 10,
           boxShape: BoxShape.circle,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.notification);
+          },
         )
       ],
     );
