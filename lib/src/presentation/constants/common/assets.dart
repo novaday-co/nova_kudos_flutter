@@ -13,7 +13,16 @@ class Assets {
   static const String iconMembers = "assets/icons/icon_members.svg";
   static const String iconShop = "assets/icons/icon_shop.svg";
   static const String iconNotification = "assets/icons/icon_notification.svg";
-  static const String iconGoldMedal = "assets/icons/gold_medal.svg";
+  static const String iconCoin = "assets/icons/icon_coin.svg";
+  static const String iconCompany = "assets/icons/icon_company.svg";
+  static const String iconDeposit = "assets/icons/icon_deposit.svg";
+  static const String iconGiftCard = "assets/icons/icon_gift_card.svg";
+  static const String iconLogout = "assets/icons/icon_logout.svg";
+  static const String iconProfile= "assets/icons/icon_profile.svg";
+  static const String iconStatistics = "assets/icons/icon_statistics.svg";
+  static const String iconTransaction = "assets/icons/icon_transaction.svg";
+  static const String iconTrash = "assets/icons/icon_trash.svg";
+  static const String iconEvents = "assets/icons/icon_events.svg";
 
   ///png
   static const String gold = "assets/png/gold.png";
