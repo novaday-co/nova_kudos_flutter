@@ -51,7 +51,7 @@ class _CompleteProfilePageState
         child: SafeArea(
           child: CustomButton.fill(
             context: context,
-            text: context.getStrings.verificationCode,
+            text: context.getStrings.submit,
             loadingType: ButtonLoadingType.percentage,
             isEnable: state is CompleteProfileValidFormState,
             loadingStatus: _buttonLoadingStatus(state),

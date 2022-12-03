@@ -28,7 +28,7 @@ class SkeletonWidget extends StatelessWidget {
       shimmerColor: context.isDark
           ? ShimmerHighlightColor.dark
           : ShimmerHighlightColor.light,
-      shimmerDuration: 1200,
+      shimmerDuration: 1500,
       gradientColor:
           context.isDark ? ShimmerBaseColor.dark : ShimmerBaseColor.light,
       borderRadius: shape == BoxShape.circle
