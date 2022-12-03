@@ -42,6 +42,12 @@ class BackgroundSecondaryColor{
   static Color get dark => const Color(0xffFFFFFF);
 }
 
+class BackgroundTertiaryColor{
+  static Color get light => const Color(0xffF6F6F6);
+
+  static Color get dark => const Color(0xffF6F6F6);
+}
+
 class YellowColor{
   static Color get light => const Color(0xffFFCC00);
 
@@ -71,7 +77,7 @@ class DisabledColor{
 
   static Color get dark => const Color(0xffE9E9EA);
 }
-class InputBorderColor{
+class ActiveBorderColor{
   static Color get light => const Color(0xff4E4E4E);
 
   static Color get dark => const Color(0xff4E4E4E);

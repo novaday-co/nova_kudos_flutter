@@ -17,9 +17,11 @@ class CustomButton extends StatelessWidget {
   final ButtonStyle? style;
   final String? text;
   final double? width;
+  final double? height;
   final ButtonLoadingType? loadingType;
   final bool isEnable;
   final ButtonLoadingStatus? loadingStatus;
+  final double? borderRadius;
 
   CustomButton.fill({
     Key? key,
@@ -28,8 +30,10 @@ class CustomButton extends StatelessWidget {
     this.additionalTextStyle,
     this.onPressed,
     this.width,
+    this.height,
     this.text,
     this.isPrimaryCircularLoading,
+    this.borderRadius,
     this.isEnable = true,
     this.loadingType = ButtonLoadingType.circular,
     this.loadingStatus = ButtonLoadingStatus.normal,
@@ -39,6 +43,7 @@ class CustomButton extends StatelessWidget {
           backgroundColor: backgroundColor,
           additionalTextStyle: additionalTextStyle,
           foregroundColor: foregroundColor,
+          borderRadius: borderRadius,
         ),
         super(key: key);
 
@@ -49,8 +54,10 @@ class CustomButton extends StatelessWidget {
     this.additionalTextStyle,
     this.onPressed,
     this.width,
+    this.height,
     this.text,
     this.isPrimaryCircularLoading,
+    this.borderRadius,
     this.isEnable = true,
     this.loadingType = ButtonLoadingType.circular,
     this.loadingStatus = ButtonLoadingStatus.normal,
@@ -60,6 +67,7 @@ class CustomButton extends StatelessWidget {
           borderColor: borderColor,
           additionalTextStyle: additionalTextStyle,
           foregroundColor: foregroundColor,
+          borderRadius: borderRadius,
         ),
         super(key: key);
 
@@ -70,8 +78,10 @@ class CustomButton extends StatelessWidget {
     this.additionalTextStyle,
     this.onPressed,
     this.width,
+    this.height,
     this.text,
     this.isPrimaryCircularLoading,
+    this.borderRadius,
     this.isEnable = true,
     this.loadingType = ButtonLoadingType.circular,
     this.loadingStatus = ButtonLoadingStatus.normal,
@@ -79,13 +89,14 @@ class CustomButton extends StatelessWidget {
           context: context,
           additionalTextStyle: additionalTextStyle,
           foregroundColor: foregroundColor,
+          borderRadius: borderRadius,
         ),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height: height ?? 48,
       width: width ?? context.screenWidth,
       child: ElevatedButton(
         onPressed: isEnable

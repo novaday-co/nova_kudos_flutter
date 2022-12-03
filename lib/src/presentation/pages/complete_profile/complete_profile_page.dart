@@ -25,8 +25,10 @@ class _CompleteProfilePageState
 
   @override
   void onBuild(BuildContext context) {
-    params =
-        ModalRoute.of(context)?.settings.arguments as CompleteProfilePageParams;
+    if (ModalRoute.of(context)?.settings.arguments != null) {
+      params = ModalRoute.of(context)?.settings.arguments
+          as CompleteProfilePageParams;
+    }
     return super.onBuild(context);
   }
 
@@ -34,7 +36,7 @@ class _CompleteProfilePageState
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
       hasBackButton: true,
-      title: context.getStrings.login,
+      title: params.isEdit ? context.getStrings.editProfile:context.getStrings.login,
       onPressBack: () {
         Navigator.pop(context);
       },
@@ -56,7 +58,8 @@ class _CompleteProfilePageState
             isEnable: state is CompleteProfileValidFormState,
             loadingStatus: _buttonLoadingStatus(state),
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(context, Routes.landingPage, (route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Routes.landingPage, (route) => false);
             },
           ),
         ),
@@ -90,8 +93,7 @@ class _CompleteProfilePageState
                 child: TagWidget.rectangle(
                   padding: 4,
                   value: context.getStrings.changeProfilePicture,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.onPrimary,
+                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
                   textStyle: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 12,
@@ -117,8 +119,7 @@ class _CompleteProfilePageState
           CustomTextField(
             label: context.getStrings.jobTitle,
             textInputType: TextInputType.phone,
-            onChanged: (value) {
-            },
+            onChanged: (value) {},
           ),
           const SizedBox(
             height: 24,
@@ -127,18 +128,18 @@ class _CompleteProfilePageState
             label: context.getStrings.phoneNumber,
             textInputType: TextInputType.phone,
             readOnly: true,
-            initValue: params.phoneNumber,
+            initValue: params?.phoneNumber ?? "",
           ),
         ],
       ),
     );
   }
 
-  ButtonLoadingStatus _buttonLoadingStatus(CompleteProfileState state){
-    if(state is LoadingCompleteProfileRequestState){
+  ButtonLoadingStatus _buttonLoadingStatus(CompleteProfileState state) {
+    if (state is LoadingCompleteProfileRequestState) {
       return ButtonLoadingStatus.loading;
     }
-    if(state is SuccessCompleteProfileRequestState){
+    if (state is SuccessCompleteProfileRequestState) {
       return ButtonLoadingStatus.complete;
     }
     return ButtonLoadingStatus.normal;

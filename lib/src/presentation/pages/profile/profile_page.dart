@@ -1,8 +1,8 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/profile/profile_cubit.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/profile/profile_state.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/profile_cubit/profile_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/profile_cubit/profile_state.dart';
 import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';

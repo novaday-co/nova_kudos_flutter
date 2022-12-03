@@ -37,11 +37,6 @@ class _LandingPageState
     super.dispose();
   }
 
-  @override
-  Color? backgroundColor(BuildContext context) {
-    // TODO: implement backgroundColor
-    return super.backgroundColor(context);
-  }
 
   @override
   Widget body(BuildContext context) {
