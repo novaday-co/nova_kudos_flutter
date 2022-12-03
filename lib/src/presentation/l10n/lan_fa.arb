@@ -11,15 +11,24 @@
   "saveChanges": "ذخیره تغییرات",
   "changeProfilePicture": "تغییر عکس پروفایل",
   "confirmCodeSendTo": "تایید کد ارسال شده به %s",
+  "coinBalance": "موجودی سکه",
+  "rialBalance": "موجودی ریالی",
+  "recentAchievement": "ترین های ماه قبل",
   "inDate": "در تاریخ %s",
   "myMedals": "مدال های من",
   "scoreNumber": "%s امتیاز",
   "goldMedal": "مدال طلا",
   "silverMedal": "مدال نقره",
   "bronzeMedal": "مدال برنز",
-  "profile": "پروفایل"
-
-
+  "profile": "پروفایل",
+  "yourChoice": "رای تو",
+  "remainingTime": "زمان باقی مانده",
+  "personContributors": "نفر شرکت کننده",
+  "days": "روز",
+  "pulls": "نظرسنجی ها",
+  "voluntaryEvents": "ایونت های داوطلبانه",
+  "sendGiftCard": "ارسال کارت هدیه",
+  "seeAll": "مشاهده همه"
 
 
 

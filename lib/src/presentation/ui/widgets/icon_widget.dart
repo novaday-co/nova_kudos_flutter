@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 
 class IconWidget extends StatelessWidget {
   final dynamic icon;
@@ -15,7 +14,7 @@ class IconWidget extends StatelessWidget {
   final double? padding;
   final double? width;
   final double? height;
-
+  final BoxShape boxShape;
 
   const IconWidget({
     Key? key,
@@ -30,30 +29,40 @@ class IconWidget extends StatelessWidget {
     this.hasBorder = false,
     this.rtlSupport = false,
     this.width,
-    this.height
+    this.height,
+    this.boxShape = BoxShape.rectangle,
   })  : assert(icon != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(padding ?? 0),
       width: width,
       height: height,
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: backgroundColor,
+        shape: boxShape,
         borderRadius:
             borderRadius != null ? BorderRadius.circular(borderRadius!) : null,
-        border: hasBorder ? Border.all(
-          color: borderColor ?? Colors.transparent,
-        ) : null,
+        border: hasBorder
+            ? Border.all(
+                color: borderColor ?? Colors.transparent,
+              )
+            : null,
       ),
       child: InkWell(
         onTap: onPressed,
-        radius: 25,
-        borderRadius:
-        borderRadius != null ? BorderRadius.circular(borderRadius!) : null,
-        child: _configIcon(context),
+        radius: 20,
+        borderRadius: borderRadius != null
+            ? BorderRadius.circular(borderRadius!)
+            : (boxShape == BoxShape.circle
+                ? BorderRadius.circular(10000)
+                : null),
+        child: Padding(
+          padding: EdgeInsets.all(padding ?? 0),
+          child: _configIcon(context),
+        ),
       ),
     );
   }

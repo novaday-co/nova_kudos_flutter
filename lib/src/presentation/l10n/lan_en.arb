@@ -17,5 +17,16 @@
   "goldMedal": "مدال طلا",
   "silverMedal": "مدال نقره",
   "bronzeMedal": "مدال برنز",
-  "profile": "پروفایل"
+  "profile": "پروفایل",
+  "coinBalance": "موجودی سکه",
+  "rialBalance": "موجودی ریالی",
+  "recentAchievement": "ترین های ماه قبل",
+  "yourChoice": "رای تو",
+  "remainingTime": "زمان باقی مانده",
+  "personContributors": "نفر شرکت کننده",
+  "days": "روز",
+  "pulls": "نظرسنجی ها",
+  "voluntaryEvents": "ایونت های داوطلبانه",
+  "sendGiftCard": "ارسال کارت هدیه",
+  "seeAll": "مشاهده همه"
 }

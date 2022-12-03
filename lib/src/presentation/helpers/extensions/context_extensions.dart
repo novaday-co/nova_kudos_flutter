@@ -32,10 +32,27 @@ extension ContextExtensions on BuildContext {
   }
 
   double heightPercentage(double percentage) {
-    return MediaQuery.of(this).size.height * (percentage/100);
+    return MediaQuery.of(this).size.height * (percentage / 100);
   }
 
   double widthPercentage(double percentage) {
-    return MediaQuery.of(this).size.width * (percentage/100);
+    return MediaQuery.of(this).size.width * (percentage / 100);
+  }
+
+  Size get widgetSize {
+    return (findRenderObject() as RenderBox).size;
+  }
+
+  Color getColorByIndex(int index) {
+    switch (index % 4) {
+      case 0:
+        return Theme.of(this).colorScheme.primary;
+      case 1:
+        return Theme.of(this).colorScheme.onSurface;
+      case 2:
+        return Theme.of(this).colorScheme.surfaceVariant;
+      default:
+        return Theme.of(this).colorScheme.surface;
+    }
   }
 }

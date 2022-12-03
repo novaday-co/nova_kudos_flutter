@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
 class RowUserProfile extends StatelessWidget {
-  const RowUserProfile({Key? key}) : super(key: key);
+  final String imageUrl;
+  final String name;
+  final String? jobTitle;
+
+  const RowUserProfile({
+    Key? key,
+    required this.imageUrl,
+    required this.name,
+    this.jobTitle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +25,8 @@ class RowUserProfile extends StatelessWidget {
             ),
             shape: BoxShape.circle,
           ),
-          child: const ImageLoaderWidget.fromNetwork(
-            imageUrl: 'https://loremflickr.com/640/360',
+          child: ImageLoaderWidget.fromNetwork(
+            imageUrl: imageUrl,
             width: 50,
             height: 50,
             boxShape: BoxShape.circle,
@@ -30,14 +38,14 @@ class RowUserProfile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextWidget.bold(
-              'سارا تهرانی',
+              name,
               context: context,
               additionalStyle: const TextStyle(
                 fontSize: 18,
               ),
             ),
             TextWidget.regular(
-              'برنامه نویس موبایل',
+              jobTitle ?? "",
               context: context,
               additionalStyle: const TextStyle(
                 fontSize: 14,
