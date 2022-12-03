@@ -34,6 +34,9 @@ class _NotificationPageState
     return CustomAppbar(
       title: context.getStrings.notifications,
       hasBackButton: true,
+      onPressBack: (){
+        Navigator.pop(context);
+      },
     );
   }
   
