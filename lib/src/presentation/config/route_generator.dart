@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_cubit.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/landing_page_cubit/landing_page_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/home_cubit/home_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/landing_cubit/landing_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/profile/profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dart';
@@ -33,14 +34,17 @@ class RouteGenerator {
         create: (context) => CompleteProfileCubit(),
         child: const CompleteProfilePage(),
       ),
+      Routes.landingPage: (context) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => LandingCubit(),),
+          BlocProvider(create: (context) => HomeCubit(),),
+        ],
+        child: const LandingPage(),
+      ),
       Routes.profile: (context) => BlocProvider(
         create: (context) => ProfileCubit(),
         child: const ProfilePage(),
       ),
-      Routes.landingPage: (context) => BlocProvider(
-        create: (context) => LandingPageCubit(),
-        child: const LandingPage(),
-      )
     };
   }
 }
