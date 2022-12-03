@@ -7,6 +7,7 @@ class ButtonStyles {
     Color? backgroundColor,
     Color? foregroundColor,
     TextStyle? additionalTextStyle,
+    double? borderRadius,
   }) =>
       ButtonStyle(
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -26,7 +27,7 @@ class ButtonStyles {
         }),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(1000),
+            borderRadius: BorderRadius.circular(borderRadius ?? 1000),
           ),
         ),
         padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -57,6 +58,7 @@ class ButtonStyles {
     Color? borderColor,
     Color? foregroundColor,
     TextStyle? additionalTextStyle,
+    double? borderRadius,
   }) =>
       ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
@@ -76,7 +78,7 @@ class ButtonStyles {
               color = Theme.of(context).colorScheme.surfaceTint;
             }
             return RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(1000),
+              borderRadius: BorderRadius.circular(borderRadius ?? 1000),
               side: BorderSide(color: color, width: 2),
             );
           },
@@ -99,6 +101,7 @@ class ButtonStyles {
     required BuildContext context,
     Color? foregroundColor,
     TextStyle? additionalTextStyle,
+    double? borderRadius,
   }) =>
       ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
@@ -112,7 +115,7 @@ class ButtonStyles {
           (states) => Theme.of(context).colorScheme.inverseSurface,
         ),
         shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(1000),
+          borderRadius: BorderRadius.circular(borderRadius ?? 1000),
         )),
         elevation: MaterialStateProperty.all<double>(0),
         textStyle: MaterialStateProperty.resolveWith(
