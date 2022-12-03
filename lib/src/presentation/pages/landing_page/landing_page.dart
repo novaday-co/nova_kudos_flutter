@@ -10,7 +10,12 @@ import 'package:nova_kudos_flutter/src/presentation/pages/shop_page/shop_page.da
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 
 class LandingPage extends BaseStatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  const LandingPage({Key? key})
+      : super(
+          key: key,
+          includeHorizontalPadding: false,
+          includeVerticalPadding: false,
+        );
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -33,30 +38,37 @@ class _LandingPageState
   }
 
   @override
-  Widget? bottomNavigation() {
-    return BlocConsumer<LandingCubit, LandingState>(
-      listener: _listenToBottomNavigation,
-      buildWhen: _buildWhenBottomNavigation,
-      listenWhen: _buildWhenBottomNavigation,
-      builder: (context, state) => CustomBottomNavigation(
-        selectedPage: state is PageSwitchState ? state.index : 0,
-        onTapItem: (navigationPage) {
-          context.read<LandingCubit>().switchToPageByName(navigationPage);
-        },
-      ),
-    );
+  Color? backgroundColor(BuildContext context) {
+    // TODO: implement backgroundColor
+    return super.backgroundColor(context);
   }
 
   @override
   Widget body(BuildContext context) {
-    return PageView(
-      controller: pageController,
-      physics: const NeverScrollableScrollPhysics(),
-      children: const [
-        HomePage(),
-        ShopPage(),
-        MembersPage(),
-        SettingsPage(),
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        PageView(
+          controller: pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            HomePage(),
+            ShopPage(),
+            MembersPage(),
+            SettingsPage(),
+          ],
+        ),
+        BlocConsumer<LandingCubit, LandingState>(
+          listener: _listenToBottomNavigation,
+          buildWhen: _buildWhenBottomNavigation,
+          listenWhen: _buildWhenBottomNavigation,
+          builder: (context, state) => CustomBottomNavigation(
+            selectedPage: state is PageSwitchState ? state.index : 0,
+            onTapItem: (navigationPage) {
+              context.read<LandingCubit>().switchToPageByName(navigationPage);
+            },
+          ),
+        )
       ],
     );
   }
