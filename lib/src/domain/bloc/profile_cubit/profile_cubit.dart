@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/profile/profile_state.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/profile_cubit/profile_state.dart';
 import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {

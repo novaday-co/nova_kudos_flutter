@@ -5,6 +5,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/home_cubit/home_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/landing_cubit/landing_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/notification_cubit/notification_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/profile_cubit/profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
@@ -15,7 +16,6 @@ import 'package:nova_kudos_flutter/src/presentation/pages/notification/notificat
 import 'package:nova_kudos_flutter/src/presentation/pages/splash/splash_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/verify_code_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/profile/profile_page.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/profile/profile_cubit.dart';
 
 class RouteGenerator {
   static Map<String, WidgetBuilder> getRoutes(RouteSettings settings) {

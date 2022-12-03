@@ -16,6 +16,6 @@ abstract class _Paths {
   static const verifyCode = '/verify-code';
   static const completeProfile = '/complete_profile';
   static const notification = '/notification';
-  static const profile = '/profile';
+  static const profile = '/profile_cubit';
   static const landingPage = '/landing_page';
 }
