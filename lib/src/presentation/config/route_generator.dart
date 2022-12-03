@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/home_cubit/home_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/landing_cubit/landing_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/notification_cubit/notification_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dart';
@@ -31,24 +33,28 @@ class RouteGenerator {
             child: VerifyCodePage(),
           ),
       Routes.completeProfile: (context) => BlocProvider(
-        create: (context) => CompleteProfileCubit(),
-        child: const CompleteProfilePage(),
-      ),
+            create: (context) => CompleteProfileCubit(),
+            child: const CompleteProfilePage(),
+          ),
       Routes.landingPage: (context) => MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => LandingCubit(),),
-          BlocProvider(create: (context) => HomeCubit(),),
-        ],
-        child: const LandingPage(),
-      ),
+            providers: [
+              BlocProvider(
+                create: (context) => LandingCubit(),
+              ),
+              BlocProvider(
+                create: (context) => HomeCubit(),
+              ),
+            ],
+            child: const LandingPage(),
+          ),
       Routes.profile: (context) => BlocProvider(
-        create: (context) => ProfileCubit(),
-        child: const ProfilePage(),
-      ),
+            create: (context) => ProfileCubit(),
+            child: const ProfilePage(),
+          ),
       Routes.notification: (context) => BlocProvider(
-        create: (context) => NotificationCubit(),
-        child: const NotificationPage(),
-      )
+            create: (context) => NotificationCubit(),
+            child: const NotificationPage(),
+          )
     };
   }
 }
