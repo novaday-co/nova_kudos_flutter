@@ -1,6 +1,5 @@
-class Assets{
+class Assets {
   static const String appLogo = "assets/svg/logo.svg";
-
 
   /// Lottie
   static const String loadingPrimary = "assets/lottie/loading_red.json";
@@ -9,6 +8,10 @@ class Assets{
   ///Icons
   static const String arrowRight = "assets/icons/icon_arrow_circle.svg";
   static const String iconNotFound = "assets/icons/icon_not_found.svg";
+  static const String iconHome = "assets/icons/icon_home.svg";
+  static const String iconSettings = "assets/icons/icon_settings.svg";
+  static const String iconMembers = "assets/icons/icon_members.svg";
+  static const String iconShop = "assets/icons/icon_shop.svg";
 
   ///png
   static const String gold = "assets/png/gold.png";
@@ -17,7 +20,6 @@ class Assets{
   static const String goldMedal = "assets/png/gold_medal.png";
   static const String silverMedal = "assets/png/silver_medal.png";
   static const String bronzeMedal = "assets/png/bronze_medal.png";
-
-
-
 }
+
+
