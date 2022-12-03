@@ -7,7 +7,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit() : super(InitSettingsState());
 
   Future<void> logout(BuildContext context) async {
-    Future.delayed(const Duration(seconds: 3));
-    Navigator.pushNamedAndRemoveUntil(context, Routes.splash, (route) => false);
+    await Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushNamedAndRemoveUntil(
+          context, Routes.splash, (route) => false);
+    });
   }
 }
