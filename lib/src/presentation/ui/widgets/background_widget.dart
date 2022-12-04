@@ -5,6 +5,7 @@ class BackgroundWidget extends StatelessWidget {
   final bool isBordered;
   final Color? backgroundColor;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final double? verticalPadding;
   final double? horizontalPadding;
   final double? borderRadius;
@@ -24,6 +25,7 @@ class BackgroundWidget extends StatelessWidget {
     this.height,
     this.width,
     this.borderColor,
+    this.onLongPress,
   }) : super(key: key);
 
   @override
@@ -41,10 +43,12 @@ class BackgroundWidget extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(borderRadius ?? 0),
         ),
+        clipBehavior: Clip.antiAlias,
         child: InkWell(
           borderRadius: BorderRadius.circular(borderRadius ?? 0),
           splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.23),
           onTap: onTap,
+          onLongPress: onLongPress,
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: horizontalPadding ?? 0,
