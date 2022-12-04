@@ -55,4 +55,14 @@ extension ContextExtensions on BuildContext {
         return Theme.of(this).colorScheme.surface;
     }
   }
+
+  bool get isModalOpen{
+    return ModalRoute.of(this)?.isCurrent != true;
+  }
+
+  void dismissModal(){
+    if(isModalOpen){
+      Navigator.pop(this);
+    }
+  }
 }
