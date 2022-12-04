@@ -41,6 +41,7 @@ class BackgroundWidget extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(borderRadius ?? 0),
         ),
+        clipBehavior: Clip.antiAlias,
         child: InkWell(
           borderRadius: BorderRadius.circular(borderRadius ?? 0),
           splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.23),
