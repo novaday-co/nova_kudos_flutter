@@ -2,8 +2,10 @@ class Assets {
   static const String appLogo = "assets/svg/logo.svg";
 
   /// Lottie
-  static const String loadingPrimary = "assets/lottie/loading_red.json";
-  static const String loadingSecondary = "assets/lottie/loading_white.json";
+  static const String lottieLoadingPrimary = "assets/lottie/loading_red.json";
+  static const String lottieLoadingSecondary = "assets/lottie/loading_white.json";
+  static const String lottieSuccess = "assets/lottie/lottie_success.json";
+  static const String lottieFailed = "assets/lottie/lottie_failed.json";
 
   ///Icons
   static const String arrowRight = "assets/icons/icon_arrow_circle.svg";
@@ -23,6 +25,7 @@ class Assets {
   static const String iconTransaction = "assets/icons/icon_transaction.svg";
   static const String iconTrash = "assets/icons/icon_trash.svg";
   static const String iconEvents = "assets/icons/icon_events.svg";
+  static const String iconStar = "assets/icons/icon_star.svg";
 
   ///png
   static const String gold = "assets/png/gold.png";

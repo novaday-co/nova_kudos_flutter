@@ -29,7 +29,7 @@ Future<T?> showKodusBottomSheet<T>(
             backgroundColor: Theme.of(context).colorScheme.background,
             borderRadius: 15,
             horizontalPadding: 16,
-            verticalPadding: 8,
+            verticalPadding: 16,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -46,8 +46,11 @@ Future<T?> showKodusBottomSheet<T>(
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24,),
-                  builder.call(context),
+                  const SizedBox(height: 8,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: builder.call(context),
+                  ),
                 ],
               ),
             ),
