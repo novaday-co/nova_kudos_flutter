@@ -12,6 +12,7 @@ import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/dialog_function.d
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
+import 'package:sprintf/sprintf.dart';
 
 class ShopPage extends BaseStatefulWidget {
   const ShopPage({Key? key}) : super(key: key);
@@ -96,7 +97,11 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
                                     acceptButtonText:
                                         context.getStrings.titleContinue,
                                     child: TextWidget.medium(
-                                      "بابت اعتبار خرید اکانت فیدیبو 40 سکه از موجودی شما کم میشود",
+                                      sprintf(
+                                          context.getStrings.phForPurchase, [
+                                        shopItems[index].title,
+                                        shopItems[index].price,
+                                      ]),
                                       context: context,
                                       additionalStyle: const TextStyle(
                                         fontSize: 18,

@@ -56,7 +56,8 @@
   "validity": "اعتبار: %s",
   "phValidity": "اعتبار: %s",
   "phCount": "تعداد: %s",
-  "phGetRewardWithCoin": "دریافت جایزه با %s سکه"
+  "phGetRewardWithCoin": "دریافت جایزه با %s سکه",
+  "phForPurchase": "بابت %s %s سکه از موجودی شما کم میشود"
 
 
 
