@@ -37,35 +37,63 @@ class AdminSettingsWidget extends StatelessWidget {
                 icon: Assets.iconCompany,
                 onTap: () {},
               ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
+              ),
               SettingsItemWidget(
                 title: context.getStrings.manageUsers,
                 icon: Assets.iconMembers,
                 onTap: () {},
+              ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
               ),
               SettingsItemWidget(
                 title: context.getStrings.manageShop,
                 icon: Assets.iconShop,
                 onTap: () {},
               ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
+              ),
               SettingsItemWidget(
                 title: context.getStrings.manageGiftCards,
                 icon: Assets.iconGiftCard,
                 onTap: () {},
+              ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
               ),
               SettingsItemWidget(
                 title: context.getStrings.usersTransactions,
                 icon: Assets.iconTransaction,
                 onTap: () {},
               ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
+              ),
               SettingsItemWidget(
                 title: context.getStrings.manageCoinFee,
                 icon: Assets.iconCoin,
                 onTap: () {},
               ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
+              ),
               SettingsItemWidget(
                 title: context.getStrings.manageEvents,
                 icon: Assets.iconEvents,
                 onTap: () {},
+              ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
               ),
               SettingsItemWidget(
                 title: context.getStrings.deleteCompany,
