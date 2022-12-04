@@ -20,7 +20,7 @@ class CustomBottomNavigation extends StatelessWidget {
       top: false,
       child: Container(
         height: 60,
-        margin: const EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(25),
