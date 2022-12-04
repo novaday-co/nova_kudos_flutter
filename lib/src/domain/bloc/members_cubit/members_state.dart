@@ -18,3 +18,15 @@ class GetMembersState extends MembersState with _$GetMembersState {
   const factory GetMembersState.failed(String? error) =
   FailedGetMembersState;
 }
+
+@freezed
+class DeleteMembersState extends MembersState with _$DeleteMembersState{
+  const factory DeleteMembersState.loading() =
+  LoadingDeleteMembersState;
+
+  const factory DeleteMembersState.success() =
+  SuccessDeleteMembersState;
+
+  const factory DeleteMembersState.failed(String? error) =
+  FailedDeleteMembersState;
+}
