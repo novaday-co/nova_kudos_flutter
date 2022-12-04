@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/params/create_shop_page_params.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/components/upload_image.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
@@ -10,7 +11,8 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dar
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_field_widget.dart';
 
 class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
-  const CreateShopPage({Key? key}) : super(key: key);
+  CreateShopPage({Key? key}) : super(key: key);
+  CreateShopPageParams? params;
 
   @override
   CustomAppbar? appBar(BuildContext context) {
@@ -41,6 +43,15 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
   }
 
   @override
+  void onBuild(BuildContext context) {
+    if (ModalRoute.of(context)?.settings.arguments != null) {
+      params =
+          ModalRoute.of(context)?.settings.arguments as CreateShopPageParams;
+    }
+    return super.onBuild(context);
+  }
+
+  @override
   Widget body(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -50,7 +61,9 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
             builder: (context, state) {
               return UploadImage(
                 isLocalFile: state is SelectCreateShopPictureState,
-                image: state is CreateShopPictureState ? state.imagePath : null,
+                image: state is CreateShopPictureState
+                    ? state.imagePath
+                    : params?.imageUrl,
                 onClick: () {
                   context.read<CreateShopCubit>().selectProfilePicture(context);
                 },
@@ -61,6 +74,7 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
             height: 32,
           ),
           CustomTextField(
+            initValue: params?.shopName,
             label: context.getStrings.shopName,
             textInputType: TextInputType.text,
             onChanged: (value) {},
@@ -69,6 +83,7 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
             height: 24,
           ),
           CustomTextField(
+            initValue: params?.validity,
             label: context.getStrings.validityPeriod,
             textInputType: TextInputType.text,
             onChanged: (value) {},
@@ -77,6 +92,8 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
             height: 24,
           ),
           CustomTextField(
+            initValue: params?.count.toString(),
+
             label: context.getStrings.numberOfInventory,
             textInputType: TextInputType.number,
           ),
@@ -84,6 +101,7 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
             height: 24,
           ),
           CustomTextField(
+            initValue: params?.coinCount.toString(),
             label: context.getStrings.numberOfCoins,
             textInputType: TextInputType.number,
           ),
