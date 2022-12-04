@@ -60,4 +60,10 @@ class MembersCubit extends Cubit<MembersState> {
     ];
     emit(GetMembersState.success(list));
   }
+
+  Future<void> deleteMember() async {
+    emit(const DeleteMembersState.loading());
+    await Future.delayed(const Duration(seconds: 2));
+    emit(const DeleteMembersState.success());
+  }
 }
