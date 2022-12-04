@@ -14,9 +14,8 @@ class ShopPageSkeleton extends StatelessWidget {
         mainAxisSpacing: 16,
         mainAxisExtent: 155,
       ),
-      itemBuilder: (context, index) {
-        return const SkeletonWidget.rectangular(width: 160, height: 155);
-      },
+      itemBuilder: (context, index) =>
+          const SkeletonWidget.rectangular(width: 160, height: 155),
     );
   }
 }
