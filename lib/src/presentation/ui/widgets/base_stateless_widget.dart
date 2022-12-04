@@ -14,20 +14,21 @@ abstract class BaseStatelessWidget<C extends Cubit> extends StatelessWidget {
     this.includeVerticalPadding = true,
   }) : super(key: key);
 
-
   Future<bool>? onPop(BuildContext context) => null;
 
   String? provideRouteName() => null;
 
   Widget body(BuildContext context);
 
-  void onPageReload(BuildContext context) => (){};
+  void onPageReload(BuildContext context) => () {};
 
-  void onBuild(BuildContext context) => (){};
+  void onBuild(BuildContext context) => () {};
 
   CustomAppbar? appBar(BuildContext context) => null;
 
   Color? backgroundColor(BuildContext context) => null;
+
+  Widget? bottomNavigation() => null;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ abstract class BaseStatelessWidget<C extends Cubit> extends StatelessWidget {
       child: Scaffold(
         backgroundColor: backgroundColor(context),
         appBar: appBar(context),
+        bottomNavigationBar: bottomNavigation(),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
