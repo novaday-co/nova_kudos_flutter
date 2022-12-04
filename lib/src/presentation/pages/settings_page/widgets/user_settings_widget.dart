@@ -37,15 +37,29 @@ class UserSettingsWidget extends StatelessWidget {
                   );
                 },
               ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
+              ),
               SettingsItemWidget(
                 title: context.getStrings.novadayCompany,
                 icon: Assets.iconCompany,
                 onTap: () {},
               ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
+              ),
               SettingsItemWidget(
                 title: context.getStrings.transactions,
                 icon: Assets.iconTransaction,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.transactionsPage);
+                },
+              ),
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                height: 0,
               ),
               SettingsItemWidget(
                 title: context.getStrings.depositRequest,
