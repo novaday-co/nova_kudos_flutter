@@ -56,7 +56,14 @@
   "phDeleteMemberTitle": "آیا می خواهید \"%s\" حذف شود؟",
   "delete": "حذف",
   "changeRoleToAdmin": "تغییر نقش به مدیر",
-  "memberDeletedSuccessfully": "کاربر با موفقیت حذف شد."
+  "memberDeletedSuccessfully": "کاربر با موفقیت حذف شد.",
+  "shop": "بازارچه",
+  "titleContinue": "ادامه",
+  "phValidity": "اعتبار: %s",
+  "phCount": "تعداد: %s",
+  "phGetRewardWithCoin": "دریافت جایزه با %s سکه",
+  "phForPurchase": "بابت %s %s سکه از موجودی شما کم میشود"
+
 
 
 }

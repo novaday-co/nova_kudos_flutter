@@ -8,6 +8,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/members_cubit/members_cubit.d
 import 'package:nova_kudos_flutter/src/domain/bloc/notification_cubit/notification_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/profile_cubit/profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/settings_cubit/settings_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/shop_cubit/shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
@@ -48,6 +49,9 @@ class RouteGenerator {
               ),
               BlocProvider(
                 create: (context) => SettingsCubit(),
+              ),
+              BlocProvider(
+                create: (context) => ShopCubit(),
               ),
               BlocProvider(
                 create: (context) => MembersCubit(),
