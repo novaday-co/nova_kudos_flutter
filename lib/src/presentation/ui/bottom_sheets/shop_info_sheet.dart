@@ -73,12 +73,12 @@ class ShopInfoBottomSheet extends StatelessWidget {
           const SizedBox(height: 32),
           BottomSheetItem(
             onTap: onTapEdit,
-            title: 'ویرایش',
+            title: context.getStrings.edit,
             icon: Assets.iconEdit,
           ),
           BottomSheetItem(
             onTap: onTapDelete,
-            title: 'حذف',
+            title: context.getStrings.delete,
             icon: Assets.iconTrash,
           ),
         ],

@@ -73,7 +73,8 @@
   "eventPicture": "عکس رویداد",
   "phTimeLeft": "زمان باقی مانده %s",
   "phPerson": "%s نفر",
-  "phDay": "%s روز"
+  "phDay": "%s روز",
+  "edit": "ویرایش"
 
 
 
