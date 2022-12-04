@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/domain/model/user/user_model.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/components/bottom_sheet_item.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
@@ -14,7 +15,10 @@ class MemberInfoBottomSheet extends StatelessWidget {
 
   const MemberInfoBottomSheet({
     Key? key,
-    required this.userModel, required this.onTapAdmin, required this.onTapSendGift, required this.onTapDelete,
+    required this.userModel,
+    required this.onTapAdmin,
+    required this.onTapSendGift,
+    required this.onTapDelete,
   }) : super(key: key);
 
   @override
@@ -41,72 +45,23 @@ class MemberInfoBottomSheet extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12,),
-          InkWell(
+          const SizedBox(
+            height: 12,
+          ),
+          BottomSheetItem(
             onTap: onTapAdmin,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                children: [
-                  TextWidget.medium(
-                    context.getStrings.changeRoleToAdmin,
-                    context: context,
-                    additionalStyle: const TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  const Spacer(),
-                  const IconWidget(
-                    icon: Assets.iconStar,
-                    size: 24,
-                  )
-                ],
-              ),
-            ),
+            title: context.getStrings.changeRoleToAdmin,
+            icon: Assets.iconStar,
           ),
-          InkWell(
+          BottomSheetItem(
             onTap: onTapSendGift,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                children: [
-                  TextWidget.medium(
-                    context.getStrings.sendGiftCard,
-                    context: context,
-                    additionalStyle: const TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  const Spacer(),
-                  const IconWidget(
-                    icon: Assets.iconGiftCard,
-                    size: 24,
-                  )
-                ],
-              ),
-            ),
+            title: context.getStrings.sendGiftCard,
+            icon: Assets.iconGiftCard,
           ),
-          InkWell(
+          BottomSheetItem(
             onTap: onTapDelete,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                children: [
-                  TextWidget.medium(
-                    context.getStrings.delete,
-                    context: context,
-                    additionalStyle: const TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  const Spacer(),
-                  const IconWidget(
-                    icon: Assets.iconTrash,
-                    size: 24,
-                  )
-                ],
-              ),
-            ),
+            title: context.getStrings.delete,
+            icon: Assets.iconTrash,
           ),
         ],
       ),
