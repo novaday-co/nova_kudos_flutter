@@ -41,7 +41,7 @@ class UploadImage extends StatelessWidget {
                   onTap: onClick,
                   child: TagWidget.rectangle(
                     backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                    value: 'تغییر عکس',
+                    value: context.getStrings.changePicture,
                     padding: 4,
                     textStyle: TextStyle(
                       color: Theme.of(context).primaryColor,
@@ -65,7 +65,7 @@ class UploadImage extends StatelessWidget {
                 const SizedBox(height: 4),
                 TagWidget.rectangle(
                   backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                  value: 'عکس رویداد',
+                  value: context.getStrings.eventPicture,
                   padding: 4,
                   textStyle: TextStyle(
                     color: Theme.of(context).primaryColor,
