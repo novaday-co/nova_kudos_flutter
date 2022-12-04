@@ -8,6 +8,7 @@ abstract class Routes {
   static const notification = _Paths.notification;
   static const profile = _Paths.profile;
   static const landingPage = _Paths.landingPage;
+  static const createShopPage = _Paths.createShopPage;
 }
 
 abstract class _Paths {
@@ -18,4 +19,5 @@ abstract class _Paths {
   static const notification = '/notification';
   static const profile = '/profile';
   static const landingPage = '/landing_page';
+  static const createShopPage = '/create_shop';
 }
