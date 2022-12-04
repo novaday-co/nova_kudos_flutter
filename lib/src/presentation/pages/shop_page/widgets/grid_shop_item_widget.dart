@@ -14,11 +14,13 @@ import 'package:sprintf/sprintf.dart';
 class GridShopItemWidget extends StatelessWidget {
   final ShopModel shopModel;
   final Function() onShopItemClick;
+  final Function()? onShopItemLongPress;
 
   const GridShopItemWidget({
     Key? key,
     required this.shopModel,
     required this.onShopItemClick,
+    this.onShopItemLongPress,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class GridShopItemWidget extends StatelessWidget {
     return BackgroundWidget(
       borderRadius: 16,
       backgroundColor: Colors.white,
+      onLongPress: onShopItemLongPress,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         child: Column(

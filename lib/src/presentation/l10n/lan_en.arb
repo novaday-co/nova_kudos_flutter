@@ -63,7 +63,19 @@
   "phValidity": "اعتبار: %s",
   "phCount": "تعداد: %s",
   "phGetRewardWithCoin": "دریافت جایزه با %s سکه",
-  "phForPurchase": "بابت %s %s سکه از موجودی شما کم میشود"
+  "phForPurchase": "بابت %s %s سکه از موجودی شما کم میشود",
+  "createShop": "ایجاد بازارچه",
+  "shopName": "نام بازارچه",
+  "validityPeriod": "مدت زمان اعتبار",
+  "numberOfInventory": "تعداد موجودی",
+  "numberOfCoins": "تعداد سکه",
+  "changePicture": "تغییر عکس",
+  "eventPicture": "عکس رویداد",
+  "phTimeLeft": "زمان باقی مانده %s",
+  "phPerson": "%s نفر",
+  "phDay": "%s روز",
+  "edit": "ویرایش"
+
 
 
 
