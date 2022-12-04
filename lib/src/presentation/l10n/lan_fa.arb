@@ -47,7 +47,14 @@
   "statistics": "آمار",
   "deleteCompany": "حذف شرکت",
   "managerMenu": "منو مدیریت",
-  "cancel": "انصراف"
+  "cancel": "انصراف",
+  "shop": "بازارچه",
+  "titleContinue": "ادامه",
+  "phValidity": "اعتبار: %s",
+  "phCount": "تعداد: %s",
+  "phGetRewardWithCoin": "دریافت جایزه با %s سکه",
+  "phForPurchase": "بابت %s %s سکه از موجودی شما کم میشود"
+
 
 
 }
