@@ -50,5 +50,12 @@
   "cancel": "انصراف",
   "logOutFromAccount": "خروج از حساب کاربری",
   "sureYouWantToLogout": "آیا می خواهید از حساب کاربری خود خارج شوید؟",
-  "exit": "خروج"
+  "exit": "خروج",
+  "members": "کاربران",
+  "deleteMember": "حذف کاربر",
+  "phDeleteMemberTitle": "آیا می خواهید \"%s\" حذف شود؟",
+  "delete": "حذف",
+  "changeRoleToAdmin": "تغییر نقش به مدیر",
+  "memberDeletedSuccessfully": "کاربر با موفقیت حذف شد."
+
 }
