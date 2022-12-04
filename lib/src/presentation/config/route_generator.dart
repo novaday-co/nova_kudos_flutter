@@ -71,7 +71,7 @@ class RouteGenerator {
           ),
       Routes.createShopPage: (context) => BlocProvider(
             create: (context) => CreateShopCubit(),
-            child: const CreateShopPage(),
+            child:  CreateShopPage(),
           )
     };
   }
