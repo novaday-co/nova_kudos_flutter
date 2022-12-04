@@ -69,7 +69,7 @@ class TextWidget extends StatelessWidget {
     this.strutStyle,
     this.direction,
   })  : style = Styles.bodyText1(context)
-            .merge(const TextStyle(fontWeight: FontWeight.w600))
+            .merge(const TextStyle(fontWeight: FontWeight.w500))
             .merge(additionalStyle),
         super(key: key);
 
@@ -85,7 +85,7 @@ class TextWidget extends StatelessWidget {
     this.strutStyle,
     this.direction,
   })  : style = Styles.subtitle1(context)
-            .merge(const TextStyle(fontWeight: FontWeight.w600))
+            .merge(const TextStyle(fontWeight: FontWeight.w400))
             .merge(additionalStyle),
         super(key: key);
 
