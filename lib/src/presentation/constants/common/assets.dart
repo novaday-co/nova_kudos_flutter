@@ -23,6 +23,7 @@ class Assets {
   static const String iconTransaction = "assets/icons/icon_transaction.svg";
   static const String iconTrash = "assets/icons/icon_trash.svg";
   static const String iconEvents = "assets/icons/icon_events.svg";
+  static const String iconGallery = "assets/icons/gallery.svg";
 
   ///png
   static const String gold = "assets/png/gold.png";
