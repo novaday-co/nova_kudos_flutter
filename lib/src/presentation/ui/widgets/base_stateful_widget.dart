@@ -64,4 +64,6 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,C extends Cu
   CustomAppbar? appBar(BuildContext context) => null;
 
   Function? onPageReload(BuildContext context) => null;
+
+  C get cubit => context.read<C>();
 }

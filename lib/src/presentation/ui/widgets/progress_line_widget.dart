@@ -5,7 +5,7 @@ import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/string_ex
 import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
-class ProgressLineWidget extends StatefulWidget {
+class ProgressTimeLineWidget extends StatefulWidget {
   final double? height;
   final double? width;
   final Color? backgroundColor;
@@ -14,7 +14,7 @@ class ProgressLineWidget extends StatefulWidget {
   final VoidCallback? onEnd;
   final String? title;
 
-  const ProgressLineWidget({
+  const ProgressTimeLineWidget({
     Key? key,
     required this.startTime,
     required this.endTime,
@@ -26,10 +26,10 @@ class ProgressLineWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ProgressLineWidget> createState() => _ProgressLineWidgetState();
+  State<ProgressTimeLineWidget> createState() => _ProgressTimeLineWidgetState();
 }
 
-class _ProgressLineWidgetState extends State<ProgressLineWidget>
+class _ProgressTimeLineWidgetState extends State<ProgressTimeLineWidget>
     with AutomaticKeepAliveClientMixin {
   ValueNotifier<double> progressWidth = ValueNotifier(0);
   Timer? timer;
