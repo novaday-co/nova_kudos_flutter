@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'events_state.freezed.dart';
+part 'events_list_state.freezed.dart';
 
-abstract class EventsState {}
+abstract class EventsListState {}
 
-class InitEventsState extends EventsState {}
+class InitEventsState extends EventsListState {}
 
 @freezed
-class GetEventsRequestState extends EventsState with _$GetEventsRequestState {
+class GetEventsRequestState extends EventsListState with _$GetEventsRequestState {
   const factory GetEventsRequestState.loading() = LoadingGetEventsRequestState;
 
   const factory GetEventsRequestState.success() = SuccessGetEventsRequestState;

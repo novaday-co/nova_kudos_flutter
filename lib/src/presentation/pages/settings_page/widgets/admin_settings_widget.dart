@@ -91,7 +91,7 @@ class AdminSettingsWidget extends StatelessWidget {
                 title: context.getStrings.manageEvents,
                 icon: Assets.iconEvents,
                 onTap: () {
-                  Navigator.pushNamed(context, Routes.eventsPage);
+                  Navigator.pushNamed(context, Routes.eventsListPage);
                 },
               ),
               Divider(

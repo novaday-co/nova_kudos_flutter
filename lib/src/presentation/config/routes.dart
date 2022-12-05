@@ -10,7 +10,7 @@ abstract class Routes {
   static const landingPage = _Paths.landingPage;
   static const createShopPage = _Paths.createShopPage;
   static const transactionsPage = _Paths.transactionsPage;
-  static const eventsPage = _Paths.eventsPage;
+  static const eventsListPage = _Paths.eventsListPage;
   static const pullsListPage = _Paths.pullsListPage;
 }
 
@@ -25,6 +25,6 @@ abstract class _Paths {
   static const createShopPage = '/create-shop';
   static const transactionsPage = '/transaction';
   static const pullsListPage = '/pulls';
-  static const eventsPage = '/events';
+  static const eventsListPage = '/events';
 
 }

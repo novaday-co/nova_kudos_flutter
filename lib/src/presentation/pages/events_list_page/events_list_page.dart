@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/events_cubit/events_cubit.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/events_cubit/events_state.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/events_list_cubit/events_list_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/events_list_cubit/events_list_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/events_page/widgets/event_item_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/events_page/widgets/events_page_skeleton.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/events_list_page/widgets/event_item_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/events_list_page/widgets/events_page_skeleton.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
 
-class EventsPage extends BaseStatefulWidget {
-  const EventsPage({Key? key}) : super(key: key);
+class EventsListPage extends BaseStatefulWidget {
+  const EventsListPage({Key? key}) : super(key: key);
 
   @override
-  State<EventsPage> createState() => _EventsPageState();
+  State<EventsListPage> createState() => _EventsPageState();
 }
 
 class _EventsPageState
-    extends BaseStatefulWidgetState<EventsPage, EventsCubit> {
+    extends BaseStatefulWidgetState<EventsListPage, EventsListCubit> {
   @override
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
@@ -48,7 +48,7 @@ class _EventsPageState
   @override
   void initState() {
     postFrameCallback(() {
-      context.read<EventsCubit>().getEvents();
+      context.read<EventsListCubit>().getEvents();
     });
 
     super.initState();
@@ -56,7 +56,7 @@ class _EventsPageState
 
   @override
   Widget body(BuildContext context) {
-    return BlocBuilder<EventsCubit, EventsState>(
+    return BlocBuilder<EventsListCubit, EventsListState>(
       builder: (context, state) {
         if (state is GetEventsRequestState) {
           return state.when(
