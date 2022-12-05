@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/events_cubit/events_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/home_cubit/home_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/landing_cubit/landing_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_cubit.dart';
@@ -16,6 +17,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/complete_profile_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/create_shop_page.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/events_page/events_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/landing_page/landing_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/login_signup/login_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/notification/notification_page.dart';
@@ -78,7 +80,11 @@ class RouteGenerator {
       Routes.transactionsPage: (context) => BlocProvider(
             create: (context) => TransactionsCubit(),
             child: const TransactionsPage(),
-          )
+          ),
+      Routes.eventsPage: (context) => BlocProvider(
+        create: (context) => EventsCubit(),
+        child: const EventsPage(),
+      ),
     };
   }
 }
