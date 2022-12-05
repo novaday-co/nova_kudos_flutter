@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget.dart';
@@ -89,7 +90,9 @@ class AdminSettingsWidget extends StatelessWidget {
               SettingsItemWidget(
                 title: context.getStrings.manageEvents,
                 icon: Assets.iconEvents,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.eventsPage);
+                },
               ),
               Divider(
                 color: Theme.of(context).colorScheme.outline,
