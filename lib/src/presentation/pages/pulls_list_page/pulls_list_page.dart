@@ -34,7 +34,7 @@ class _PullsListPageState
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
       hasBackButton: true,
-      title: context.getStrings.transactions,
+      title: context.getStrings.pulls,
       onPressBack: () {
         Navigator.pop(context);
       },

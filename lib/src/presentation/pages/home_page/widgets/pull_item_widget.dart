@@ -5,6 +5,7 @@ import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_e
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/progress_line_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
+import 'package:sprintf/sprintf.dart';
 
 class PullItemWidget extends StatelessWidget {
   final PullModel pull;
@@ -73,7 +74,10 @@ class PullItemWidget extends StatelessWidget {
                 Visibility(
                   visible: pull.selectedOption != null,
                   child: TextWidget.medium(
-                    "${context.getStrings.yourChoice} ${pull.selectedOption}",
+                    sprintf(
+                      context.getStrings.phYourVote,
+                      [pull.selectedOption],
+                    ),
                     context: context,
                     additionalStyle: TextStyle(
                       fontSize: 12,
@@ -93,8 +97,9 @@ class PullItemWidget extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: ProgressTimeLineWidget(
-                      startTime: DateTime.now().subtract(const Duration(seconds: 30)),
-                      endTime:  DateTime.now().add(const Duration(seconds: 120)),
+                      startTime:
+                          DateTime.now().subtract(const Duration(seconds: 30)),
+                      endTime: DateTime.now().add(const Duration(seconds: 120)),
                       onEnd: onEnd,
                       backgroundColor: context.getColorByIndex(index),
                     ),
@@ -105,7 +110,10 @@ class PullItemWidget extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: TextWidget.medium(
-                      "${pull.contributors} ${context.getStrings.personContributors}",
+                      sprintf(
+                        context.getStrings.phPersonContributors,
+                        [pull.contributors],
+                      ),
                       context: context,
                       textAlign: TextAlign.end,
                       additionalStyle: TextStyle(

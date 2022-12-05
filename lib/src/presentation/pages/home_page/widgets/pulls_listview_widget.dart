@@ -57,7 +57,7 @@ class HomePullsListViewWidget extends StatelessWidget {
               height: 8,
             ),
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            itemCount: 1,
+            itemCount: 2,
           ),
         ),
       ],

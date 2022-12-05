@@ -22,9 +22,7 @@
   "bronzeMedal": "مدال برنز",
   "profile": "پروفایل",
   "notifications": "اطلاعیه ها",
-  "yourChoice": "رای تو",
   "remainingTime": "زمان باقی مانده",
-  "personContributors": "نفر شرکت کننده",
   "days": "روز",
   "pulls": "نظرسنجی ها",
   "voluntaryEvents": "ایونت های داوطلبانه",
@@ -73,7 +71,11 @@
   "phTimeLeft": "زمان باقی مانده %s",
   "phPerson": "%s نفر",
   "phDay": "%s روز",
-  "edit": "ویرایش"
+  "edit": "ویرایش",
+  "phYourVote": "رای تو %s",
+  "phPersonContributors": "%s نفر شرکت کننده"
+
+
 
 
 
