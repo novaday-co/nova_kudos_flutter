@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/events_cubit/events_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/events_cubit/events_state.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/events_page/widgets/event_item_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/events_page/widgets/events_page_skeleton.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
@@ -41,14 +45,34 @@ class _EventsPageState
   }
 
   @override
+  void initState() {
+    postFrameCallback(() {
+      context.read<EventsCubit>().getEvents();
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget body(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      itemCount: 12,
-      itemBuilder: (context, index) => EventItemWidget(
-        onEventLongPress: () {},
-      ),
-      separatorBuilder: (context, index) => const SizedBox(height: 8),
+    return BlocBuilder<EventsCubit, EventsState>(
+      builder: (context, state) {
+        if (state is GetEventsRequestState) {
+          return state.when(
+            loading: () => const EventsPageSkeleton(),
+            success: () => ListView.separated(
+              shrinkWrap: true,
+              itemCount: 12,
+              itemBuilder: (context, index) => EventItemWidget(
+                onEventLongPress: () {},
+              ),
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+            ),
+            failed: (error) => const SizedBox.shrink(),
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }

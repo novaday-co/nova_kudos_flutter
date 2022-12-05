@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/skeleton_widget.dart';
 
 class EventsPageSkeleton extends StatelessWidget {
@@ -10,10 +11,11 @@ class EventsPageSkeleton extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 8,
       shrinkWrap: true,
-      itemBuilder: (context, index) => Container(
-        height: 88,
-        padding: const EdgeInsets.all(16),
-        color: Theme.of(context).colorScheme.onBackground,
+      itemBuilder: (context, index) => BackgroundWidget(
+        borderRadius: 16,
+        verticalPadding: 16,
+        horizontalPadding: 16,
+        backgroundColor: Theme.of(context).colorScheme.onBackground,
         child: Column(
           children: [
             Row(
@@ -44,7 +46,9 @@ class EventsPageSkeleton extends StatelessWidget {
                       (index) => Positioned(
                         right: index * (24 * .72),
                         child: const SkeletonWidget.circular(
-                            width: 24, height: 24),
+                          width: 24,
+                          height: 24,
+                        ),
                       ),
                     ),
                   ),
