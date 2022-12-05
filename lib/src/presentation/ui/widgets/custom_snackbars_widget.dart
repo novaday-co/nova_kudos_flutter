@@ -14,7 +14,9 @@ class KodusSnackBars {
   }) {
     BotToast.showCustomNotification(
       toastBuilder: (cancelFunc) => _snackBarWidget(context, snackType, title),
-      duration: const Duration(seconds: 2)
+      duration: const Duration(milliseconds: 2500),
+      animationDuration: const Duration(milliseconds: 600),
+      useSafeArea: true,
     );
   }
 
@@ -23,14 +25,15 @@ class KodusSnackBars {
     return Card(
       color: Colors.white,
       margin: const EdgeInsets.symmetric(horizontal: 16),
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
-          color: snackTypeColor(context, snackType),
+          color: _snackTypeColor(context, snackType),
         ),
       ),
       child: Container(
-        color: snackTypeColor(context, snackType).withOpacity(0.1),
+        color: _snackTypeColor(context, snackType).withOpacity(0.1),
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,
@@ -38,7 +41,7 @@ class KodusSnackBars {
         child: Row(
           children: [
             LottieAnimations.customLottie(
-                lottieAsset: snackTypeAsset(snackType,),
+                lottieAsset: _snackTypeAsset(snackType,),
                 height: 30,
                 width: 30,
                 scale: 2.5
@@ -50,7 +53,7 @@ class KodusSnackBars {
                 context: context,
                 additionalStyle: TextStyle(
                   fontSize: 14,
-                  color: snackTypeColor(context, snackType),
+                  color: _snackTypeColor(context, snackType),
                 ),
               ),
             ),
@@ -61,7 +64,7 @@ class KodusSnackBars {
     );
   }
 
-  static String snackTypeAsset(SnackType snackType) {
+  static String _snackTypeAsset(SnackType snackType) {
     switch (snackType) {
       case SnackType.success:
         return Assets.lottieSuccess;
@@ -70,7 +73,7 @@ class KodusSnackBars {
     }
   }
 
-  static Color snackTypeColor(BuildContext context, SnackType snackType) {
+  static Color _snackTypeColor(BuildContext context, SnackType snackType) {
     switch (snackType) {
       case SnackType.success:
         return Theme.of(context).colorScheme.surfaceVariant;
