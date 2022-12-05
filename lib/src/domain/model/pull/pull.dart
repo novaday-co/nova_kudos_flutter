@@ -1,13 +1,15 @@
-class Pull {
+class PullModel {
   String? title;
   int? contributors;
   DateTime? endAt;
+  DateTime? startedAt;
   String? selectedOption;
 
-  Pull({
+  PullModel({
     this.title,
     this.contributors,
     this.endAt,
     this.selectedOption,
+    this.startedAt,
   });
 }
