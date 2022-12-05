@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/events_cubit/events_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/events_cubit/events_state.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/events_page/widgets/event_item_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/events_page/widgets/events_page_skeleton.dart';
@@ -22,7 +23,7 @@ class _EventsPageState
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
       hasBackButton: true,
-      title: 'ایونت های داوطلبانه',
+      title: context.getStrings.voluntaryEvents,
       onPressBack: () {
         Navigator.pop(context);
       },
