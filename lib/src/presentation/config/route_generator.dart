@@ -9,6 +9,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/login_cubit/login_cubit.dart'
 import 'package:nova_kudos_flutter/src/domain/bloc/members_cubit/members_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/notification_cubit/notification_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/profile_cubit/profile_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/pulls_list_cubit/pulls_list_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/settings_cubit/settings_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/shop_cubit/shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dart';
@@ -22,6 +23,7 @@ import 'package:nova_kudos_flutter/src/presentation/pages/landing_page/landing_p
 import 'package:nova_kudos_flutter/src/presentation/pages/login_signup/login_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/notification/notification_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/profile/profile_page.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/pulls_list_page/pulls_list_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/splash/splash_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/transactions_page/transactions_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/verify_code_page.dart';
@@ -81,6 +83,11 @@ class RouteGenerator {
             create: (context) => TransactionsCubit(),
             child: const TransactionsPage(),
           ),
+      Routes.pullsListPage: (context) => BlocProvider(
+            create: (context) => PullsListCubit(),
+            child: const PullsListPage(),
+          ),
+
       Routes.eventsPage: (context) => BlocProvider(
         create: (context) => EventsCubit(),
         child: const EventsPage(),

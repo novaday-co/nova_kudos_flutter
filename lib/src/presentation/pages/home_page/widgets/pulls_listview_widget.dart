@@ -24,7 +24,9 @@ class HomePullsListViewWidget extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.pullsListPage);
+                },
                 child: TextWidget.regular(
                   context.getStrings.seeAll,
                   context: context,
@@ -41,11 +43,11 @@ class HomePullsListViewWidget extends StatelessWidget {
           height: 180,
           child: ListView.separated(
             itemBuilder: (context, index) => PullItemWidget(
-              pull: Pull(
+              pull: PullModel(
                 title: "بهترین کارمند سال",
                 contributors: 555,
                 selectedOption: "محسن جلالی",
-                endAt: DateTime.now().add(const Duration(days: 2)),
+                endAt: DateTime.now().add(const Duration(days: 1)),
               ),
               onEnd: () {},
               index: index,
@@ -55,7 +57,7 @@ class HomePullsListViewWidget extends StatelessWidget {
               height: 8,
             ),
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            itemCount: 5,
+            itemCount: 2,
           ),
         ),
       ],

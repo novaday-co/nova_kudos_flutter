@@ -11,17 +11,20 @@ abstract class Routes {
   static const createShopPage = _Paths.createShopPage;
   static const transactionsPage = _Paths.transactionsPage;
   static const eventsPage = _Paths.eventsPage;
+  static const pullsListPage = _Paths.pullsListPage;
 }
 
 abstract class _Paths {
   static const splash = '/';
   static const login = '/login';
   static const verifyCode = '/verify-code';
-  static const completeProfile = '/complete_profile';
+  static const completeProfile = '/complete-profile';
   static const notification = '/notification';
   static const profile = '/profile';
-  static const landingPage = '/landing_page';
-  static const createShopPage = '/create_shop';
-  static const transactionsPage = '/transaction_page';
+  static const landingPage = '/landing-page';
+  static const createShopPage = '/create-shop';
+  static const transactionsPage = '/transaction';
+  static const pullsListPage = '/pulls';
   static const eventsPage = '/events';
+
 }
