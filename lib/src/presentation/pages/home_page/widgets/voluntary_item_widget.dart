@@ -40,7 +40,7 @@ class VoluntaryItemWidget extends StatelessWidget {
             children: [
               const Expanded(
                 child: RowMembersPictures(
-                  length: 5,
+                  maxLength: 5,
                   images: [
                     "https://loremflickr.com/640/360",
                     "https://loremflickr.com/640/360",
