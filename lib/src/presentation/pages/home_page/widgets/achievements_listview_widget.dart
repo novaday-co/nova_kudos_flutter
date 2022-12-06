@@ -25,10 +25,10 @@ class RecentAchievementWidget extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, Routes.profile);
+                  Navigator.pushNamed(context, Routes.winnersListPage);
                 },
                 child: TextWidget.regular(
-                  context.getStrings.myMedals,
+                  context.getStrings.seeAll,
                   context: context,
                   additionalStyle: const TextStyle(fontSize: 14),
                 ),

@@ -15,6 +15,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/shop_cubit/shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/transactions_cubit/transactions_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_list_cubit.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/complete_profile_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/create_shop_page.dart';
@@ -27,6 +28,7 @@ import 'package:nova_kudos_flutter/src/presentation/pages/pulls_list_page/pulls_
 import 'package:nova_kudos_flutter/src/presentation/pages/splash_page/splash_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/transactions_page/transactions_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/verify_code_page.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/winners_list_page/winners_list_page.dart';
 
 class RouteGenerator {
   static Map<String, WidgetBuilder> getRoutes(RouteSettings settings) {
@@ -91,6 +93,10 @@ class RouteGenerator {
       Routes.eventsListPage: (context) => BlocProvider(
         create: (context) => EventsListCubit(),
         child: const EventsListPage(),
+      ),
+      Routes.winnersListPage: (context) => BlocProvider(
+        create: (context) => WinnersListCubit(),
+        child: const WinnersListPage(),
       ),
     };
   }

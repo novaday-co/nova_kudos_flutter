@@ -12,6 +12,7 @@ abstract class Routes {
   static const transactionsPage = _Paths.transactionsPage;
   static const eventsListPage = _Paths.eventsListPage;
   static const pullsListPage = _Paths.pullsListPage;
+  static const winnersListPage = _Paths.winnersListPage;
 }
 
 abstract class _Paths {
@@ -26,5 +27,6 @@ abstract class _Paths {
   static const transactionsPage = '/transaction';
   static const pullsListPage = '/pulls';
   static const eventsListPage = '/events';
+  static const winnersListPage = '/winners';
 
 }
