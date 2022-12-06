@@ -6,9 +6,9 @@ import 'package:nova_kudos_flutter/src/domain/bloc/profile_cubit/profile_state.d
 import 'package:nova_kudos_flutter/src/domain/model/achievement/achievement.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/profile/widgets/circular_medal_item.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/profile/widgets/medal_list_item.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/profile/widgets/profile_page_skeleton.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/profile_page/widgets/circular_medal_item.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/profile_page/widgets/medal_list_item.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/profile_page/widgets/profile_page_skeleton.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/components/row_user_profile.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';

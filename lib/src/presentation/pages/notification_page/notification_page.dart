@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/notification_page/widgets/notification_item_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/notification_page/widgets/notification_page_skeleton.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/notification_cubit/notification_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/notification_cubit/notification_state.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/notification/widgets/notification_item_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/notification/widgets/notification_page_skeleton.dart';
+
 
 class NotificationPage extends BaseStatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);

@@ -5,9 +5,9 @@ import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/param/verify_code_page_param.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/widgets/code_input_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/verify_code/widgets/count_down_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/param/verify_code_page_param.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/widgets/code_input_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/widgets/count_down_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
