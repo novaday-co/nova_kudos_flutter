@@ -11,11 +11,16 @@ class HomeHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Expanded(
-          child: RowUserProfile(
-            imageUrl: "https://loremflickr.com/640/360",
-            name: "سارا تهرانی",
-            jobTitle: "برنامه نویس موبایل",
+         Expanded(
+          child: InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, Routes.profile);
+            },
+            child:const  RowUserProfile(
+              imageUrl: "https://loremflickr.com/640/360",
+              name: "سارا تهرانی",
+              jobTitle: "برنامه نویس موبایل",
+            ),
           ),
         ),
         const SizedBox(
