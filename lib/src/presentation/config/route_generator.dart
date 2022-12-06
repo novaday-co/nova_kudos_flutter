@@ -21,7 +21,7 @@ import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/creat
 import 'package:nova_kudos_flutter/src/presentation/pages/events_list_page/events_list_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/landing_page/landing_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/login_signup/login_page.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/notification/notification_page.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/notification_page/notification_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/profile/profile_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/pulls_list_page/pulls_list_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/splash/splash_page.dart';
