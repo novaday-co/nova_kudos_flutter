@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/bloc_exception_handler.dart';
+import 'package:nova_kudos_flutter/src/domain/config/env/environment.dart';
 import 'package:nova_kudos_flutter/src/injector.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/animated_page_route_builder.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/navigation_observer.dart';
@@ -15,12 +17,10 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Environment.loadEnvironment();
   await Injector.inject();
-  BlocOverrides.runZoned(
-    () => runApp(
-      const MyApp(),
-    ),
-  );
+  Bloc.observer = BlocExceptionHandler();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +47,8 @@ class MyApp extends StatelessWidget {
         ScrollConfiguration(
           behavior: AccessScrollBehavior(),
           child: GestureDetector(
-            onPanDown: (detail) => FocusManager.instance.primaryFocus?.unfocus(),
+            onPanDown: (detail) =>
+                FocusManager.instance.primaryFocus?.unfocus(),
             child: botToastBuilder(context, child),
           ),
         ),
