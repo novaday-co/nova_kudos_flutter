@@ -1,3 +1,3 @@
-const bool isRelease = String.fromEnvironment("BUILD_TYPE") == "RELEASE";
-const bool isDev = String.fromEnvironment("BUILD_TYPE") == "DEV";
+const bool isProduction = String.fromEnvironment("BUILD_TYPE") == "PRODUCTION";
+const bool isDevelopment = String.fromEnvironment("BUILD_TYPE") == "DEVELOPMENT";
 bool isTest = false;
