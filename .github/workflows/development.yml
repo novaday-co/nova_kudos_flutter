@@ -3,7 +3,7 @@ name: "Build & Release"
 on:
   push:
     branches: [develop]
-    
+
 jobs:
   development:
     name: 🎉 Deploy development
@@ -11,33 +11,33 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v1
-      
+
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-          
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.3.9'
           cache: true
-          
-      - name: Get packages    
+
+      - name: Get packages
         run: flutter pub get
 
-       - name: Build Runner
-         run: flutter packages pub run build_runner build --delete-conflicting-outputs
-      
+      - name: Build Runner
+        run: flutter packages pub run build_runner build --delete-conflicting-outputs
+
       - name: Build Development
         run: flutter build apk --flavor development -t lib/main_development.dart  --dart-define=BUILD_TYPE=DEVELOPMENT
-      
+
       - name: Get Development Apk Info
         id: apk
         uses: JantHsueh/get-apk-info-action@master
         with:
-         apkPath: build/app/outputs/flutter-apk/app-development-release.apk
-      
+          apkPath: build/app/outputs/flutter-apk/app-development-release.apk
+
       - name: Upload Apk Development
         uses: bayssmekanique/action-simple-file-upload@v1
         with:
@@ -88,3 +88,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           src: 'build/app/outputs/flutter-apk/app-production-release.apk'
           dest: '/domains/mobile-releases.novaday.ir/public_html/kudos-production-${{ steps.apk.outputs.versionNum }}.apk'
+
+
