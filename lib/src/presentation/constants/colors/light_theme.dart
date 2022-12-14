@@ -9,6 +9,11 @@ ThemeData get lightTheme {
     dividerColor: Colors.transparent,
     scaffoldBackgroundColor: BackgroundColor.light,
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: TextPrimaryColor.light,
+      selectionColor: PrimaryColor.light,
+      selectionHandleColor: PrimaryColor.light,
+    ),
     bottomSheetTheme: BottomSheetThemeData(
       backgroundColor: BackgroundColor.light,
     ),
@@ -23,15 +28,22 @@ ThemeData get lightTheme {
     colorScheme: ColorScheme.light(
       brightness: Brightness.light,
       primary: PrimaryColor.light,
+      error: PrimaryColor.light,
       background: BackgroundColor.light,
+      onBackground: BackgroundSecondaryColor.light,
+      onSecondary: BackgroundTertiaryColor.light,
       tertiary: TextPrimaryColor.light,
       onTertiary: TextSubtitleColor.light,
       tertiaryContainer: DisabledTextColor.light,
+      onTertiaryContainer: TextButtonColor.light,
       surfaceTint: DisabledColor.light,
       outline: BorderColor.light,
       surface: YellowColor.light,
       onSurface: BlueColor.light,
       surfaceVariant: GreenColor.light,
+      onSurfaceVariant: ActiveBorderColor.light,
+      inverseSurface: HoverColor.light,
+      onPrimary: SecondaryRed.light,
     ),
   );
 }

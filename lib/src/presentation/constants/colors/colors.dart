@@ -12,6 +12,12 @@ class TextPrimaryColor{
   static Color get dark => const Color(0xff353535);
 }
 
+class TextButtonColor{
+  static Color get light => const Color(0xffFFFFFF);
+
+  static Color get dark => const Color(0xffFFFFFF);
+}
+
 class TextSubtitleColor{
   static Color get light => const Color(0xff818181);
 
@@ -25,9 +31,21 @@ class DisabledTextColor{
 }
 
 class BackgroundColor{
-  static Color get light => const Color(0xffDFDFDF);
+  static Color get light => const Color(0xffFAFAFA);
 
-  static Color get dark => const Color(0xffDFDFDF);
+  static Color get dark => const Color(0xffFAFAFA);
+}
+
+class BackgroundSecondaryColor{
+  static Color get light => const Color(0xffFFFFFF);
+
+  static Color get dark => const Color(0xffFFFFFF);
+}
+
+class BackgroundTertiaryColor{
+  static Color get light => const Color(0xffF6F6F6);
+
+  static Color get dark => const Color(0xffF6F6F6);
 }
 
 class YellowColor{
@@ -59,4 +77,32 @@ class DisabledColor{
 
   static Color get dark => const Color(0xffE9E9EA);
 }
+class ActiveBorderColor{
+  static Color get light => const Color(0xff4E4E4E);
 
+  static Color get dark => const Color(0xff4E4E4E);
+}
+
+class HoverColor{
+  static Color get light => const Color(0xffFF6C88);
+
+  static Color get dark => const Color(0xffFF6C88);
+}
+
+class SecondaryRed{
+  static Color get light => const Color(0xffFFEBEA);
+
+  static Color get dark => const Color(0xffFFEBEA);
+}
+
+class ShimmerBaseColor {
+  static Color get light => const Color(0xffF5F5F5);
+
+  static Color get dark => const Color(0xff3f3f4a);
+}
+
+class ShimmerHighlightColor {
+  static Color get light => const Color(0xffecebeb);
+
+  static Color get dark => const Color(0xff797979);
+}

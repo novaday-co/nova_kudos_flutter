@@ -7,3 +7,7 @@ String getFontFamily(BuildContext context) {
   }
   return Styles.persianFont;
 }
+
+void postFrameCallback(VoidCallback callback) {
+  WidgetsBinding.instance.addPostFrameCallback((timeStamp) => callback.call());
+}
