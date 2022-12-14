@@ -1,46 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+    <!--
+      If you are serving your web app in a path other than the root, change the
+      href value below to reflect the base path you are serving from.
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+      The path provided below has to start and end with a slash "/" in order for
+      it to work correctly.
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+      For more details:
+      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+      This is a placeholder for base href that will be replaced by the value of
+      the `--base-href` argument provided to `flutter build`.
+    -->
+    <base href="$FLUTTER_BASE_HREF">
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="A new Flutter project.">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="nova_kudos_flutter">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="nova_kudos_flutter">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.ico"/>
 
-  <title>nova_kudos_flutter</title>
-  <link rel="manifest" href="manifest.json">
+    <title>Nova Kudos</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css" type="text/css">
 
-  <script>
+    <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
+    <script src="script.js"></script>
+
 </head>
 <body>
-  <script>
+<!-- Capture PWA install prompt event -->
+<script>
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      deferredPrompt = e;
+    });
+
+    function promptInstall(){
+       deferredPrompt.prompt();
+    }
+
+    // Listen for app install event
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      appInstalled();
+    });
+
+    // Track how PWA was launched (either from browser or as PWA)
+    function getLaunchMode() {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+      if(deferredPrompt) hasPrompt();
+      if (document.referrer.startsWith('android-app://')) {
+        appLaunchedAsTWA();
+      } else if (navigator.standalone || isStandalone) {
+        appLaunchedAsPWA();
+      } else {
+        window.appLaunchedInBrowser();
+      }
+    }
+</script>
+
+    <div class="loading-container">
+        <div id='circle'>
+            <div class='pointer'></div>
+            <div class='pointer'></div>
+            <div class='pointer'></div>
+            <div class='pointer'></div>
+            <div class='pointer'></div>
+            <div class='pointer'></div>
+            <div class='pointer'></div>
+        </div>
+    </div>
+
+<script>
+
+    const removeLoading = ()=>{
+       document.querySelector(".loading-container").remove();
+    }
+
+    window.addEventListener("flutter-first-frame",function(){ removeLoading(); });
+
+
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -53,6 +109,7 @@
         return appRunner.runApp();
       });
     });
-  </script>
+
+</script>
 </body>
 </html>

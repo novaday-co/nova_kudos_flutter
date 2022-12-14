@@ -1,3 +1,4 @@
+import 'package:nova_kudos_flutter/src/domain/config/env/environment.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +6,6 @@ import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/bloc_exception_handler.dart';
-import 'package:nova_kudos_flutter/src/domain/config/env/environment.dart';
 import 'package:nova_kudos_flutter/src/injector.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/animated_page_route_builder.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/navigation_observer.dart';

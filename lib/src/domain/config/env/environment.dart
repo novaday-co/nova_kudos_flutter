@@ -4,10 +4,12 @@ import 'package:nova_kudos_flutter/src/domain/config/env/constants.dart';
 class Environment {
 
   static Future<void> loadEnvironment() async  {
-    if(isRelease){
+    if(isProduction){
       await dotenv.load(fileName: "production.env");
     }
-    await dotenv.load(fileName: "development.env");
+    else{
+      await dotenv.load(fileName: "development.env");
+    }
   }
 
   static String get baseURL {
