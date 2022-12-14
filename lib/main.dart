@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/bloc_exception_handler.dart';
+import 'package:nova_kudos_flutter/src/domain/config/env/constants.dart';
 import 'package:nova_kudos_flutter/src/domain/config/env/environment.dart';
 import 'package:nova_kudos_flutter/src/injector.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/animated_page_route_builder.dart';
@@ -18,6 +19,11 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Environment.loadEnvironment();
+
+  print(Environment.baseURL);
+  print(isProduction);
+
+
   await Injector.inject();
   Bloc.observer = BlocExceptionHandler();
   runApp(const MyApp());
