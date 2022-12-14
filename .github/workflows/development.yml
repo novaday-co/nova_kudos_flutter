@@ -2,7 +2,7 @@ name: "Build & Release"
 
 on:
   push:
-    branches: [develop]
+    branches: [stage]
 
 jobs:
   development:
@@ -80,7 +80,7 @@ jobs:
         with:
           apkPath: build/app/outputs/flutter-apk/app-production-release.apk
 
-      - name: Upload Apk Development
+      - name: Upload Apk production
         uses: bayssmekanique/action-simple-file-upload@v1
         with:
           host: ${{ secrets.FTP_HOST }}
