@@ -19,11 +19,6 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Environment.loadEnvironment();
-
-  print(Environment.baseURL);
-  print(isProduction);
-
-
   await Injector.inject();
   Bloc.observer = BlocExceptionHandler();
   runApp(const MyApp());
