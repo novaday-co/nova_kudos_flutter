@@ -11,4 +11,8 @@ abstract class AuthApi extends BaseApi {
     required String mobileNumber,
     required String otp,
   });
+
+  Future<ApiResponse> resendOtp({
+    required String mobile,
+  });
 }

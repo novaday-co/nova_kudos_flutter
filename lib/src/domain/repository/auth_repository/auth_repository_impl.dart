@@ -36,4 +36,13 @@ class AuthRepositoryImpl extends AuthRepository {
       dataMapper: () => response.data!.mapToModel,
     );
   }
+
+  @override
+  Future<ResultModel> resendOtp({required String mobileNumber})async {
+    final response = await authApi.resendOtp(mobile: mobileNumber);
+    return ApiToResultMapper.mapTo(
+      response: response,
+      dataMapper: () => null,
+    );
+  }
 }

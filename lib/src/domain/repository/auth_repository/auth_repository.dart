@@ -8,4 +8,6 @@ abstract class AuthRepository {
     required String mobileNumber,
     required String otp,
   });
+
+  Future<ResultModel> resendOtp({required String mobileNumber});
 }

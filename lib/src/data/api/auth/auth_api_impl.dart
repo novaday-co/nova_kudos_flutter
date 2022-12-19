@@ -27,4 +27,16 @@ class AuthApiImpl extends AuthApi {
       resultMapper: (data) => UserEntity.fromJson(data),
     );
   }
+
+  @override
+  Future<ApiResponse> resendOtp({required String mobile})async {
+    final response = await apiService.post(
+      'authentication/resend-otp',
+      bodyParameters: {'mobile': mobile},
+    );
+    return ApiResponse.fromResponse(
+      response: response,
+      resultMapper: (data) => null,
+    );
+  }
 }
