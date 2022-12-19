@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/styles/button_styles.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/loading_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
@@ -8,7 +9,7 @@ enum ButtonLoadingType { percentage, circular }
 
 enum ButtonLoadingStatus { complete, loading, normal }
 
-class CustomButton extends StatelessWidget {
+class CustomButton extends StatefulWidget {
   final BuildContext context;
   final Color? foregroundColor;
   final bool? isPrimaryCircularLoading;
@@ -94,20 +95,55 @@ class CustomButton extends StatelessWidget {
         super(key: key);
 
   @override
+  State<CustomButton> createState() => _CustomButtonState();
+}
+
+class _CustomButtonState extends State<CustomButton> {
+  ButtonLoadingStatus buttonLoadingStatus = ButtonLoadingStatus.normal;
+
+  @override
+  void initState() {
+    super.initState();
+    postFrameCallback(() {
+      buttonLoadingStatus = widget.loadingStatus ?? ButtonLoadingStatus.normal;
+      setState(() {});
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.loadingStatus != null) {
+      buttonLoadingStatus = widget.loadingStatus!;
+      setState(() {});
+      checkForResetState();
+    }
+  }
+
+  void checkForResetState() {
+    if(widget.loadingStatus == ButtonLoadingStatus.complete){
+      Future.delayed(const Duration(milliseconds: 600), () {
+        buttonLoadingStatus = ButtonLoadingStatus.normal;
+        setState(() {});
+      });
+    }
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 48,
-      width: width ?? context.screenWidth,
+      height: widget.height ?? 48,
+      width: widget.width ?? context.screenWidth,
       child: ElevatedButton(
-        onPressed: isEnable
+        onPressed: widget.isEnable
             ? () {
-                if (loadingStatus != ButtonLoadingStatus.loading) {
-                  onPressed?.call();
+                if (buttonLoadingStatus != ButtonLoadingStatus.loading) {
+                  widget.onPressed?.call();
                 }
               }
             : null,
-        style: style,
-        statesController: MaterialStatesController(),
+        style: widget.style,
         child: Container(
           clipBehavior: Clip.antiAlias,
           decoration: const BoxDecoration(
@@ -115,7 +151,7 @@ class CustomButton extends StatelessWidget {
           ),
           child: Builder(
             builder: (context) {
-              switch (loadingType) {
+              switch (widget.loadingType) {
                 case ButtonLoadingType.percentage:
                   return percentageLoading(context);
                 default:
@@ -130,15 +166,15 @@ class CustomButton extends StatelessWidget {
 
   Widget buttonTitleWidget(BuildContext context) {
     return TextWidget(
-      text ?? "",
+      widget.text ?? "",
       context: context,
     );
   }
 
   Widget circularLoading(BuildContext context) {
-    if (loadingStatus == ButtonLoadingStatus.loading) {
+    if (buttonLoadingStatus == ButtonLoadingStatus.loading) {
       return Loading(
-        primaryLoading: isPrimaryCircularLoading,
+        primaryLoading: widget.isPrimaryCircularLoading,
       );
     }
     return buttonTitleWidget(context);
@@ -165,13 +201,14 @@ class CustomButton extends StatelessWidget {
   }
 
   double get _percentageLoadingWidth {
-    switch (loadingStatus) {
+    switch (buttonLoadingStatus) {
       case ButtonLoadingStatus.complete:
-        return context.screenWidth;
+        return widget.context.screenWidth;
       case ButtonLoadingStatus.loading:
-        return context.screenWidth * .3;
+        return widget.context.screenWidth * .3;
       default:
         return 0;
     }
   }
+
 }
