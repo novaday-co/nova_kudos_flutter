@@ -1,9 +1,11 @@
 import 'package:nova_kudos_flutter/src/data/entity/prefrences/preferences_entity.dart';
 import 'package:nova_kudos_flutter/src/data/mapper/settings/preferences_entity_to_model.dart';
-import 'package:nova_kudos_flutter/src/data/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/data/storage/hive/hive.dart';
 import 'package:nova_kudos_flutter/src/data/storage/keeper/keeper_actions.dart';
+import 'package:nova_kudos_flutter/src/domain/mapper/user/user_model_to_entity.dart';
 import 'package:nova_kudos_flutter/src/domain/model/settings/prefrences.dart';
+import 'package:nova_kudos_flutter/src/domain/model/user/user_model.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 
 class LocalStorageRepositoryImpl extends LocalStorageRepository {
   LocalStorageRepositoryImpl({required this.keeper, required this.hive});
@@ -44,4 +46,17 @@ class LocalStorageRepositoryImpl extends LocalStorageRepository {
 
     await hive.setPreferences(PreferencesEntity.fromJson(prefJson));
   }
+
+  @override
+  Future<void> clearUser() => hive.clearUser();
+
+  @override
+  Future<String?> getToken() => keeper.getToken();
+
+  @override
+  Future<void> setToken(String token) => keeper.setToken(token);
+
+  @override
+  Future<void> setUser(UserModel userModel) async =>
+      await hive.setUser(userModel.mapToEntity);
 }

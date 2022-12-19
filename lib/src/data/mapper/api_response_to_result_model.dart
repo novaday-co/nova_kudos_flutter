@@ -18,6 +18,9 @@ class ApiToResultMapper {
     if (response.isSuccess) {
       return ResultStatus.success;
     }
+    if (response.isNotFound) {
+      return ResultStatus.notFound;
+    }
     return ResultStatus.failure;
   }
 }

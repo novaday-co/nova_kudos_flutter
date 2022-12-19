@@ -1,10 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/base_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_state.dart';
+import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 
-class VerifyCodeCubit extends Cubit<VerifyCodeState> {
+class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
   late Timer timer;
+  String otp = "";
+
+  AuthRepository authRepository = KiwiContainer().resolve<AuthRepository>();
 
   VerifyCodeCubit() : super(InitVerifyCodeState()) {
     initialTimer();
@@ -38,15 +45,33 @@ class VerifyCodeCubit extends Cubit<VerifyCodeState> {
 
   void postVerify({required String phoneNumber, required String otp}) async {
     emit(const LoadingVerifyRequestState());
-    await Future.delayed(const Duration(seconds: 2));
-    emit(const SuccessVerifyRequestState());
+    await safeCall(
+      apiCall: authRepository.verifyOtp(mobileNumber: phoneNumber, otp: otp),
+      onData: (resultStatus, resultModel) {
+        if (resultStatus == ResultStatus.success) {
+          emit(const VerifyRequestState.success());
+        }
+      },
+      onError: (error) {
+        emit(VerifyRequestState.failed(error));
+      },
+    );
   }
 
-  void postResendCode() async {
+  void postResendCode(String mobileNumber) async {
     emit(const LoadingResendCodeRequestState());
-    await Future.delayed(const Duration(seconds: 2));
-    _reset();
-    emit(const SuccessResendCodeRequestState());
+    await safeCall(
+      apiCall: authRepository.resendOtp(mobileNumber: mobileNumber),
+      onData: (resultStatus, resultModel) {
+        if (resultStatus == ResultStatus.success) {
+          emit(const ResendCodeRequestStates.success());
+          _reset();
+        }
+      },
+      onError: (error) {
+        emit(ResendCodeRequestStates.failed(error));
+      },
+    );
   }
 
   void _reset() {

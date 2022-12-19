@@ -4,6 +4,7 @@ import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/data/storage/hive/hive.dart';
 import 'package:nova_kudos_flutter/src/data/storage/keeper/keeper_actions.dart';
 import 'package:nova_kudos_flutter/src/data/utils/exception.dart';
+import 'package:nova_kudos_flutter/src/domain/config/env/environment.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const bool isDev = String.fromEnvironment("BUILD_TYPE") == "DEV";
@@ -28,6 +29,7 @@ class DioWrapper {
       RequestOptions options, RequestInterceptorHandler handler) async {
     final hive = KiwiContainer().resolve<MyHive>();
     final keeper = KiwiContainer().resolve<KeeperActions>();
+    options.baseUrl = Environment.baseURL;
     options.headers["Accept"] = "application/json";
     options.headers["Content-type"] = "application/json";
     options.headers["locale"] = (await hive.getPreferences())?.language;
@@ -42,6 +44,8 @@ class DioWrapper {
 
   static void _onError(
       DioError options, ErrorInterceptorHandler handler) async {
+    print(options.response?.statusCode);
+    print(options.response);
     if (options.error is SocketException) {
       handler.reject(DioError(requestOptions: options.requestOptions));
     }
@@ -53,13 +57,6 @@ class DioWrapper {
             error: AccessDeniedException(message: options.message),
           ),
         );
-      case HttpStatus.notFound:
-        return handler.reject(
-          DioError(
-            requestOptions: options.requestOptions,
-            error: NotFoundException(message: options.message),
-          ),
-        );
       case 413:
         return handler.reject(
           DioError(
@@ -67,26 +64,10 @@ class DioWrapper {
             error: UnauthorizedException(message: options.message),
           ),
         );
-      case HttpStatus.unprocessableEntity:
-        return handler.reject(
-          DioError(
-            requestOptions: options.requestOptions,
-            error: UnProcessableEntityException(message: options.message),
-          ),
-        );
-      case HttpStatus.internalServerError:
-        return handler.reject(
-          DioError(
-            requestOptions: options.requestOptions,
-            error: ServerError(message: options.message),
-          ),
-        );
       default:
         return handler.resolve(options.response!);
     }
   }
-
-
 
   static PrettyDioLogger _getLoggerInterceptor() {
     return PrettyDioLogger(

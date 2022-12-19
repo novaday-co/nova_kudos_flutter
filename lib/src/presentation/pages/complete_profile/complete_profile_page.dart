@@ -128,7 +128,7 @@ class _CompleteProfilePageState
             label: context.getStrings.phoneNumber,
             textInputType: TextInputType.phone,
             readOnly: true,
-            initValue: params?.phoneNumber ?? "",
+            initValue: params.phoneNumber ?? "",
           ),
         ],
       ),

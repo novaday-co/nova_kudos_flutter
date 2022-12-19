@@ -1,4 +1,4 @@
-enum ResultStatus { success, failure }
+enum ResultStatus { success, failure ,notFound }
 
 class ResultModel<D> {
   D? data;
@@ -21,6 +21,10 @@ class ResultModel<D> {
 
   bool get isFailure {
     return status == ResultStatus.failure;
+  }
+
+  bool get isNotFound {
+    return status == ResultStatus.notFound;
   }
 
 }
