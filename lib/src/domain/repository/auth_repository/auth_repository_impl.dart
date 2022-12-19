@@ -4,13 +4,14 @@ import 'package:nova_kudos_flutter/src/data/mapper/user/user_entity_to_model.dar
 import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/user/user_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final AuthApi authApi;
+  final LocalStorageRepository localStorageRepository;
 
-  AuthRepositoryImpl({
-    required this.authApi,
-  });
+  AuthRepositoryImpl(
+      {required this.authApi, required this.localStorageRepository});
 
   @override
   Future<ResultModel> login({required String mobileNumber}) async {
@@ -26,9 +27,13 @@ class AuthRepositoryImpl extends AuthRepository {
       {required String mobileNumber, required String otp}) async {
     final response =
         await authApi.verifyOtp(mobileNumber: mobileNumber, otp: otp);
+    if (response.isSuccess) {
+      localStorageRepository.setUser(response.data!.mapToModel);
+      localStorageRepository.setToken(response.data!.token!);
+    }
     return ApiToResultMapper.mapTo(
       response: response,
-      dataMapper: () => response.data!.mapToModel(),
+      dataMapper: () => response.data!.mapToModel,
     );
   }
 }
