@@ -15,7 +15,7 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dar
 import 'package:sprintf/sprintf.dart';
 
 class VerifyCodePage extends BaseStatelessWidget {
-   VerifyCodePage({Key? key}) : super(key: key);
+  VerifyCodePage({Key? key}) : super(key: key);
   late VerifyCodePageParam? params;
 
   @override
@@ -87,7 +87,9 @@ class VerifyCodePage extends BaseStatelessWidget {
                 isLoading: state is LoadingResendCodeRequestState,
                 remained: remained,
                 onTimeoutClick: () {
-                  context.read<VerifyCodeCubit>().postResendCode();
+                  context
+                      .read<VerifyCodeCubit>()
+                      .postResendCode(params?.phoneNumber ?? '');
                 },
               );
             },
@@ -119,7 +121,9 @@ class VerifyCodePage extends BaseStatelessWidget {
   ///region Bloc When Conditions Functions
 
   bool _buildWhenTimer(VerifyCodeState previous, VerifyCodeState current) {
-    return current is TimerStates || current is LoadingResendCodeRequestState;
+    return current is TimerStates ||
+        current is LoadingResendCodeRequestState ||
+        current is FailedResendCodeRequestState;
   }
 
   bool _buildWhenVerifyCode(VerifyCodeState previous, VerifyCodeState current) {

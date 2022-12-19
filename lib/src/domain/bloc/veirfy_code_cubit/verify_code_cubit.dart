@@ -58,11 +58,20 @@ class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
     );
   }
 
-  void postResendCode() async {
+  void postResendCode(String mobileNumber) async {
     emit(const LoadingResendCodeRequestState());
-    await Future.delayed(const Duration(seconds: 2));
-    _reset();
-    emit(const SuccessResendCodeRequestState());
+    await safeCall(
+      apiCall: authRepository.resendOtp(mobileNumber: mobileNumber),
+      onData: (resultStatus, resultModel) {
+        if (resultStatus == ResultStatus.success) {
+          emit(const ResendCodeRequestStates.success());
+          _reset();
+        }
+      },
+      onError: (error) {
+        emit(ResendCodeRequestStates.failed(error));
+      },
+    );
   }
 
   void _reset() {
