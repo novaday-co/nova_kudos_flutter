@@ -1,7 +1,7 @@
 import 'package:nova_kudos_flutter/src/data/api/auth/auth_api.dart';
 import 'package:nova_kudos_flutter/src/data/mapper/api_response_to_result_model.dart';
-import 'package:nova_kudos_flutter/src/data/repository/auth_repository/auth_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final AuthApi authApi;

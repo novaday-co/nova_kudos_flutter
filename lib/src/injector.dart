@@ -1,6 +1,6 @@
 import 'package:nova_kudos_flutter/src/data/di/api_module.dart';
 import 'package:nova_kudos_flutter/src/data/di/network_module.dart';
-import 'package:nova_kudos_flutter/src/data/di/repository_module.dart';
+import 'package:nova_kudos_flutter/src/domain/di/repository_module.dart';
 import 'package:nova_kudos_flutter/src/data/di/storage_module.dart';
 import 'package:nova_kudos_flutter/src/presentation/di/presentation_injection.dart';
 
@@ -12,13 +12,13 @@ class Injector {
   }
 
   static Future<void> injectData() async {
-    await RepositoryModule.inject();
-    await StorageModule.inject();
+    await ApiModule.inject();
     await NetworkModule.inject();
+    await StorageModule.inject();
   }
 
   static _injectDomain() async {
-    await ApiModule.inject();
+    await RepositoryModule.inject();
   }
 
   static _injectPresentation() {
