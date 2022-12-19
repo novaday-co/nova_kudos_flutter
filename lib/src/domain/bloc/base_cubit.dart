@@ -16,10 +16,12 @@ class BaseCubit<T> extends Cubit<T> {
       if (response.isFailure) {
         onError?.call(response.error);
       }
-      onData.call(response.status, response);
+      else{
+        onData.call(response.status, response);
+      }
     } on DioError catch (error) {
       if (error.error is KodusException) {
-        addError(error.error.toString());
+        addError(error.error);
         onError?.call(error.error.toString());
       } else {
         onError?.call(error.message);
