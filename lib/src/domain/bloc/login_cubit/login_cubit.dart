@@ -1,8 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
+import 'package:nova_kudos_flutter/src/data/repository/auth_repository/auth_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/base_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
 
 import 'login_state.dart';
 
-class LoginCubit extends Cubit<LoginState> {
+class LoginCubit extends BaseCubit<LoginState> {
+  AuthRepository authRepository = KiwiContainer().resolve<AuthRepository>();
+
   LoginCubit() : super(LoginInitState());
 
   void validatePhoneNumber(String? input) {
@@ -17,7 +23,16 @@ class LoginCubit extends Cubit<LoginState> {
     required String phoneNumber,
   }) async {
     emit(const LoginRequestState.loading());
-    await Future.delayed(const Duration(seconds: 2));
-    emit(const LoginRequestState.success());
+    await safeCall(
+        apiCall: authRepository.login(mobileNumber: phoneNumber),
+        onData: (resultStatus, resultModel) {
+          if (resultStatus == ResultStatus.success) {
+            emit(const LoginRequestState.success());
+          }
+        },
+        onError: (error) {
+          emit(LoginRequestState.failed(error));
+        });
+    // emit(const LoginRequestState.success());
   }
 }
