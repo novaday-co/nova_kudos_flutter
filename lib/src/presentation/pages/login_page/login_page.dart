@@ -33,6 +33,7 @@ class LoginPage extends BaseStatelessWidget {
           CustomTextField(
             label: context.getStrings.phoneNumber,
             textInputType: TextInputType.phone,
+            maxLength: 11,
             onChanged: (value) {
               phoneNumber = value;
               context.read<LoginCubit>().validatePhoneNumber(value);

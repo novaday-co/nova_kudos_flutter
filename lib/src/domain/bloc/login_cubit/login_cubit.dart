@@ -14,6 +14,9 @@ class LoginCubit extends BaseCubit<LoginState> {
   void validatePhoneNumber(String? input) {
     if (input != null && input.isNotEmpty) {
       emit(const LoginPhoneNumberValidationState.valid());
+    }
+    if (input?.length == 11) {
+      emit(const LoginPhoneNumberValidationState.valid());
     } else {
       emit(const LoginPhoneNumberValidationState.invalid());
     }
@@ -33,6 +36,5 @@ class LoginCubit extends BaseCubit<LoginState> {
         onError: (error) {
           emit(LoginRequestState.failed(error));
         });
-    // emit(const LoginRequestState.success());
   }
 }
