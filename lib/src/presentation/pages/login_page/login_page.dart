@@ -11,7 +11,7 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dar
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_field_widget.dart';
 
 class LoginPage extends BaseStatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   CustomAppbar? appBar(BuildContext context) {
@@ -21,9 +21,6 @@ class LoginPage extends BaseStatelessWidget {
       centerTitle: false,
     );
   }
-
-  String phoneNumber = "";
-
 
   @override
   Widget body(BuildContext context) {
@@ -35,7 +32,7 @@ class LoginPage extends BaseStatelessWidget {
             textInputType: TextInputType.phone,
             maxLength: 11,
             onChanged: (value) {
-              phoneNumber = value;
+              context.read<LoginCubit>().phoneNumber = value;
               context.read<LoginCubit>().validatePhoneNumber(value);
             },
           ),
@@ -51,7 +48,8 @@ class LoginPage extends BaseStatelessWidget {
               loadingStatus: _buttonLoadingStatus(state),
               isEnable: state is LoginValidPhoneNumberState,
               onPressed: () {
-                context.read<LoginCubit>().postLogin(phoneNumber: phoneNumber);
+                context.read<LoginCubit>().postLogin(
+                    phoneNumber: context.read<LoginCubit>().phoneNumber);
               },
             ),
           ),
@@ -60,11 +58,11 @@ class LoginPage extends BaseStatelessWidget {
     );
   }
 
-  ButtonLoadingStatus _buttonLoadingStatus(LoginState state){
-    if(state is LoadingLoginRequestState){
+  ButtonLoadingStatus _buttonLoadingStatus(LoginState state) {
+    if (state is LoadingLoginRequestState) {
       return ButtonLoadingStatus.loading;
     }
-    if(state is SuccessLoginRequestState){
+    if (state is SuccessLoginRequestState) {
       return ButtonLoadingStatus.complete;
     }
     return ButtonLoadingStatus.normal;
@@ -80,6 +78,8 @@ class LoginPage extends BaseStatelessWidget {
   }
 
   void _listenToLoginState(BuildContext context, LoginState state) {
-    Navigator.pushNamed(context, Routes.verifyCode,arguments: VerifyCodePageParam(phoneNumber: phoneNumber));
+    Navigator.pushNamed(context, Routes.verifyCode,
+        arguments: VerifyCodePageParam(
+            phoneNumber: context.read<LoginCubit>().phoneNumber));
   }
 }

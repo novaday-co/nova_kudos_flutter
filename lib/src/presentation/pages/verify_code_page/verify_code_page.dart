@@ -4,6 +4,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/dart_extension.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/param/verify_code_page_param.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/widgets/code_input_widget.dart';
@@ -14,15 +15,15 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dar
 import 'package:sprintf/sprintf.dart';
 
 class VerifyCodePage extends BaseStatelessWidget {
-  VerifyCodePage({Key? key}) : super(key: key);
+   VerifyCodePage({Key? key}) : super(key: key);
   late VerifyCodePageParam? params;
-  String otp = "";
 
   @override
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
       hasBackButton: true,
-      title: sprintf(context.getStrings.confirmCodeSendTo,[params?.phoneNumber??'']),
+      title: sprintf(
+          context.getStrings.confirmCodeSendTo, [params?.phoneNumber ?? '']),
       centerTitle: false,
       onPressBack: () {
         Navigator.pop(context);
@@ -34,18 +35,23 @@ class VerifyCodePage extends BaseStatelessWidget {
   Widget body(BuildContext context) {
     return Column(
       children: [
-        CodeInputWidget(
-          onSubmitted: (value) {
-            otp = value;
-            context
-                .read<VerifyCodeCubit>()
-                .postVerify(phoneNumber: params?.phoneNumber ?? '', otp: otp);
+        BlocBuilder<VerifyCodeCubit, VerifyCodeState>(
+          buildWhen: _buildWhenFailedVerifyCode,
+          builder: (context, state) {
+            return CodeInputWidget(
+              onSubmitted: (value) {
+                context.read<VerifyCodeCubit>().otp = value;
+                context.read<VerifyCodeCubit>().postVerify(
+                    phoneNumber: params?.phoneNumber ?? '',
+                    otp: context.read<VerifyCodeCubit>().otp);
+              },
+              onChanged: (value) {
+                context.read<VerifyCodeCubit>().validateVerifyCode(value);
+              },
+              hasError: state is FailedVerifyRequestState,
+              errorText: state.isA<FailedVerifyRequestState>()?.error,
+            );
           },
-          onChanged: (value) {
-            context.read<VerifyCodeCubit>().validateVerifyCode(value);
-          },
-          hasError: false,
-          errorText: '',
         ),
         const SizedBox(height: 25),
         BlocConsumer<VerifyCodeCubit, VerifyCodeState>(
@@ -62,7 +68,8 @@ class VerifyCodePage extends BaseStatelessWidget {
               isEnable: state is VerifyCodeValidValidationState,
               onPressed: () {
                 context.read<VerifyCodeCubit>().postVerify(
-                    phoneNumber: params?.phoneNumber ?? '', otp: otp);
+                    phoneNumber: params?.phoneNumber ?? '',
+                    otp: context.read<VerifyCodeCubit>().otp);
               },
             );
           },
@@ -118,6 +125,11 @@ class VerifyCodePage extends BaseStatelessWidget {
   bool _buildWhenVerifyCode(VerifyCodeState previous, VerifyCodeState current) {
     return current is VerifyRequestState ||
         current is VerifyCodeValidationState;
+  }
+
+  bool _buildWhenFailedVerifyCode(
+      VerifyCodeState previous, VerifyCodeState current) {
+    return current is FailedVerifyRequestState;
   }
 
   ///endregion

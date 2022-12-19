@@ -9,6 +9,8 @@ import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_re
 
 class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
   late Timer timer;
+  String otp = "";
+
   AuthRepository authRepository = KiwiContainer().resolve<AuthRepository>();
 
   VerifyCodeCubit() : super(InitVerifyCodeState()) {

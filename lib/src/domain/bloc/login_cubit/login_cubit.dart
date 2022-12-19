@@ -7,6 +7,7 @@ import 'login_state.dart';
 
 class LoginCubit extends BaseCubit<LoginState> {
   AuthRepository authRepository = KiwiContainer().resolve<AuthRepository>();
+  String phoneNumber = "";
 
   LoginCubit() : super(LoginInitState());
 

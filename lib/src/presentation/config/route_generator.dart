@@ -39,7 +39,7 @@ class RouteGenerator {
           ),
       Routes.login: (context) => BlocProvider(
             create: (context) => LoginCubit(),
-            child: LoginPage(),
+            child: const LoginPage(),
           ),
       Routes.verifyCode: (context) => BlocProvider(
             create: (context) => VerifyCodeCubit(),
