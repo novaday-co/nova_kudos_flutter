@@ -31,26 +31,25 @@ class ApiResponse<T> {
     return statusCode >= 200 && statusCode <= 299;
   }
 
-  String? _extractError(Response<dynamic> response) {
+  bool get isNotFound {
+    return statusCode == 404;
+  }
+
+  dynamic _extractError(Response<dynamic> response) {
     if (isSuccess) return null;
     Map? errorList;
-    String? error;
+    String error = "";
     if (response.data.toString().isEmpty) return null;
-    if (response.data['errors'] != null) {
-      errorList = response.data["errors"];
-    }
     if (response.data['error'] != null) {
-      error = response.data['error'];
+      errorList = response.data["error"];
+      errorList?.forEach((key, value) {
+        error += "$key:$value\n";
+      });
     }
     return error;
   }
 
   String? _extractMessage(Response<dynamic> response) {
-    if (!JsonValidator.isValidJson(response.data.toString())) return "";
-    if (response.data['success'] != null &&
-        response.data['success'] is String) {
-      return response.data['success'];
-    }
     if (response.data['message'] != null &&
         response.data['message'] is String) {
       showMessage(response.data['message']);
