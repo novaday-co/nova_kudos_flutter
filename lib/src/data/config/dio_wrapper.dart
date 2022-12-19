@@ -44,8 +44,8 @@ class DioWrapper {
 
   static void _onError(
       DioError options, ErrorInterceptorHandler handler) async {
-    print('errrrrrrrrrrrrror');
     print(options.response?.statusCode);
+    print(options.response);
     if (options.error is SocketException) {
       handler.reject(DioError(requestOptions: options.requestOptions));
     }
@@ -57,32 +57,11 @@ class DioWrapper {
             error: AccessDeniedException(message: options.message),
           ),
         );
-      case HttpStatus.notFound:
-        return handler.reject(
-          DioError(
-            requestOptions: options.requestOptions,
-            error: NotFoundException(message: options.message),
-          ),
-        );
       case 413:
         return handler.reject(
           DioError(
             requestOptions: options.requestOptions,
             error: UnauthorizedException(message: options.message),
-          ),
-        );
-      case HttpStatus.unprocessableEntity:
-        return handler.reject(
-          DioError(
-            requestOptions: options.requestOptions,
-            error: UnProcessableEntityException(message: options.message),
-          ),
-        );
-      case HttpStatus.internalServerError:
-        return handler.reject(
-          DioError(
-            requestOptions: options.requestOptions,
-            error: ServerError(message: options.message),
           ),
         );
       default:
