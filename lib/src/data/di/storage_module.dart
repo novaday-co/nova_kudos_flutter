@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/data/entity/prefrences/preferences_entity.dart';
+import 'package:nova_kudos_flutter/src/data/entity/user_entity/user_entity.dart';
 import 'package:nova_kudos_flutter/src/data/storage/hive/hive.dart';
 import 'package:nova_kudos_flutter/src/data/storage/hive/hive_impl.dart';
 import 'package:nova_kudos_flutter/src/data/storage/keeper/keeper_actions.dart';
@@ -32,7 +33,9 @@ class StorageModule {
     } else {
       await Hive.initFlutter();
     }
-    Hive.registerAdapter(PreferencesEntityAdapter());
+    Hive
+      ..registerAdapter(PreferencesEntityAdapter())
+      ..registerAdapter(UserEntityAdapter());
     KiwiContainer().registerSingleton<MyHive>((container) => HiveImpl());
   }
 }
