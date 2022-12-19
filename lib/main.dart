@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'package:nova_kudos_flutter/src/domain/config/env/environment.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -10,15 +11,22 @@ import 'package:nova_kudos_flutter/src/injector.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/animated_page_route_builder.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/navigation_observer.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/colors/light_theme.dart';
+import 'package:nova_kudos_flutter/src/presentation/constants/common/tags.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widget_behavior/scroll_behavior.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
+Future<void> _openHiveBoxes() async {
+  await Hive.openBox(Tags.userBoxKey);
+  await Hive.openBox(Tags.preferencesBoxKey);
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Environment.loadEnvironment();
   await Injector.inject();
+  await _openHiveBoxes();
   Bloc.observer = BlocExceptionHandler();
   runApp(const MyApp());
 }
