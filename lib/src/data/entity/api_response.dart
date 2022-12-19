@@ -43,7 +43,7 @@ class ApiResponse<T> {
     if (response.data['error'] != null) {
       errorList = response.data["error"];
       errorList?.forEach((key, value) {
-        error += "$key:$value\n";
+        error += "$value\n";
       });
     }
     return error;
