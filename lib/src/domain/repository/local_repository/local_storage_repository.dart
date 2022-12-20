@@ -14,6 +14,8 @@ abstract class LocalStorageRepository {
 
   Future<void> setUser(UserModel userModel);
 
+  Future<UserModel> getUser();
+
   Future<void> clearUser();
 
   Future<void> setToken(String token);
