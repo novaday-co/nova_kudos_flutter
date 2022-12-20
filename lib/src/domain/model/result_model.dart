@@ -1,9 +1,15 @@
-enum ResultStatus { success, failure ,notFound }
+enum ResultStatus {
+  success,
+  failure
+}
+
+enum FailedResultStatus { badRequest, notFound }
 
 class ResultModel<D> {
   D? data;
   String? message;
   ResultStatus status;
+  FailedResultStatus? failedStatus;
   String? error;
   int? statusCode;
 
@@ -13,6 +19,7 @@ class ResultModel<D> {
     this.error,
     this.status = ResultStatus.success,
     this.statusCode,
+    this.failedStatus,
   });
 
   bool get isSuccess {
@@ -24,7 +31,6 @@ class ResultModel<D> {
   }
 
   bool get isNotFound {
-    return status == ResultStatus.notFound;
+    return failedStatus == FailedResultStatus.notFound;
   }
-
 }
