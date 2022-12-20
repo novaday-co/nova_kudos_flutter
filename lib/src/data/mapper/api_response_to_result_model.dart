@@ -10,7 +10,9 @@ class ApiToResultMapper {
       data: response.isSuccess ? dataMapper?.call() : null,
       message: response.message,
       error: response.error,
+      statusCode: response.statusCode,
       status: _getStatusCode(response),
+      failedStatus: _getFailedStatus(response)
     );
   }
 
@@ -18,9 +20,13 @@ class ApiToResultMapper {
     if (response.isSuccess) {
       return ResultStatus.success;
     }
-    if (response.isNotFound) {
-      return ResultStatus.notFound;
-    }
     return ResultStatus.failure;
+  }
+
+  static FailedResultStatus? _getFailedStatus(ApiResponse response) {
+    if (response.isNotFound) {
+      return FailedResultStatus.notFound;
+    }
+    return null;
   }
 }
