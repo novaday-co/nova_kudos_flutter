@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/events_list_cubit/events_list_cubit.dart';
@@ -16,6 +17,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dar
 import 'package:nova_kudos_flutter/src/domain/bloc/transactions_cubit/transactions_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_list_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/complete_profile_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/create_shop_page.dart';
@@ -34,7 +36,9 @@ class RouteGenerator {
   static Map<String, WidgetBuilder> getRoutes(RouteSettings settings) {
     return {
       Routes.splash: (context) => BlocProvider(
-            create: (context) => SplashCubit(),
+            create: (context) => SplashCubit(
+                localStorageRepository:
+                    KiwiContainer().resolve<LocalStorageRepository>()),
             child: const SplashPage(),
           ),
       Routes.login: (context) => BlocProvider(
@@ -89,15 +93,14 @@ class RouteGenerator {
             create: (context) => PullsListCubit(),
             child: const PullsListPage(),
           ),
-
       Routes.eventsListPage: (context) => BlocProvider(
-        create: (context) => EventsListCubit(),
-        child: const EventsListPage(),
-      ),
+            create: (context) => EventsListCubit(),
+            child: const EventsListPage(),
+          ),
       Routes.winnersListPage: (context) => BlocProvider(
-        create: (context) => WinnersListCubit(),
-        child: const WinnersListPage(),
-      ),
+            create: (context) => WinnersListCubit(),
+            child: const WinnersListPage(),
+          ),
     };
   }
 }
