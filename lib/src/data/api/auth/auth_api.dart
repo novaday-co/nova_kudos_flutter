@@ -7,6 +7,8 @@ abstract class AuthApi extends BaseApi {
     required String mobile,
   });
 
+  Future<ApiResponse> logout();
+
   Future<ApiResponse<UserEntity>> verifyOtp({
     required String mobileNumber,
     required String otp,
