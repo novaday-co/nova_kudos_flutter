@@ -16,6 +16,17 @@ class AuthApiImpl extends AuthApi {
   }
 
   @override
+  Future<ApiResponse> logout() async {
+    final response = await apiService.post(
+      'authentication/logout',
+    );
+    return ApiResponse.fromResponse(
+      response: response,
+      resultMapper: (data) => null,
+    );
+  }
+
+  @override
   Future<ApiResponse<UserEntity>> verifyOtp(
       {required String mobileNumber, required String otp}) async {
     final response = await apiService.post(

@@ -9,11 +9,19 @@ import 'package:nova_kudos_flutter/src/domain/model/user/user_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 
 class LocalStorageRepositoryImpl extends LocalStorageRepository {
-  LocalStorageRepositoryImpl({required this.keeper, required this.hive});
-
   final KeeperActions keeper;
-
   final MyHive hive;
+
+  LocalStorageRepositoryImpl({
+    required this.keeper,
+    required this.hive,
+  });
+
+  @override
+  Future<void> clearLocalStorage() async {
+    await clearKeeper();
+    await clearHive();
+  }
 
   @override
   Future<void> clearKeeper() async {
@@ -62,6 +70,5 @@ class LocalStorageRepositoryImpl extends LocalStorageRepository {
       await hive.setUser(userModel.mapToEntity);
 
   @override
-  Future<UserModel> getUser() async =>
-      (await hive.getUser())!.mapToModel;
+  Future<UserModel> getUser() async => (await hive.getUser())!.mapToModel;
 }

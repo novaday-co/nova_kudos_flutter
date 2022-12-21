@@ -17,6 +17,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/splash_cubit/splash_cubit.dar
 import 'package:nova_kudos_flutter/src/domain/bloc/transactions_cubit/transactions_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_list_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/complete_profile_page.dart';
@@ -37,8 +38,9 @@ class RouteGenerator {
     return {
       Routes.splash: (context) => BlocProvider(
             create: (context) => SplashCubit(
-                localStorageRepository:
-                    KiwiContainer().resolve<LocalStorageRepository>()),
+              localStorageRepository:
+                  KiwiContainer().resolve<LocalStorageRepository>(),
+            ),
             child: const SplashPage(),
           ),
       Routes.login: (context) => BlocProvider(
@@ -62,7 +64,11 @@ class RouteGenerator {
                 create: (context) => HomeCubit(),
               ),
               BlocProvider(
-                create: (context) => SettingsCubit(),
+                create: (context) => SettingsCubit(
+                  localStorageRepository:
+                      KiwiContainer().resolve<LocalStorageRepository>(),
+                  authRepository: KiwiContainer().resolve<AuthRepository>(),
+                ),
               ),
               BlocProvider(
                 create: (context) => ShopCubit(),

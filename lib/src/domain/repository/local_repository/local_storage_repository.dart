@@ -2,6 +2,8 @@ import 'package:nova_kudos_flutter/src/domain/model/settings/prefrences.dart';
 import 'package:nova_kudos_flutter/src/domain/model/user/user_model.dart';
 
 abstract class LocalStorageRepository {
+  Future<void> clearLocalStorage();
+
   Future<void> clearKeeper();
 
   Future<void> clearHive();
@@ -21,5 +23,4 @@ abstract class LocalStorageRepository {
   Future<void> setToken(String token);
 
   Future<String?> getToken();
-
 }

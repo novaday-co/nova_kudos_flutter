@@ -23,6 +23,15 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
+  Future<ResultModel> logout() async {
+    final response = await authApi.logout();
+    return ApiToResultMapper.mapTo(
+      response: response,
+      dataMapper: () => null,
+    );
+  }
+
+  @override
   Future<ResultModel<UserModel>> verifyOtp(
       {required String mobileNumber, required String otp}) async {
     final response =

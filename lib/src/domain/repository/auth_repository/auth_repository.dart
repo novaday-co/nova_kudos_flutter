@@ -4,6 +4,8 @@ import 'package:nova_kudos_flutter/src/domain/model/user/user_model.dart';
 abstract class AuthRepository {
   Future<ResultModel> login({required String mobileNumber});
 
+  Future<ResultModel> logout();
+
   Future<ResultModel<UserModel>> verifyOtp({
     required String mobileNumber,
     required String otp,

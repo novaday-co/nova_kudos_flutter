@@ -89,7 +89,7 @@ class UserSettingsWidget extends StatelessWidget {
                       title: context.getStrings.logOutFromAccount,
                       question: context.getStrings.sureYouWantToLogout,
                       onAccept: () async {
-                        await context.read<SettingsCubit>().logout(context);
+                        await context.read<SettingsCubit>().logout();
                       },
                       onReject: () {
                         Navigator.pop(context);
