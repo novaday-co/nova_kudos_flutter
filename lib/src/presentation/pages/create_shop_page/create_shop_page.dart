@@ -60,13 +60,10 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
             buildWhen: _buildWhenProfilePicture,
             builder: (context, state) {
               return UploadImage(
-                isLocalFile: state is SelectCreateShopPictureState,
+                uploadImageUrl: "/users/companies/1/change/avatar",
                 image: state is CreateShopPictureState
                     ? state.imagePath
                     : params?.imageUrl,
-                onClick: () {
-                  context.read<CreateShopCubit>().selectProfilePicture(context);
-                },
               );
             },
           ),

@@ -45,7 +45,7 @@ class _CompleteProfilePageState
   }
 
   @override
-  Widget? bottomNavigation() {
+  Widget? bottomWidget() {
     return BlocBuilder<CompleteProfileCubit, CompleteProfileState>(
       buildWhen: _buildWhenSaveButton,
       builder: (context, state) => Padding(
