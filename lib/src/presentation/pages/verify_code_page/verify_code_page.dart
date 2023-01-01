@@ -6,6 +6,8 @@ import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/dart_extension.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/home_page/home_page.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/landing_page/landing_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/param/verify_code_page_param.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/widgets/code_input_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/widgets/count_down_widget.dart';
@@ -140,9 +142,7 @@ class VerifyCodePage extends BaseStatelessWidget {
   ///region Bloc Listeners
 
   void _listenToVerifyCode(BuildContext context, VerifyCodeState state) {
-    Navigator.pushNamed(context, Routes.completeProfile,
-        arguments:
-            CompleteProfilePageParams(phoneNumber: params?.phoneNumber ?? ''));
+    Navigator.pushNamed(context, Routes.landingPage);
   }
 
   ///endregion
