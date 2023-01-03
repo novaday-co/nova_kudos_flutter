@@ -132,12 +132,12 @@ class _UploadImageState extends State<UploadImage> {
 
   void selectPicture() async {
     final imagePath = await showAccessMediaPickerSheet(context);
-    print(imagePath);
     if (imagePath != null) {
       image = imagePath;
+      String? filename = image?.split('/').last;
       setState(() {});
       FormData body = FormData.fromMap({
-        "avatar": MultipartFile.fromFile(imagePath,contentType: MediaType("image","jpeg"))
+        "avatar": await MultipartFile.fromFile(imagePath,filename: filename)
       });
       fileCubit.uploadFile(url: widget.uploadImageUrl, data: body);
     }
