@@ -20,7 +20,8 @@ class FileCubit extends BaseCubit<FileState> {
         bodyParameters: data,
         cancelToken: cancelToken,
         onSendProgress: (count, total) {
-          emit(UploadFileState.loading((count ~/ total) * 100));
+          // print(((count / total)) * 100);
+          emit(UploadFileState.loading((count / total) * 100));
         },
       ),
       onData: (status, result) {

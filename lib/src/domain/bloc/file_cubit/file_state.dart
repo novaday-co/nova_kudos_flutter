@@ -9,7 +9,7 @@ class FileInitState extends FileState {}
 
 @freezed
 class UploadFileState extends FileState {
-  const factory UploadFileState.loading(int progress) = UploadingFileState;
+  const factory UploadFileState.loading(double progress) = UploadingFileState;
 
   const factory UploadFileState.success() = SuccessUploadingFileState;
 

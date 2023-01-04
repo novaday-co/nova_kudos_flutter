@@ -62,7 +62,8 @@ class _UploadImageState extends State<UploadImage> {
                     imageUrl: image!,
                     boxFit: BoxFit.cover,
                     boxShape: BoxShape.rectangle,
-                    width: context.screenWidth,
+                    width: 90,
+                    height: 90,
                     imageType: imageType,
                     hasTag: true,
                     tagAlignment: Alignment.bottomRight,
@@ -85,7 +86,6 @@ class _UploadImageState extends State<UploadImage> {
                   ),
                   BlocBuilder<FileCubit,FileState>(
                     builder: (context, state) {
-                      print(80 * (100 - (state.isA<UploadingFileState>()?.progress ?? 0))/100);
                       return AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         width: context.screenWidth,
