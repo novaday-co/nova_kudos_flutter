@@ -43,6 +43,7 @@ class _PaginationWidgetState<ItemType, C extends PaginationCubit<ItemType>,
       onLoading: () =>
           cubit.get(requestType: RequestType.paginate, pageNumber: pageNumber),
       child: BlocConsumer<C, BasePaginationState<ItemType>>(
+        buildWhen: _buildWhenPaginationList,
         listener: _listenToPaginationStates,
         builder: (context, state) {
           if (state is PaginationState<ItemType>) {
@@ -91,6 +92,11 @@ class _PaginationWidgetState<ItemType, C extends PaginationCubit<ItemType>,
     pageNumber++;
   }
 
+  bool _buildWhenPaginationList(BasePaginationState<ItemType> previous,
+      BasePaginationState<ItemType> current) {
+    return current is PaginationState;
+  }
+
   void _listenToPaginationStates(
       BuildContext context, BasePaginationState<ItemType> state) {
     state.isA<PaginationState>()?.whenOrNull(
@@ -112,5 +118,12 @@ class _PaginationWidgetState<ItemType, C extends PaginationCubit<ItemType>,
         }
       },
     );
+
+    state.isA<UpdatePaginationListState>()?.whenOrNull(
+          deleteItem: (index) {},
+          edit: (index) {},
+        );
   }
+
+
 }
