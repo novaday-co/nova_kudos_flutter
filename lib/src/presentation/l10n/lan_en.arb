@@ -75,7 +75,12 @@
   "edit": "ویرایش",
   "phYourVote": "رای تو %s",
   "phPersonContributors": "%s نفر شرکت کننده",
-  "phTheBestOfMonth": "ترین های %s ماه"
+  "phTheBestOfMonth": "ترین های %s ماه",
+  "releaseToLoad": "رها کنید",
+  "pullToLoad": "برای بارگذاری بکشید",
+  "loading": "در حال بارگذاری",
+  "loadingComplete": "اطلاعاتی جدیدی یافت نشد",
+  "refreshComplete": "با موفقیت بارگذاری شد"
 
 
 
