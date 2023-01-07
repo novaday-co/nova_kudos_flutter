@@ -27,3 +27,13 @@ class PaginationState<D> extends BasePaginationState<D>
       ErrorOccurredPaginationState;
 
 }
+
+@freezed
+class UpdatePaginationListState<D> extends BasePaginationState<D>
+    with _$UpdatePaginationListState<D> {
+
+  factory UpdatePaginationListState.deleteItem(int index) = DeletePaginationItem;
+
+  factory UpdatePaginationListState.edit(int index) = EditPaginationItem;
+
+}
