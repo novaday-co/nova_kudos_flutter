@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/coin_rate_cubit/coin_rate_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/events_list_cubit/events_list_cubit.dart';
@@ -20,6 +21,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_li
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/coin_rate_page/coin_rate_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/complete_profile_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/create_shop_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/events_list_page/events_list_page.dart';
@@ -107,6 +109,10 @@ class RouteGenerator {
             create: (context) => WinnersListCubit(),
             child: const WinnersListPage(),
           ),
+      Routes.coinRatePage: (context) => BlocProvider(
+            create: (context) => CoinRateCubit(),
+            child: const CoinRatePage(),
+          )
     };
   }
 }
