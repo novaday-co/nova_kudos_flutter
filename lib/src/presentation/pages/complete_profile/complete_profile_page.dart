@@ -5,6 +5,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/comple
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/components/upload_image.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
@@ -36,7 +37,9 @@ class _CompleteProfilePageState
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
       hasBackButton: true,
-      title: params.isEdit ? context.getStrings.editProfile:context.getStrings.login,
+      title: params.isEdit
+          ? context.getStrings.editProfile
+          : context.getStrings.login,
       onPressBack: () {
         Navigator.pop(context);
       },
@@ -74,33 +77,12 @@ class _CompleteProfilePageState
         children: [
           BlocBuilder<CompleteProfileCubit, CompleteProfileState>(
             buildWhen: _buildWhenProfilePicture,
-            builder: (context, state) => ImageLoaderWidget.fromFile(
-              imageUrl: state is SelectCompleteProfilePictureState
+            builder: (context, state) => UploadImage(
+              uploadImageUrl: "/users/change-avatar",
+              imageViewType: UploadImageViewType.circular,
+              image:state is SelectCompleteProfilePictureState
                   ? state.imagePath
                   : "",
-              width: 90,
-              height: 90,
-              boxShape: BoxShape.circle,
-              hasTag: true,
-              tagAlignment: Alignment.bottomCenter,
-              onTap: () {
-                context
-                    .read<CompleteProfileCubit>()
-                    .selectProfilePicture(context);
-              },
-              tagWidget: Align(
-                heightFactor: 0.0,
-                child: TagWidget.rectangle(
-                  padding: 4,
-                  value: context.getStrings.changeProfilePicture,
-                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                  textStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
             ),
           ),
           SizedBox(
