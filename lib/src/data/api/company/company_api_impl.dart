@@ -17,4 +17,19 @@ class CompanyApiImpl extends CompanyApi {
       resultMapper: (data) => CoinSystemEntity.fromJson(data),
     );
   }
+
+  @override
+  Future<ApiResponse<CoinSystemEntity>> setCompanyCoinValue({
+    required int companyId,
+    required int coinValue,
+  }) async {
+    final response = await apiService.post(
+      'companies/$companyId/set/coin',
+      bodyParameters: {'coin_value': coinValue},
+    );
+    return ApiResponse.fromResponse(
+      response: response,
+      resultMapper: (data) => CoinSystemEntity.fromJson(data),
+    );
+  }
 }

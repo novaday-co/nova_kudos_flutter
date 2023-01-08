@@ -6,4 +6,9 @@ abstract class CompanyApi extends BaseApi {
   Future<ApiResponse<CoinSystemEntity>> getCompanyCoinValue({
     required int companyId,
   });
+
+  Future<ApiResponse<CoinSystemEntity>> setCompanyCoinValue({
+    required int companyId,
+    required int coinValue
+  });
 }
