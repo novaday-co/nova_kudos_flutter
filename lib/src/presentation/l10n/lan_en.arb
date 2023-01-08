@@ -82,8 +82,16 @@
   "pullToLoad": "برای بارگذاری بکشید",
   "loading": "در حال بارگذاری",
   "loadingComplete": "اطلاعاتی جدیدی یافت نشد",
-  "refreshComplete": "با موفقیت بارگذاری شد"
-
-
-
+  "refreshComplete": "با موفقیت بارگذاری شد",
+  "currentCoinRate": "نرخ فعلی هر سکه {coin} ریال است",
+  "@currentCoinRate": {
+    "description": "Greet the user by their name.",
+    "placeholders": {
+      "coin": {
+        "type": "int",
+        "example": "Jane"
+      }
+    }
+  },
+  "update": "به روز رسانی"
 }
