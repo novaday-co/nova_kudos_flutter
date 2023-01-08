@@ -5,4 +5,9 @@ abstract class CompanyRepository {
   Future<ResultModel<CompanyCoinSystemModel>> getCompanyCoinValue({
     required int companyId,
   });
+
+  Future<ResultModel<CompanyCoinSystemModel>> setCompanyCoinValue({
+    required int companyId,
+    required int coinValue
+  });
 }

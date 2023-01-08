@@ -16,8 +16,22 @@ class CompanyRepositoryImpl extends CompanyRepository {
   Future<ResultModel<CompanyCoinSystemModel>> getCompanyCoinValue({
     required int companyId,
   }) async {
-    final response =
-        await companyApi.getCompanyCoinValue(companyId: companyId);
+    final response = await companyApi.getCompanyCoinValue(companyId: companyId);
+    return ApiToResultMapper.mapTo(
+      response: response,
+      dataMapper: () => response.data!.mapToModel,
+    );
+  }
+
+  @override
+  Future<ResultModel<CompanyCoinSystemModel>> setCompanyCoinValue({
+    required int companyId,
+    required int coinValue,
+  }) async {
+    final response = await companyApi.setCompanyCoinValue(
+      companyId: companyId,
+      coinValue: coinValue
+    );
     return ApiToResultMapper.mapTo(
       response: response,
       dataMapper: () => response.data!.mapToModel,
