@@ -1,6 +1,6 @@
 import 'package:kiwi/kiwi.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/base_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/coin_rate_cubit/coin_rate_state.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/general/base_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository.dart';
 
