@@ -25,3 +25,15 @@ class CoinRateGetRequestState extends CoinRateValidationState {
   const factory CoinRateGetRequestState.failed(String? error) =
       FailedCoinRateGetRequestState;
 }
+
+@freezed
+class CoinRatePostRequestState extends CoinRateState {
+  const factory CoinRatePostRequestState.loading() =
+      LoadingCoinRatePostRequestState;
+
+  const factory CoinRatePostRequestState.success(
+      CompanyCoinSystemModel coinSystemModel) = SuccessCoinRatePostRequestState;
+
+  const factory CoinRatePostRequestState.failed(String? error) =
+      FailedCoinRatePostRequestState;
+}

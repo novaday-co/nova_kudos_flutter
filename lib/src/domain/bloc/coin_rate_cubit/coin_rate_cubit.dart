@@ -32,4 +32,20 @@ class CoinRateCubit extends BaseCubit<CoinRateState> {
       },
     );
   }
+
+  void postCoinRate(int coinValue) async {
+    emit(const CoinRatePostRequestState.loading());
+    await safeCall(
+      apiCall: companyRepository.setCompanyCoinValue(
+          companyId: 1, coinValue: coinValue),
+      onData: (resultStatus, resultModel) {
+        if (resultStatus == ResultStatus.success) {
+          emit(CoinRatePostRequestState.success(resultModel!.data!));
+        }
+      },
+      onError: (error) {
+        emit(CoinRatePostRequestState.failed(error));
+      },
+    );
+  }
 }
