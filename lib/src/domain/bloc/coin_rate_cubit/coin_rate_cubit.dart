@@ -2,11 +2,15 @@ import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/coin_rate_cubit/coin_rate_state.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/base_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
+import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 
 class CoinRateCubit extends BaseCubit<CoinRateState> {
   CompanyRepository companyRepository =
       KiwiContainer().resolve<CompanyRepository>();
+  LocalStorageRepository localStorageRepository =
+      KiwiContainer().resolve<LocalStorageRepository>();
 
   CoinRateCubit() : super(CoinRateStateInitState());
 
@@ -20,8 +24,9 @@ class CoinRateCubit extends BaseCubit<CoinRateState> {
 
   void getCoinRate() async {
     emit(const CoinRateGetRequestState.loading());
+    UserCompanyModel defaultCompany=await localStorageRepository.getUser();
     await safeCall(
-      apiCall: companyRepository.getCompanyCoinValue(companyId: 1),
+      apiCall: companyRepository.getCompanyCoinValue(companyId: defaultCompany.companyId!),
       onData: (resultStatus, resultModel) {
         if (resultStatus == ResultStatus.success) {
           emit(CoinRateGetRequestState.success(resultModel!.data!));
@@ -35,9 +40,10 @@ class CoinRateCubit extends BaseCubit<CoinRateState> {
 
   void postCoinRate(int coinValue) async {
     emit(const CoinRatePostRequestState.loading());
+    UserCompanyModel defaultCompany=await localStorageRepository.getUser();
     await safeCall(
       apiCall: companyRepository.setCompanyCoinValue(
-          companyId: 1, coinValue: coinValue),
+          companyId: defaultCompany.companyId!, coinValue: coinValue),
       onData: (resultStatus, resultModel) {
         if (resultStatus == ResultStatus.success) {
           emit(CoinRatePostRequestState.success(resultModel!.data!));
