@@ -45,6 +45,7 @@ dependencies:
   sprintf: ^6.0.2
   pwa_install: ^0.0.5
   json_annotation: ^4.7.0
+  pull_to_refresh: ^2.0.0
 
 
 dev_dependencies:

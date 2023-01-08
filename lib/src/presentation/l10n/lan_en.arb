@@ -77,8 +77,12 @@
   "phPersonContributors": "%s نفر شرکت کننده",
   "phTheBestOfMonth": "ترین های %s ماه",
   "titleRial": "ریال",
-  "valueOfSystem": "ارزش کل سیستم بر اساس نرخ تعیین شده"
-
+  "valueOfSystem": "ارزش کل سیستم بر اساس نرخ تعیین شده",
+  "releaseToLoad": "رها کنید",
+  "pullToLoad": "برای بارگذاری بکشید",
+  "loading": "در حال بارگذاری",
+  "loadingComplete": "اطلاعاتی جدیدی یافت نشد",
+  "refreshComplete": "با موفقیت بارگذاری شد"
 
 
 
