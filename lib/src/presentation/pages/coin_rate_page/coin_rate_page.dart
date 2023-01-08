@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/coin_rate_cubit/coin_rate_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/coin_rate_cubit/coin_rate_state.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/dart_extension.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/custom_snackbars_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/loading_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_field_widget.dart';
@@ -23,6 +23,15 @@ class CoinRatePage extends BaseStatefulWidget {
 
 class _CoinRatePageState
     extends BaseStatefulWidgetState<CoinRatePage, CoinRateCubit> {
+  int coinValue = 0;
+  late TextEditingController systemValueController;
+
+  @override
+  void initState() {
+    systemValueController = TextEditingController();
+    super.initState();
+  }
+
   @override
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
@@ -49,8 +58,8 @@ class _CoinRatePageState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
-                label: 'نرخ هر سکه',
-                hintText: "نرخ هر سکه را وارد کنید",
+                label: context.getStrings.coinRate,
+                hintText: context.getStrings.enterCoinRate,
                 textInputType: TextInputType.number,
                 prefixIcon: IconWidget(
                   icon: Assets.iconDollarCircle,
@@ -60,6 +69,7 @@ class _CoinRatePageState
                 borderRadius: 16,
                 onChanged: (value) {
                   cubit.validateCoinRate(value);
+                  coinValue = int.parse(value);
                 },
               ),
               TextWidget.regular(
@@ -71,40 +81,53 @@ class _CoinRatePageState
                     color: Theme.of(context).colorScheme.onTertiary),
               ),
               const SizedBox(height: 20),
-              CustomTextField(
-                label: context.getStrings.valueOfSystem,
-                borderRadius: 16,
-                readOnly: true,
-                suffixIcon: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextWidget.regular(
-                      context.getStrings.titleRial,
-                      context: context,
-                      additionalStyle: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
+              BlocBuilder<CoinRateCubit, CoinRateState>(
+                buildWhen: (previous, current) =>
+                    current is SuccessCoinRatePostRequestState ||
+                    current is SuccessCoinRateGetRequestState,
+                builder: (context, state) {
+                  return CustomTextField(
+                    label: context.getStrings.valueOfSystem,
+                    borderRadius: 16,
+                    readOnly: true,
+                    controller: systemValueController,
+                    suffixIcon: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextWidget.regular(
+                          context.getStrings.titleRial,
+                          context: context,
+                          additionalStyle: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).colorScheme.tertiary,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                initValue: state.coinSystemModel.systemValue != null
-                    ? state.coinSystemModel.systemValue.toString()
-                    : null,
+                    initValue: state
+                        .isA<SuccessCoinRateGetRequestState>()
+                        ?.coinSystemModel
+                        .systemValue
+                        .toString(),
+                  );
+                },
               ),
               const SizedBox(height: 28),
               BlocConsumer<CoinRateCubit, CoinRateState>(
-                listener: _listenToLoginState,
-                // listenWhen: _listenWhenToLoginState,
-                 buildWhen: _buildWhenCoinInput,
+                listener: _listenToUpdateCoinSystem,
+                listenWhen: _listenWhenUpdateCoinSystem,
+                buildWhen: _buildWhenCoinInput,
                 builder: (context, state) => CustomButton.fill(
                   context: context,
                   text: context.getStrings.update,
                   loadingType: ButtonLoadingType.circular,
                   loadingStatus: _buttonLoadingStatus(state),
-                  isEnable: state is CoinRateValidState,
-                  onPressed: () {},
+                  isEnable: state is CoinRateValidState ||
+                      state is SuccessCoinRatePostRequestState,
+                  onPressed: () {
+                    cubit.postCoinRate(coinValue);
+                  },
                 ),
               ),
             ],
@@ -119,33 +142,58 @@ class _CoinRatePageState
       },
     );
   }
-}
 
-ButtonLoadingStatus _buttonLoadingStatus(CoinRateState state) {
-  if (state is LoadingCoinRateGetRequestState) {
-    return ButtonLoadingStatus.loading;
+  ButtonLoadingStatus _buttonLoadingStatus(CoinRateState state) {
+    if (state is LoadingCoinRatePostRequestState) {
+      return ButtonLoadingStatus.loading;
+    }
+    if (state is SuccessCoinRatePostRequestState) {
+      return ButtonLoadingStatus.complete;
+    }
+    return ButtonLoadingStatus.normal;
   }
-  if (state is SuccessCoinRateGetRequestState) {
-    return ButtonLoadingStatus.complete;
+
+  ///region Bloc When Conditions Functions
+
+  bool _buildWhenPage(CoinRateState previous, CoinRateState current) {
+    return current is CoinRateGetRequestState;
   }
-  return ButtonLoadingStatus.normal;
+
+  bool _buildWhenCoinInput(CoinRateState previous, CoinRateState current) {
+    return current is CoinRateValidationState ||
+        current is CoinRatePostRequestState;
+  }
+
+  ///endregion
+
+  /// region Bloc Listeners
+
+  void _listenToUpdateCoinSystem(BuildContext context, CoinRateState state) {
+    if (state is SuccessCoinRatePostRequestState) {
+      systemValueController.text = state.coinSystemModel.systemValue.toString();
+      KodusSnackBars.showSnackBar(
+        snackType: SnackType.success,
+        title: context.getStrings
+            .updateCoinRate(state.coinSystemModel.coinValue ?? 0),
+        context: context,
+      );
+    } else if (state is FailedCoinRatePostRequestState) {
+      KodusSnackBars.showSnackBar(
+        snackType: SnackType.failure,
+        title: state.error ?? "",
+        context: context,
+      );
+    }
+  }
+
+  ///endregion
+
+  /// region Listen When
+
+  bool _listenWhenUpdateCoinSystem(
+      CoinRateState previous, CoinRateState current) {
+    return current is SuccessCoinRatePostRequestState;
+  }
+
+  ///endregion
 }
-
-///region Bloc When Conditions Functions
-
-bool _buildWhenPage(CoinRateState previous, CoinRateState current) {
-  return current is CoinRateGetRequestState;
-}
-
-bool _buildWhenCoinInput(CoinRateState previous, CoinRateState current) {
-  return current is CoinRateValidationState ||
-      current is CoinRateGetRequestState;
-}
-
-///endregion
-
-/// region Bloc Listeners
-
-void _listenToLoginState(BuildContext context, CoinRateState state) {}
-
-///endregion
