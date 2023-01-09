@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nova_kudos_flutter/src/domain/model/shop/shop.dart';
+import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/datetime_extension.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/default_dialog_style.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/dialog_function.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
@@ -12,7 +10,7 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart'
 import 'package:sprintf/sprintf.dart';
 
 class GridShopItemWidget extends StatelessWidget {
-  final ShopModel shopModel;
+  final ProductModel shopModel;
   final Function() onShopItemClick;
   final Function()? onShopItemLongPress;
 
@@ -36,7 +34,7 @@ class GridShopItemWidget extends StatelessWidget {
             Row(
               children: [
                 ImageLoaderWidget.fromNetwork(
-                  imageUrl: shopModel.image ?? '',
+                  imageUrl: shopModel.avatar ?? '',
                   boxShape: BoxShape.circle,
                   height: 40,
                   width: 40,
@@ -46,7 +44,7 @@ class GridShopItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidget.bold(
-                      shopModel.title ?? '',
+                      shopModel.name ?? '',
                       context: context,
                       additionalStyle: const TextStyle(
                         fontSize: 12,
@@ -56,7 +54,7 @@ class GridShopItemWidget extends StatelessWidget {
                     TextWidget.regular(
                       sprintf(
                         context.getStrings.phValidity,
-                        [shopModel.endAt?.formattedJalaliDate],
+                        [shopModel.expirationDate?.formattedJalaliDate],
                       ),
                       context: context,
                       additionalStyle: const TextStyle(
@@ -70,7 +68,7 @@ class GridShopItemWidget extends StatelessWidget {
                         TextWidget.regular(
                           sprintf(
                             context.getStrings.phCount,
-                            [shopModel.price],
+                            [shopModel.coin],
                           ),
                           context: context,
                           additionalStyle: const TextStyle(
@@ -94,7 +92,7 @@ class GridShopItemWidget extends StatelessWidget {
               context: context,
               text: sprintf(
                 context.getStrings.phGetRewardWithCoin,
-                [shopModel.price],
+                [shopModel.coin],
               ),
               height: 32,
               additionalTextStyle: const TextStyle(fontSize: 12),

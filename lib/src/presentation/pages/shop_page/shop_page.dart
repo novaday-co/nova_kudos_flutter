@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/general/pagination_cubit/pagination_state.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/shop_cubit/shop_cubit.dart';
-import 'package:nova_kudos_flutter/src/domain/bloc/shop_cubit/shop_state.dart';
-import 'package:nova_kudos_flutter/src/domain/model/shop/shop.dart';
+import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/datetime_extension.dart';
-import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/params/create_shop_page_params.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/shop_page/widgets/grid_shop_item_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/shop_page/widgets/shop_page_skeleton.dart';
@@ -18,7 +14,6 @@ import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/default_dialog_st
 import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/dialog_function.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/pagination_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 import 'package:sprintf/sprintf.dart';
@@ -62,10 +57,10 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
           height: 24,
         ),
         Expanded(
-          child: PaginationWidget<ShopModel, ShopCubit>(
-            onData: (shopItems) => GridView.builder(
+            child: PaginationWidget<ProductModel, ShopCubit>(
+            onData: (productItems) => GridView.builder(
               shrinkWrap: true,
-              itemCount: shopItems.length,
+              itemCount: productItems.length,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -75,9 +70,9 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
               ),
               itemBuilder: (context, index) {
                 return GridShopItemWidget(
-                  shopModel: shopItems[index],
+                  shopModel: productItems[index],
                   onShopItemLongPress: () {
-                    _showShopInfoBottomSheet(shopItems[index]);
+                    _showShopInfoBottomSheet(productItems[index]);
                   },
                   onShopItemClick: () {
                     showKodusDialog(
@@ -96,8 +91,8 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
                         acceptButtonText: context.getStrings.titleContinue,
                         child: TextWidget.medium(
                           sprintf(context.getStrings.phForPurchase, [
-                            shopItems[index].title,
-                            shopItems[index].price,
+                            productItems[index].name,
+                            productItems[index].coin,
                           ]),
                           context: context,
                           additionalStyle: const TextStyle(
@@ -117,21 +112,21 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
     );
   }
 
-  void _showShopInfoBottomSheet(ShopModel shopModel) {
+  void _showShopInfoBottomSheet(ProductModel productModel) {
     showKodusBottomSheet(
       context,
       (_) => ShopInfoBottomSheet(
-        shopModel: shopModel,
+        shopModel: productModel,
         onTapEdit: () {
           Navigator.pushNamed(
             context,
             Routes.createShopPage,
             arguments: CreateShopPageParams(
-              imageUrl: shopModel.image,
-              count: shopModel.price,
-              coinCount: shopModel.price,
-              shopName: shopModel.title,
-              validity: shopModel.endAt?.formattedJalaliDate,
+              imageUrl: productModel.avatar,
+              count: productModel.amount,
+              coinCount: productModel.coin,
+              shopName: productModel.name,
+              validity: productModel.expirationDate?.formattedJalaliDate,
             ),
           );
         },
