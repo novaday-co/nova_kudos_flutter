@@ -72,19 +72,26 @@ class _CoinRatePageState
                   coinValue = int.parse(value);
                 },
               ),
-              TextWidget.regular(
-                context.getStrings
-                    .currentCoinRate(state.coinSystemModel.coinValue ?? 0),
-                context: context,
-                additionalStyle: TextStyle(
-                    fontSize: 12,
-                    color: Theme.of(context).colorScheme.onTertiary),
+              BlocBuilder<CoinRateCubit, CoinRateState>(
+                buildWhen: _buildWhenCoinRateUpdated,
+                builder: (context, state) {
+                  return TextWidget.regular(
+                    context.getStrings
+                        .currentCoinRate(state is SuccessCoinRateGetRequestState
+                            ? state.coinSystemModel.coinValue ?? 0
+                            : state is SuccessCoinRatePostRequestState
+                                ? state.coinSystemModel.coinValue ?? 0
+                                : 0),
+                    context: context,
+                    additionalStyle: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).colorScheme.onTertiary),
+                  );
+                },
               ),
               const SizedBox(height: 20),
               BlocBuilder<CoinRateCubit, CoinRateState>(
-                buildWhen: (previous, current) =>
-                    current is SuccessCoinRatePostRequestState ||
-                    current is SuccessCoinRateGetRequestState,
+                buildWhen: _buildWhenCoinRateUpdated,
                 builder: (context, state) {
                   return CustomTextField(
                     label: context.getStrings.valueOfSystem,
@@ -162,6 +169,11 @@ class _CoinRatePageState
   bool _buildWhenCoinInput(CoinRateState previous, CoinRateState current) {
     return current is CoinRateValidationState ||
         current is CoinRatePostRequestState;
+  }
+
+  bool _buildWhenCoinRateUpdated(CoinRateState previous, CoinRateState current) {
+    return current is SuccessCoinRatePostRequestState ||
+        current is SuccessCoinRateGetRequestState;
   }
 
   ///endregion
