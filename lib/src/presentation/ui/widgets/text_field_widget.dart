@@ -27,6 +27,7 @@ class CustomTextField extends StatefulWidget {
   final int? maxLength;
   final FocusNode? focusNode;
   final TextStyle? labelStyle;
+  final double borderRadius;
 
   const CustomTextField({
     Key? key,
@@ -52,6 +53,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLength,
     this.label,
     this.labelStyle,
+    this.borderRadius=1000
   }) : super(key: key);
 
   @override
@@ -106,6 +108,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hoverColor: Colors.white,
             counterText: "",
             suffixIcon: suffixIcon(),
+            prefixIcon: widget.prefixIcon,
             enabledBorder: _getEnabledBorder(context),
             focusedBorder: _getFocusedBorder(context),
             border: _getEnabledBorder(context),
@@ -147,8 +150,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   InputBorder _getErrorBorder(BuildContext context) {
     return OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(1000),
+      borderRadius:  BorderRadius.all(
+        Radius.circular(widget.borderRadius),
       ),
       borderSide: BorderSide(
         color: Theme.of(context).colorScheme.error,
@@ -161,8 +164,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       return _getErrorBorder(context);
     }
     return OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(1000),
+      borderRadius:  BorderRadius.all(
+        Radius.circular(widget.borderRadius),
       ),
       borderSide: BorderSide(
         color: Theme.of(context).colorScheme.outline,
@@ -172,8 +175,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   InputBorder _getFocusedBorder(BuildContext context) {
     return OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(1000),
+      borderRadius:  BorderRadius.all(
+        Radius.circular(widget.borderRadius),
       ),
       borderSide: BorderSide(
         color: widget.readOnly

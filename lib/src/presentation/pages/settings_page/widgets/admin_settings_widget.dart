@@ -81,7 +81,9 @@ class AdminSettingsWidget extends StatelessWidget {
               SettingsItemWidget(
                 title: context.getStrings.manageCoinFee,
                 icon: Assets.iconCoin,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.coinRatePage);
+                },
               ),
               Divider(
                 color: Theme.of(context).colorScheme.outline,

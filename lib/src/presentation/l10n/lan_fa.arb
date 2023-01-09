@@ -75,9 +75,32 @@
   "phYourVote": "رای تو %s",
   "phPersonContributors": "%s نفر شرکت کننده",
   "phTheBestOfMonth": "ترین های %s ماه",
+  "titleRial": "ریال",
+  "valueOfSystem": "ارزش کل سیستم بر اساس نرخ تعیین شده",
   "releaseToLoad": "رها کنید",
   "pullToLoad": "برای بارگذاری بکشید",
   "loading": "در حال بارگذاری",
   "loadingComplete": "اطلاعاتی جدیدی یافت نشد",
-  "refreshComplete": "با موفقیت بارگذاری شد"
+  "refreshComplete": "با موفقیت بارگذاری شد",
+  "currentCoinRate": "نرخ فعلی هر سکه {coin} ریال است",
+  "@currentCoinRate": {
+    "placeholders": {
+      "coin": {
+        "type": "int",
+        "example": "1234"
+      }
+    }
+  },
+  "update": "به روز رسانی",
+  "updateCoinRate": "نرخ سکه به {coin} تغییر یافت",
+  "@updateCoinRate": {
+    "placeholders": {
+      "coin": {
+        "type": "int",
+        "example": "1234"
+      }
+    }
+  },
+  "coinRate": "نرخ هر سکه",
+  "enterCoinRate": "نرخ هر سکه را وارد کنید"
 }

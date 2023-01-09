@@ -1,11 +1,18 @@
-import 'package:nova_kudos_flutter/src/data/entity/user_entity/user_entity.dart';
-import 'package:nova_kudos_flutter/src/domain/model/user/user_model.dart';
+import 'package:nova_kudos_flutter/src/data/entity/user_company/user_company_entity.dart';
+import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 
-extension UserModelMapper on UserModel {
+extension UserCompanyModelMapper on UserCompanyModel {
   get mapToEntity {
-    return UserEntity(
-      mobileNumber: mobile,
-      token: token,
+    return UserCompanyEntity(
+      companyId: companyId,
+      companyName: companyName,
+      companyAvatar: companyAvatar,
+      coinAmount: coinAmount,
+      currencyAmount: currencyAmount,
+      jobPosition: jobPosition,
+      avatar: avatar,
+      userLastName: userLastName,
+      userName: userName
     );
   }
 }
