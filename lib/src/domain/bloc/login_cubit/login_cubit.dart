@@ -1,6 +1,5 @@
 import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/base_cubit.dart';
-import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 
 import 'login_state.dart';
@@ -27,14 +26,13 @@ class LoginCubit extends BaseCubit<LoginState> {
   }) async {
     emit(const LoginRequestState.loading());
     await safeCall(
-        apiCall: authRepository.login(mobileNumber: phoneNumber),
-        onData: (resultStatus, resultModel) {
-          if (resultStatus == ResultStatus.success) {
-            emit(const LoginRequestState.success());
-          }
-        },
-        onError: (error) {
-          emit(LoginRequestState.failed(error));
-        });
+      apiCall: authRepository.login(mobileNumber: phoneNumber),
+      onData: (resultModel) {
+        emit(const LoginRequestState.success());
+      },
+      onError: (failedStatus, error) {
+        emit(LoginRequestState.failed(error));
+      },
+    );
   }
 }

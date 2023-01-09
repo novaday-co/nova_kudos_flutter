@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/base_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_state.dart';
-import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 
 class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
@@ -47,12 +45,10 @@ class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
     emit(const LoadingVerifyRequestState());
     await safeCall(
       apiCall: authRepository.verifyOtp(mobileNumber: phoneNumber, otp: otp),
-      onData: (resultStatus, resultModel) {
-        if (resultStatus == ResultStatus.success) {
-          emit(const VerifyRequestState.success());
-        }
+      onData: (resultModel) {
+        emit(const VerifyRequestState.success());
       },
-      onError: (error) {
+      onError: (failedStatus, error) {
         emit(VerifyRequestState.failed(error));
       },
     );
@@ -62,13 +58,11 @@ class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
     emit(const LoadingResendCodeRequestState());
     await safeCall(
       apiCall: authRepository.resendOtp(mobileNumber: mobileNumber),
-      onData: (resultStatus, resultModel) {
-        if (resultStatus == ResultStatus.success) {
-          emit(const ResendCodeRequestStates.success());
-          _reset();
-        }
+      onData: (resultModel) {
+        emit(const ResendCodeRequestStates.success());
+        _reset();
       },
-      onError: (error) {
+      onError: (failedStatus, error) {
         emit(ResendCodeRequestStates.failed(error));
       },
     );
