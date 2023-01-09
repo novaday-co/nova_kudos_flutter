@@ -8,23 +8,23 @@ class BaseCubit<T> extends Cubit<T> {
 
   Future<void> safeCall<D>({
     required Future<ResultModel<D>> apiCall,
-    Function(String?)? onError,
-    required Function(ResultStatus, ResultModel<D>?) onData,
+    Function(FailedResultStatus?,String?)? onError,
+    Function( ResultModel<D>?)? onData,
   }) async {
     try {
       final response = await apiCall;
       if (response.isFailure) {
-        onError?.call(response.error);
+        onError?.call(response.failedStatus,response.error);
       }
       else{
-        onData.call(response.status, response);
+        onData?.call(response);
       }
     } on DioError catch (error) {
       if (error.error is KodusException) {
         addError(error.error);
-        onError?.call(error.error.toString());
+        onError?.call(null,error.error.toString());
       } else {
-        onError?.call(error.message);
+        onError?.call(null,error.message);
       }
     }
   }
