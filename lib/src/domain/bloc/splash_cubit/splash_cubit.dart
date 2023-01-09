@@ -8,10 +8,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class SplashCubit extends BaseCubit<SplashState> {
   LocalStorageRepository localStorageRepository;
-  final userRepo = KiwiContainer().resolve<UserRepository>();
+  UserRepository userRepository;
 
   SplashCubit({
     required this.localStorageRepository,
+    required this.userRepository
   }) : super(SplashInitState());
 
   Future<String> getAppVersion() async {
@@ -24,7 +25,7 @@ class SplashCubit extends BaseCubit<SplashState> {
     await Future.delayed(const Duration(seconds: 2));
     if (token != null) {
        await safeCall(
-        apiCall: userRepo.getProfile(),
+        apiCall: userRepository.getProfile(),
         onData: (resultStatus, resultModel) {
 
         },

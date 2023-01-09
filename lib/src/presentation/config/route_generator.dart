@@ -20,6 +20,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code
 import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_list_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_repository.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/coin_rate_page/coin_rate_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/complete_profile_page.dart';
@@ -42,6 +43,7 @@ class RouteGenerator {
             create: (context) => SplashCubit(
               localStorageRepository:
                   KiwiContainer().resolve<LocalStorageRepository>(),
+              userRepository: KiwiContainer().resolve<UserRepository>(),
             ),
             child: const SplashPage(),
           ),
