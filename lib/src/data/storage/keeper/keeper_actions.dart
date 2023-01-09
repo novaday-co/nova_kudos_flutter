@@ -7,4 +7,6 @@ abstract class KeeperActions {
 
   Future<void> deleteAll();
 
+  Future<void> deleteToken();
+
 }
