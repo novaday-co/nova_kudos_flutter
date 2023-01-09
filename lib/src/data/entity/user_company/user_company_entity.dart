@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user_company_entity.g.dart';
 
-@HiveType(typeId: 0, adapterName: "UserCompanyEntityAdapter")
+@HiveType(typeId: 1, adapterName: "UserCompanyEntityAdapter")
 @JsonSerializable()
 class UserCompanyEntity {
   @HiveField(0)
