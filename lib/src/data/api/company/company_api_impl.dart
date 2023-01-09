@@ -1,6 +1,8 @@
 import 'package:nova_kudos_flutter/src/data/entity/api_response.dart';
 
-import 'package:nova_kudos_flutter/src/data/entity/company/coin_system_entity.dart';
+import 'package:nova_kudos_flutter/src/data/entity/company/coin/coin_system_entity.dart';
+import 'package:nova_kudos_flutter/src/data/entity/company/product/product_entity.dart';
+import 'package:nova_kudos_flutter/src/data/entity/general/paging_resource_entity.dart';
 
 import 'company_api.dart';
 
@@ -30,6 +32,25 @@ class CompanyApiImpl extends CompanyApi {
     return ApiResponse.fromResponse(
       response: response,
       resultMapper: (data) => CoinSystemEntity.fromJson(data),
+    );
+  }
+
+  @override
+  Future<ApiResponse<PaginationResourceEntity<ProductEntity>>>
+      getCompanyProducts({
+    required int companyId,
+    required int pageSize,
+    required int pageIndex,
+  }) async {
+    final response = await apiService
+        .get('companies/$companyId/market/products', queryParameter: {
+      "page": pageIndex,
+      "query_count": pageSize,
+    });
+    return ApiResponse.fromResponse(
+      response: response,
+      resultMapper: (data) => PaginationResourceEntity.fromJson(
+          response.data, (data) => ProductEntity.fromJson(data)),
     );
   }
 }
