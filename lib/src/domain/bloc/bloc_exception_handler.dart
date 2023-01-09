@@ -4,7 +4,7 @@ import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/main.dart';
 import 'package:nova_kudos_flutter/src/data/utils/exception.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
-import 'package:nova_kudos_flutter/src/presentation/config/routes/routes.dart';
+import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 
 class BlocExceptionHandler extends BlocObserver {
   BlocExceptionHandler();
