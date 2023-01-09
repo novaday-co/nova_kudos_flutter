@@ -57,7 +57,7 @@ class _PaginationWidgetState<ItemType, C extends PaginationCubit<ItemType>,
                   : widget.onData(cubit.list),
               empty: (requestType) => !isPaginating(requestType)
                   ? widget.onEmpty ?? const SizedBox()
-                  : const SizedBox(),
+                  :  widget.onData(cubit.list),
               loaded: (isLastPage, items, currentPage, requestType) =>
                   widget.onData(cubit.list),
               errorOccurred: (message, requestType) =>
