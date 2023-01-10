@@ -9,31 +9,32 @@ abstract class BasePaginationState<D> {}
 @freezed
 class PaginationState<D> extends BasePaginationState<D>
     with _$PaginationState<D> {
-
   factory PaginationState.init() = InitPaginationState;
 
-  factory PaginationState.loading(RequestType requestType) = LoadingPaginationState;
+  factory PaginationState.loading(RequestType requestType) =
+      LoadingPaginationState;
 
   factory PaginationState.empty(RequestType requestType) = EmptyPaginationState;
 
-  factory PaginationState.loaded({
-    required bool isLastPage,
-    required List<D> items,
-    required int currentPage,
-    required RequestType requestType
-  }) = LoadedPaginationState;
+  factory PaginationState.loaded(
+      {required bool isLastPage,
+      required List<D> items,
+      required int currentPage,
+      required RequestType requestType}) = LoadedPaginationState;
 
-  factory PaginationState.errorOccurred(String? message,RequestType requestType) =
-      ErrorOccurredPaginationState;
-
+  factory PaginationState.errorOccurred(
+      String? message, RequestType requestType) = ErrorOccurredPaginationState;
 }
 
 @freezed
-class UpdatePaginationListState<D> extends BasePaginationState<D>
-    with _$UpdatePaginationListState<D> {
+class DeletePaginationItemState<D> extends BasePaginationState<D>
+    with _$DeletePaginationItemState<D> {
+  factory DeletePaginationItemState.loading() =
+      LoadingDeletePaginationItemState;
 
-  factory UpdatePaginationListState.deleteItem(int index) = DeletePaginationItem;
+  factory DeletePaginationItemState.success(int index) =
+      SuccessDeletePaginationItem;
 
-  factory UpdatePaginationListState.edit(int index) = EditPaginationItem;
-
+  factory DeletePaginationItemState.failed(String? message) =
+      FailedDeletePaginationItem;
 }
