@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_state.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/general/file_cubit/file_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/dart_extension.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/components/upload_image.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/widgets/tag_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/loading_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_field_widget.dart';
 
 class CompleteProfilePage extends BaseStatefulWidget {
@@ -49,7 +50,7 @@ class _CompleteProfilePageState
 
   @override
   Widget? bottomWidget() {
-    return BlocBuilder<CompleteProfileCubit, CompleteProfileState>(
+    return BlocBuilder<CompleteProfileCubit, BaseFileState>(
       buildWhen: _buildWhenSaveButton,
       builder: (context, state) => Padding(
         padding: const EdgeInsets.all(16.0),
@@ -72,52 +73,40 @@ class _CompleteProfilePageState
 
   @override
   Widget body(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          BlocBuilder<CompleteProfileCubit, CompleteProfileState>(
-            buildWhen: _buildWhenProfilePicture,
-            builder: (context, state) => UploadImage(
-              uploadImageUrl: "/users/change-avatar",
-              imageViewType: UploadImageViewType.circular,
-              image:state is SelectCompleteProfilePictureState
-                  ? state.imagePath
-                  : "",
-            ),
-          ),
-          SizedBox(
-            height: context.heightPercentage(5),
-          ),
-          CustomTextField(
-            label: context.getStrings.username,
-            textInputType: TextInputType.phone,
-            onChanged: (value) {
-              context.read<CompleteProfileCubit>().profileForm(value);
-            },
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          CustomTextField(
-            label: context.getStrings.jobTitle,
-            textInputType: TextInputType.phone,
-            onChanged: (value) {},
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          CustomTextField(
-            label: context.getStrings.phoneNumber,
-            textInputType: TextInputType.phone,
-            readOnly: true,
-            initValue: params.phoneNumber ?? "",
-          ),
-        ],
-      ),
+    return BlocBuilder<CompleteProfileCubit, BaseFileState>(
+      buildWhen: _buildWhenProfileInformation,
+      builder: (context, state) =>
+          state.isA<CompleteProfileGetUserState>()!.when(
+                loading: () => const Loading(
+                  primaryLoading: true,
+                ),
+                success: () => SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      UploadImage(
+                        uploadImageUrl: cubit.userCompanyModel?.avatar ?? "",
+                        imageViewType: UploadImageViewType.circular,
+                        image: cubit.userCompanyModel?.avatar,
+                      ),
+                      SizedBox(
+                        height: context.heightPercentage(5),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      CustomTextField(
+                        label: context.getStrings.phoneNumber,
+                        textInputType: TextInputType.phone,
+                        initValue: cubit.userCompanyModel?.phoneNumber ?? "",
+                      ),
+                    ],
+                  ),
+                ),
+              ),
     );
   }
 
-  ButtonLoadingStatus _buttonLoadingStatus(CompleteProfileState state) {
+  ButtonLoadingStatus _buttonLoadingStatus(BaseFileState state) {
     if (state is LoadingCompleteProfileRequestState) {
       return ButtonLoadingStatus.loading;
     }
@@ -128,12 +117,12 @@ class _CompleteProfilePageState
   }
 
   bool _buildWhenSaveButton(
-      CompleteProfileState previous, CompleteProfileState current) {
+      BaseFileState previous, BaseFileState current) {
     return current is CompleteProfileValidFormState;
   }
 
-  bool _buildWhenProfilePicture(
-      CompleteProfileState previous, CompleteProfileState current) {
-    return current is CompleteProfilePictureState;
+  bool _buildWhenProfileInformation(
+      BaseFileState previous, BaseFileState current) {
+    return current is CompleteProfileGetUserState;
   }
 }
