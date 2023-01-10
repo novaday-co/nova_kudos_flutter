@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/pagination_cubit/pagination_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/pagination_cubit/pagination_state.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/dart_extension.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/custom_refresher.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/loading_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PaginationWidget<ItemType, C extends PaginationCubit<ItemType>>
@@ -13,6 +15,7 @@ class PaginationWidget<ItemType, C extends PaginationCubit<ItemType>>
   final Widget Function(List<ItemType>) onData;
   final Widget? onEmpty;
   final Widget? onError;
+  final void Function(DeletePaginationItemState<ItemType>)? deleteItemListener;
 
   const PaginationWidget({
     Key? key,
@@ -20,6 +23,7 @@ class PaginationWidget<ItemType, C extends PaginationCubit<ItemType>>
     this.onEmpty,
     this.onError,
     required this.onData,
+    this.deleteItemListener,
   }) : super(key: key);
 
   @override
@@ -56,8 +60,8 @@ class _PaginationWidgetState<ItemType, C extends PaginationCubit<ItemType>,
                       )
                   : widget.onData(cubit.list),
               empty: (requestType) => !isPaginating(requestType)
-                  ? widget.onEmpty ?? const SizedBox()
-                  :  widget.onData(cubit.list),
+                  ? emptyView ?? const SizedBox()
+                  : widget.onData(cubit.list),
               loaded: (isLastPage, items, currentPage, requestType) =>
                   widget.onData(cubit.list),
               errorOccurred: (message, requestType) =>
@@ -68,6 +72,17 @@ class _PaginationWidgetState<ItemType, C extends PaginationCubit<ItemType>,
           }
           return const SizedBox.shrink();
         },
+      ),
+    );
+  }
+
+  Widget get emptyView {
+    if (widget.onEmpty != null) return widget.onEmpty!;
+    return Center(
+      child: TextWidget.bold(
+        context.getStrings.noItemFound,
+        context: context,
+        additionalStyle: const TextStyle(fontSize: 18),
       ),
     );
   }
@@ -99,31 +114,40 @@ class _PaginationWidgetState<ItemType, C extends PaginationCubit<ItemType>,
 
   void _listenToPaginationStates(
       BuildContext context, BasePaginationState<ItemType> state) {
-    state.isA<PaginationState>()?.whenOrNull(
-      loaded: (isLastPage, items, currentPage, requestType) {
-        if (isRefreshing(requestType)) {
-          resetPageNumber();
+    if (state is PaginationState<ItemType>) {
+      state.whenOrNull(
+        loaded: (isLastPage, items, currentPage, requestType) {
+          if (isRefreshing(requestType)) {
+            resetPageNumber();
+            refreshController.refreshCompleted();
+          } else if (isPaginating(requestType)) {
+            increasePage();
+            refreshController.loadComplete();
+          }
+          if (isLastPage) refreshController.loadNoData();
+        },
+        empty: (requestType) {
           refreshController.refreshCompleted();
-        } else if (isPaginating(requestType)) {
-          increasePage();
-          refreshController.loadComplete();
-        }
-        if (isLastPage) refreshController.loadNoData();
-      },
-      errorOccurred: (error, requestType) {
-        if (isRefreshing(requestType)) {
-          refreshController.refreshFailed();
-        } else if (isPaginating(requestType)) {
-          refreshController.loadFailed();
-        }
-      },
-    );
+          refreshController.loadNoData();
+        },
+        errorOccurred: (error, requestType) {
+          if (isRefreshing(requestType)) {
+            refreshController.refreshFailed();
+          } else if (isPaginating(requestType)) {
+            refreshController.loadFailed();
+          }
+        },
+      );
+    }
 
-    state.isA<UpdatePaginationListState>()?.whenOrNull(
-          deleteItem: (index) {},
-          edit: (index) {},
-        );
+    if (state is DeletePaginationItemState<ItemType>) {
+      widget.deleteItemListener?.call(state);
+      state.whenOrNull(
+        success: (index) {
+          cubit.items.removeAt(index);
+          setState(() {});
+        },
+      );
+    }
   }
-
-
 }

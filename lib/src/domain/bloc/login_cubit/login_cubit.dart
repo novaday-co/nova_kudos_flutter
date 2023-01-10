@@ -27,10 +27,10 @@ class LoginCubit extends BaseCubit<LoginState> {
     emit(const LoginRequestState.loading());
     await safeCall(
       apiCall: authRepository.login(mobileNumber: phoneNumber),
-      onData: (resultModel) {
+      onSuccess: (resultModel) {
         emit(const LoginRequestState.success());
       },
-      onError: (failedStatus, error) {
+      onFailed: (failedStatus, error) {
         emit(LoginRequestState.failed(error));
       },
     );

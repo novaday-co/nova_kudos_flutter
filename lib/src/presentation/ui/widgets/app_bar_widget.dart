@@ -15,6 +15,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
   final VoidCallback? onPressBack;
   final Color? statusBarColor;
   final Color? backgroundColor;
+  final double? toolbarHeight;
 
   const CustomAppbar({
     Key? key,
@@ -27,6 +28,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
     this.onPressBack,
     this.statusBarColor,
     this.backgroundColor,
+    this.toolbarHeight,
   }) : super(key: key);
 
   @override
@@ -58,7 +60,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
             ]
           : null,
       titleSpacing: 0,
-      toolbarHeight: 120,
+      toolbarHeight: toolbarHeight ?? 120,
       backgroundColor:
           backgroundColor ?? Theme.of(context).colorScheme.background,
       leading: hasBackButton
@@ -93,5 +95,5 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
   Widget get child => const SizedBox();
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize =>  Size.fromHeight(toolbarHeight ?? 80);
 }

@@ -9,14 +9,18 @@ abstract class CompanyApi extends BaseApi {
     required int companyId,
   });
 
-  Future<ApiResponse<CoinSystemEntity>> setCompanyCoinValue({
-    required int companyId,
-    required int coinValue
-  });
+  Future<ApiResponse<CoinSystemEntity>> setCompanyCoinValue(
+      {required int companyId, required int coinValue});
 
-  Future<ApiResponse<PaginationResourceEntity<ProductEntity>>> getCompanyProducts({
+  Future<ApiResponse<PaginationResourceEntity<ProductEntity>>>
+      getCompanyProducts({
     required int companyId,
     required int pageSize,
     required int pageIndex,
+  });
+
+  Future<ApiResponse> deleteProduct({
+    required int companyId,
+    required int productId,
   });
 }

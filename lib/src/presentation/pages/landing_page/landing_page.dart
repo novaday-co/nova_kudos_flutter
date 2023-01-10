@@ -7,6 +7,7 @@ import 'package:nova_kudos_flutter/src/presentation/pages/landing_page/widgets/b
 import 'package:nova_kudos_flutter/src/presentation/pages/members_page/members_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/settings_page/settings_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/shop_page/shop_page.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 
 class LandingPage extends BaseStatefulWidget {
@@ -25,6 +26,8 @@ class _LandingPageState
     extends BaseStatefulWidgetState<LandingPage, LandingCubit> {
   late PageController pageController;
 
+
+
   @override
   void initState() {
     pageController = PageController();
@@ -37,6 +40,11 @@ class _LandingPageState
     super.dispose();
   }
 
+  @override
+  CustomAppbar? appBar(BuildContext context) => CustomAppbar(
+    toolbarHeight: 0,
+    statusBarColor: Theme.of(context).colorScheme.background,
+  );
 
   @override
   Widget body(BuildContext context) {

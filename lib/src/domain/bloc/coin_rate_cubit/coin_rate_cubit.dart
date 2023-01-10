@@ -27,10 +27,10 @@ class CoinRateCubit extends BaseCubit<CoinRateState> {
     await safeCall(
       apiCall: companyRepository.getCompanyCoinValue(
           companyId: defaultCompany.companyId!),
-      onData: (resultModel) {
+      onSuccess: (resultModel) {
         emit(CoinRateGetRequestState.success(resultModel!.data!));
       },
-      onError: (failedStatus, error) {
+      onFailed: (failedStatus, error) {
         emit(CoinRateGetRequestState.failed(error));
       },
     );
@@ -42,10 +42,10 @@ class CoinRateCubit extends BaseCubit<CoinRateState> {
     await safeCall(
       apiCall: companyRepository.setCompanyCoinValue(
           companyId: defaultCompany.companyId!, coinValue: coinValue),
-      onData: (resultModel) {
+      onSuccess: (resultModel) {
         emit(CoinRatePostRequestState.success(resultModel!.data!));
       },
-      onError: (failedStatus, error) {
+      onFailed: (failedStatus, error) {
         emit(CoinRatePostRequestState.failed(error));
       },
     );

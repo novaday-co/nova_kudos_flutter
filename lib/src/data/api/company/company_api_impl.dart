@@ -53,4 +53,18 @@ class CompanyApiImpl extends CompanyApi {
           response.data, (data) => ProductEntity.fromJson(data)),
     );
   }
+
+  @override
+  Future<ApiResponse> deleteProduct({
+    required int companyId,
+    required int productId,
+  }) async {
+    final response = await apiService.delete(
+      'companies/$companyId/market/products/$productId',
+    );
+    return ApiResponse.fromResponse(
+      response: response,
+      resultMapper: (data) => null,
+    );
+  }
 }

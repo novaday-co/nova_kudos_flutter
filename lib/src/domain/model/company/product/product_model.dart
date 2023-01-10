@@ -1,4 +1,5 @@
 class ProductModel {
+  int? id;
   String? name;
   int? currency;
   int? coin;
@@ -7,6 +8,7 @@ class ProductModel {
   DateTime? expirationDate;
 
   ProductModel({
+    this.id,
     this.name,
     this.currency,
     this.coin,

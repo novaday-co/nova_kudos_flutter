@@ -4,6 +4,9 @@ part 'product_entity.g.dart';
 
 @JsonSerializable()
 class ProductEntity {
+  @JsonKey(name: "id")
+  int? id;
+
   @JsonKey(name: "product_name")
   String? name;
 
@@ -23,6 +26,7 @@ class ProductEntity {
   DateTime? expirationDate;
 
   ProductEntity({
+    this.id,
     this.name,
     this.currency,
     this.coin,

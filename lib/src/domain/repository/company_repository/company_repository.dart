@@ -16,4 +16,9 @@ abstract class CompanyRepository {
     required int pageSize,
     required int pageIndex,
   });
+
+  Future<ResultModel> deleteProduct({
+    required int companyId,
+    required int productId,
+  });
 }
