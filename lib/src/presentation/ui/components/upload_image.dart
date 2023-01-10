@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +12,6 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/background_widget
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/tag_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
 enum UploadImageViewType { circular, rectangular }
 
@@ -23,12 +20,12 @@ class UploadImage extends StatefulWidget {
   final String uploadImageUrl;
   final UploadImageViewType imageViewType;
 
-  const UploadImage(
-      {Key? key,
-      this.image,
-      required this.uploadImageUrl,
-      this.imageViewType = UploadImageViewType.rectangular})
-      : super(key: key);
+  const UploadImage({
+    Key? key,
+    this.image,
+    required this.uploadImageUrl,
+    this.imageViewType = UploadImageViewType.rectangular,
+  }) : super(key: key);
 
   @override
   State<UploadImage> createState() => _UploadImageState();
@@ -63,7 +60,7 @@ class _UploadImageState extends State<UploadImage> {
                       alignment: Alignment.center,
                       children: [
                         imageView,
-                        BlocBuilder<FileCubit, FileState>(
+                        BlocBuilder<FileCubit, BaseFileState>(
                           builder: (context, state) {
                             return AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
@@ -111,7 +108,7 @@ class _UploadImageState extends State<UploadImage> {
   }
 
   ImageType get imageType {
-    if (image!.startsWith("http")) {
+    if (image?.startsWith("http") ?? false) {
       return ImageType.network;
     }
     return ImageType.file;
@@ -123,7 +120,7 @@ class _UploadImageState extends State<UploadImage> {
 
   Widget get imageView {
     return ImageLoaderWidget(
-      imageUrl: image!,
+      imageUrl: image ?? "",
       width: isCircular ? 90 : context.screenWidth,
       height: 90,
       imageType: imageType,
