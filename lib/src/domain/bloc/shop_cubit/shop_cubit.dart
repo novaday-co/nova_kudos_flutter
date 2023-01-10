@@ -1,17 +1,15 @@
 import 'package:nova_kudos_flutter/src/domain/bloc/general/pagination_cubit/pagination_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/general/pagination_cubit/pagination_state.dart';
 import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/general/pagination_resource_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository.dart';
-import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 
 class ShopCubit extends PaginationCubit<ProductModel> {
   CompanyRepository companyRepository;
-  LocalStorageRepository localStorageRepository;
 
   ShopCubit({
     required this.companyRepository,
-    required this.localStorageRepository,
   }) : super();
 
   @override
@@ -29,7 +27,7 @@ class ShopCubit extends PaginationCubit<ProductModel> {
         pageSize: pageSize,
         pageIndex: pageNumber,
       ),
-      onData: (resultModel) {
+      onSuccess: (resultModel) {
         emitLoaded(
           PaginationResourceModel<ProductModel>(
             data: resultModel!.data!.data,
@@ -38,8 +36,24 @@ class ShopCubit extends PaginationCubit<ProductModel> {
           requestType,
         );
       },
-      onError: (resultStatus, error) {
+      onFailed: (resultStatus, error) {
         emitError(requestType, message: error);
+      },
+    );
+  }
+
+  Future<void> deleteProduct(int index) async {
+    emit(DeletePaginationItemState.loading());
+    await safeCall(
+      apiCall: companyRepository.deleteProduct(
+        companyId: (await defaultCompany).companyId ?? -1,
+        productId: list[index].id ?? -1,
+      ),
+      onSuccess: (result) {
+        emit(DeletePaginationItemState.success(index));
+      },
+      onFailed: (failedStatus, error) {
+        emit(DeletePaginationItemState.failed(error));
       },
     );
   }
