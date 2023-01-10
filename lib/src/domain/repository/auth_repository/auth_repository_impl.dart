@@ -37,7 +37,6 @@ class AuthRepositoryImpl extends AuthRepository {
     final response =
         await authApi.verifyOtp(mobileNumber: mobileNumber, otp: otp);
     if (response.isSuccess) {
-      localStorageRepository.setUser(response.data!.mapToModel);
       localStorageRepository.setToken(response.data!.token!);
     }
     return ApiToResultMapper.mapTo(

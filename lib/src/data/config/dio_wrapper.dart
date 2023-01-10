@@ -64,6 +64,13 @@ class DioWrapper {
             error: UnauthorizedException(message: options.message),
           ),
         );
+      case 401:
+        return handler.reject(
+          DioError(
+            requestOptions: options.requestOptions,
+            error: UnauthorizedException(message: options.message),
+          ),
+        );
       default:
         return handler.resolve(options.response!);
     }

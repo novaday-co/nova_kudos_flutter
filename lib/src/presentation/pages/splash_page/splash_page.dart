@@ -7,14 +7,20 @@ import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/dart_extension.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/loading_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
-class SplashPage extends BaseStatelessWidget<SplashCubit> {
+class SplashPage extends BaseStatefulWidget<SplashPage, SplashCubit> {
   const SplashPage({Key? key}) : super(key: key);
 
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState
+    extends BaseStatefulWidgetState<SplashPage, SplashCubit> {
   @override
   CustomAppbar? appBar(BuildContext context) {
     return CustomAppbar(
@@ -24,8 +30,8 @@ class SplashPage extends BaseStatelessWidget<SplashCubit> {
   }
 
   @override
-  void onBuild(BuildContext context) {
-    context.read<SplashCubit>().checkUserToken();
+  void initialization() {
+    cubit.checkUserToken();
   }
 
   @override
@@ -101,14 +107,14 @@ class SplashPage extends BaseStatelessWidget<SplashCubit> {
 
   void _listenToUserAuthentication(BuildContext context, SplashState state) {
     state.isA<CheckUserSplashState>()?.when(
-          unAuthenticated: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, Routes.login, (route) => false);
-          },
-          authenticated: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, Routes.landingPage, (route) => false);
-          },
-        );
+      unAuthenticated: () {
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.login, (route) => false);
+      },
+      authenticated: () {
+        Navigator.pushNamedAndRemoveUntil(
+            context, Routes.landingPage, (route) => false);
+      },
+    );
   }
 }

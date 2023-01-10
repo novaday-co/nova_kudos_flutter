@@ -18,4 +18,9 @@ class KeeperImpl extends Keeper implements KeeperActions {
     deleteValue(Tags.tokenKey);
   }
 
+  @override
+  Future<void> deleteToken() async {
+    deleteValue(Tags.tokenKey);
+  }
+
 }

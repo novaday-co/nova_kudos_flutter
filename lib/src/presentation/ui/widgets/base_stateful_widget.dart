@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/helper_functions.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 
 abstract class BaseStatefulWidget<W extends StatefulWidget, C extends Cubit>
@@ -46,6 +47,16 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,C extends Cu
       ),
     );
   }
+
+  @override
+  void initState() {
+    postFrameCallback(() {
+      initialization();
+    });
+    super.initState();
+  }
+
+  void initialization() => {};
 
   void onBuild(BuildContext context) => {};
 
