@@ -56,7 +56,9 @@ class RouteGenerator {
             child: VerifyCodePage(),
           ),
       Routes.completeProfile: (context) => BlocProvider(
-            create: (context) => CompleteProfileCubit(),
+            create: (context) => CompleteProfileCubit(
+              localStorageRepository: KiwiContainer().resolve<LocalStorageRepository>()
+            ),
             child: const CompleteProfilePage(),
           ),
       Routes.landingPage: (context) => MultiBlocProvider(
