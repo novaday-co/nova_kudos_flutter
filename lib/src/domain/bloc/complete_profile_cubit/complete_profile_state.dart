@@ -1,13 +1,22 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/general/file_cubit/file_state.dart';
 
 part 'complete_profile_state.freezed.dart';
 
-abstract class CompleteProfileState {}
 
-class CompleteProfileInitState extends CompleteProfileState {}
+class CompleteProfileInitState extends BaseFileState {}
 
 @freezed
-class CompleteProfileFormValidationState extends CompleteProfileState {
+class CompleteProfileGetUserState extends BaseFileState with _$CompleteProfileGetUserState {
+  const factory CompleteProfileGetUserState.loading() =
+  LoadingCompleteProfileGetUserState;
+
+  const factory CompleteProfileGetUserState.success() =
+  SuccessCompleteProfileGetUserState;
+}
+
+@freezed
+class CompleteProfileFormValidationState extends BaseFileState {
   const factory CompleteProfileFormValidationState.valid() =
       CompleteProfileValidFormState;
 
@@ -28,7 +37,7 @@ class CompleteProfileRequestState extends CompleteProfileValidFormState {
 }
 
 @freezed
-class CompleteProfilePictureState extends CompleteProfileState
+class CompleteProfilePictureState extends BaseFileState
     with _$CompleteProfilePictureState {
   const factory CompleteProfilePictureState.selected(String imagePath) =
       SelectCompleteProfilePictureState;
