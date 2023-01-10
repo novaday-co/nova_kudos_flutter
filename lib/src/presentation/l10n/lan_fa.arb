@@ -102,5 +102,17 @@
     }
   },
   "coinRate": "نرخ هر سکه",
-  "enterCoinRate": "نرخ هر سکه را وارد کنید"
+  "enterCoinRate": "نرخ هر سکه را وارد کنید",
+  "areYouSureToDeleteProduct": "آیا مطمئنید میخواهید {product} را حذف کنید؟",
+  "@areYouSureToDeleteProduct": {
+    "placeholders": {
+      "product": {
+        "type": "String",
+        "example": "product"
+      }
+    }
+  },
+  "deleteProduct": "حذف محصول",
+  "noItemFound": "آیتمی پیدا نشد!"
+
 }
