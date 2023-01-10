@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/general/pagination_cubit/pagination_state.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/shop_cubit/shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
@@ -72,7 +73,7 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
                 return GridShopItemWidget(
                   shopModel: productItems[index],
                   onShopItemLongPress: () {
-                    _showShopInfoBottomSheet(productItems[index]);
+                    _showShopInfoBottomSheet(productItems[index],index);
                   },
                   onShopItemClick: () =>
                       _showPurchaseDialog(productItems[index]),
@@ -80,13 +81,14 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
               },
             ),
             loadingWidget: const ShopPageSkeleton(),
+            deleteItemListener: _listenToDeleteProduct,
           ),
         ),
       ],
     );
   }
 
-  void _showShopInfoBottomSheet(ProductModel productModel) {
+  void _showShopInfoBottomSheet(ProductModel productModel,int index) {
     showKodusBottomSheet(
       context,
       (_) => ShopInfoBottomSheet(
@@ -104,7 +106,10 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
             ),
           );
         },
-        onTapDelete: () {},
+        onTapDelete: () {
+          Navigator.pop(context);
+          _showDeleteProductDialog(productModel,index);
+        },
       ),
     );
   }
@@ -134,6 +139,32 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showDeleteProductDialog(ProductModel product,int index) {
+    showKodusDialog(
+      context,
+      (_) => DialogDefaultStyle(
+        title: context.getStrings.deleteProduct,
+        acceptButtonText: context.getStrings.delete,
+        question:
+            context.getStrings.areYouSureToDeleteProduct(product.name ?? ""),
+        onAccept: () async {
+          await cubit.deleteProduct(index);
+        },
+        onReject: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+
+  void _listenToDeleteProduct(DeletePaginationItemState<ProductModel> state) {
+    state.whenOrNull(
+      success: (index) {
+        context.dismissModal();
+      },
     );
   }
 }
