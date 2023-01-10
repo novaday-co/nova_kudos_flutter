@@ -66,18 +66,13 @@ class CustomRefresher extends StatelessWidget {
           canLoadingText: context.getStrings.releaseToLoad,
           idleText: context.getStrings.pullToLoad,
           loadingText: context.getStrings.loading,
-          noDataText: context.getStrings.loadingComplete,
+          noDataText: "",
           loadingIcon: const Loading(
             primaryLoading: true,
           ),
           completeDuration: const Duration(seconds: 1),
           iconPos: IconPosition.left,
         ),
-        // CustomFooter(
-        //   builder: (context, mode) {
-        //     return DarmanitoLoading(loading: true);
-        //   },
-        // ),
         enableTwoLevel: onRefresh != null,
         enablePullUp: hasPagination,
         enablePullDown: onRefresh != null,

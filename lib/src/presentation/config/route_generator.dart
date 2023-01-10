@@ -19,6 +19,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/transactions_cubit/transactio
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_list_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_repository.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
@@ -75,7 +76,12 @@ class RouteGenerator {
                 ),
               ),
               BlocProvider(
-                create: (context) => ShopCubit(),
+                create: (context) => ShopCubit(
+                  companyRepository:
+                      KiwiContainer().resolve<CompanyRepository>(),
+                  localStorageRepository:
+                      KiwiContainer().resolve<LocalStorageRepository>(),
+                ),
               ),
               BlocProvider(
                 create: (context) => MembersCubit(),
