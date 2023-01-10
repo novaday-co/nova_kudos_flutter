@@ -26,7 +26,6 @@ class ShopPage extends BaseStatefulWidget {
 }
 
 class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
-
   @override
   void initialization() {
     cubit.get();
@@ -57,16 +56,17 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
           height: 24,
         ),
         Expanded(
-            child: PaginationWidget<ProductModel, ShopCubit>(
+          child: PaginationWidget<ProductModel, ShopCubit>(
             onData: (productItems) => GridView.builder(
               shrinkWrap: true,
               itemCount: productItems.length,
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                mainAxisExtent: 155,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                mainAxisExtent: 160,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 1.1,
               ),
               itemBuilder: (context, index) {
                 return GridShopItemWidget(
@@ -74,34 +74,8 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
                   onShopItemLongPress: () {
                     _showShopInfoBottomSheet(productItems[index]);
                   },
-                  onShopItemClick: () {
-                    showKodusDialog(
-                      context,
-                      (_) => DialogDefaultStyle(
-                        title: '',
-                        question: '',
-                        acceptButtonColor:
-                            Theme.of(context).colorScheme.surfaceVariant,
-                        onAccept: () async {
-                          Navigator.pop(context);
-                        },
-                        onReject: () {
-                          Navigator.pop(context);
-                        },
-                        acceptButtonText: context.getStrings.titleContinue,
-                        child: TextWidget.medium(
-                          sprintf(context.getStrings.phForPurchase, [
-                            productItems[index].name,
-                            productItems[index].coin,
-                          ]),
-                          context: context,
-                          additionalStyle: const TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+                  onShopItemClick: () =>
+                      _showPurchaseDialog(productItems[index]),
                 );
               },
             ),
@@ -131,6 +105,34 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
           );
         },
         onTapDelete: () {},
+      ),
+    );
+  }
+
+  void _showPurchaseDialog(ProductModel product) {
+    showKodusDialog(
+      context,
+      (_) => DialogDefaultStyle(
+        title: '',
+        question: '',
+        acceptButtonColor: Theme.of(context).colorScheme.surfaceVariant,
+        onAccept: () async {
+          Navigator.pop(context);
+        },
+        onReject: () {
+          Navigator.pop(context);
+        },
+        acceptButtonText: context.getStrings.titleContinue,
+        child: TextWidget.medium(
+          sprintf(context.getStrings.phForPurchase, [
+            product.name,
+            product.coin,
+          ]),
+          context: context,
+          additionalStyle: const TextStyle(
+            fontSize: 18,
+          ),
+        ),
       ),
     );
   }

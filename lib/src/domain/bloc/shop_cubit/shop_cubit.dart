@@ -29,7 +29,7 @@ class ShopCubit extends PaginationCubit<ProductModel> {
         pageSize: pageSize,
         pageIndex: pageNumber,
       ),
-      onData: (resultStatus, resultModel) {
+      onData: (resultModel) {
         emitLoaded(
           PaginationResourceModel<ProductModel>(
             data: resultModel!.data!.data,
@@ -37,6 +37,9 @@ class ShopCubit extends PaginationCubit<ProductModel> {
           ),
           requestType,
         );
+      },
+      onError: (resultStatus, error) {
+        emitError(requestType, message: error);
       },
     );
   }
