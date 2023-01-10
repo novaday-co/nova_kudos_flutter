@@ -25,7 +25,6 @@ class RepositoryModule {
     KiwiContainer().registerFactory<FileRepository>((container) =>
         FileRepositoryImpl(
             fileApi: container.resolve()));
-                container.resolve<LocalStorageRepository>()));
 
     KiwiContainer().registerFactory<CompanyRepository>(
       (container) => CompanyRepositoryImpl(
