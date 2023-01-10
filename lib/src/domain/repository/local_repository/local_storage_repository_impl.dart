@@ -73,4 +73,7 @@ class LocalStorageRepositoryImpl extends LocalStorageRepository {
 
   @override
   Future<UserCompanyModel> getUser() async => (await hive.getUser())!.mapToModel;
+
+  @override
+  Future<void> deleteToken() async => await keeper.deleteToken();
 }
