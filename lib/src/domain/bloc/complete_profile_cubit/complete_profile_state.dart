@@ -3,20 +3,23 @@ import 'package:nova_kudos_flutter/src/domain/bloc/general/file_cubit/file_state
 
 part 'complete_profile_state.freezed.dart';
 
+abstract class CompleteProfileStates extends BaseFileState {}
 
-class CompleteProfileInitState extends BaseFileState {}
+class CompleteProfileInitState extends CompleteProfileStates {}
 
 @freezed
-class CompleteProfileGetUserState extends BaseFileState with _$CompleteProfileGetUserState {
+class CompleteProfileGetUserState extends CompleteProfileStates
+    with _$CompleteProfileGetUserState {
   const factory CompleteProfileGetUserState.loading() =
-  LoadingCompleteProfileGetUserState;
+      LoadingCompleteProfileGetUserState;
 
   const factory CompleteProfileGetUserState.success() =
-  SuccessCompleteProfileGetUserState;
+      SuccessCompleteProfileGetUserState;
 }
 
 @freezed
-class CompleteProfileFormValidationState extends BaseFileState {
+class CompleteProfileFormValidationState extends CompleteProfileStates {
+
   const factory CompleteProfileFormValidationState.valid() =
       CompleteProfileValidFormState;
 
@@ -25,20 +28,14 @@ class CompleteProfileFormValidationState extends BaseFileState {
 }
 
 @freezed
-class CompleteProfileRequestState extends CompleteProfileValidFormState {
-  const factory CompleteProfileRequestState.loading() =
-      LoadingCompleteProfileRequestState;
+class ChangePhoneProfileState extends CompleteProfileStates
+    with _$ChangePhoneProfileState {
+  const factory ChangePhoneProfileState.loading() =
+      LoadingChangePhoneProfileState;
 
-  const factory CompleteProfileRequestState.success() =
-      SuccessCompleteProfileRequestState;
+  const factory ChangePhoneProfileState.success() =
+      SuccessChangePhoneProfileState;
 
-  const factory CompleteProfileRequestState.failed(String? error) =
-      FailedCompleteProfileRequestState;
-}
-
-@freezed
-class CompleteProfilePictureState extends BaseFileState
-    with _$CompleteProfilePictureState {
-  const factory CompleteProfilePictureState.selected(String imagePath) =
-      SelectCompleteProfilePictureState;
+  const factory ChangePhoneProfileState.failed(String? error) =
+      FailedChangePhoneProfileState;
 }
