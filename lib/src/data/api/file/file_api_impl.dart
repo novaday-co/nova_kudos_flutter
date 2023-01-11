@@ -47,7 +47,7 @@ class FileApiImpl extends FileApi {
 
     return ApiResponse.fromResponse(
       response: response,
-      resultMapper: (data) => null,
+      resultMapper: (data) => data,
     );
   }
 }
