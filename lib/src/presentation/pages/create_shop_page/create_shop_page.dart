@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_state.dart';
+import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/params/create_shop_page_params.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/components/upload_image.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/app_bar_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateless_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/tag_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_field_widget.dart';
 
 class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
@@ -61,10 +64,49 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
             builder: (context, state) {
               return UploadImage(
                 uploadImageUrl: "/users/change-avatar",
-                imageViewType: UploadImageViewType.rectangular,
                 image: state is CreateShopPictureState
                     ? state.imagePath
                     : params?.imageUrl,
+                height: 90,
+                tagAlignment: Alignment.bottomRight,
+                nullImageWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconWidget(
+                      icon: Assets.iconGallery,
+                      size: 24,
+                      height: 24,
+                      width: 24,
+                      iconColor: Theme.of(context).colorScheme.tertiaryContainer,
+                    ),
+                    const SizedBox(height: 4),
+                    TagWidget.rectangle(
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                      value: context.getStrings.eventPicture,
+                      padding: 4,
+                      textStyle: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )
+                  ],
+                ),
+                tagWidget: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    child: TagWidget.rectangle(
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                      value: context.getStrings.changePicture,
+                      padding: 4,
+                      textStyle: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
               );
             },
           ),
