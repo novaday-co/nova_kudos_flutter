@@ -5,7 +5,6 @@ import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/dart_extension.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/params/complete_profile_params.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/param/verify_code_page_param.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/widgets/code_input_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/widgets/count_down_widget.dart';
@@ -15,8 +14,12 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dar
 import 'package:sprintf/sprintf.dart';
 
 class VerifyCodePage extends BaseStatelessWidget {
-  VerifyCodePage({Key? key}) : super(key: key);
-  late VerifyCodePageParam? params;
+  final VerifyCodePageParam? params;
+
+  const VerifyCodePage({
+    Key? key,
+    required this.params,
+  }) : super(key: key);
 
   @override
   CustomAppbar? appBar(BuildContext context) {
@@ -42,8 +45,10 @@ class VerifyCodePage extends BaseStatelessWidget {
               onSubmitted: (value) {
                 context.read<VerifyCodeCubit>().otp = value;
                 context.read<VerifyCodeCubit>().postVerify(
-                    phoneNumber: params?.phoneNumber ?? '',
-                    otp: context.read<VerifyCodeCubit>().otp);
+                      phoneNumber: params?.phoneNumber ?? '',
+                      otp: context.read<VerifyCodeCubit>().otp,
+                      isEdit: params?.isEdit ?? false,
+                    );
               },
               onChanged: (value) {
                 context.read<VerifyCodeCubit>().validateVerifyCode(value);
@@ -68,8 +73,10 @@ class VerifyCodePage extends BaseStatelessWidget {
               isEnable: state is VerifyCodeValidValidationState,
               onPressed: () {
                 context.read<VerifyCodeCubit>().postVerify(
-                    phoneNumber: params?.phoneNumber ?? '',
-                    otp: context.read<VerifyCodeCubit>().otp);
+                      phoneNumber: params?.phoneNumber ?? '',
+                      otp: context.read<VerifyCodeCubit>().otp,
+                      isEdit: params?.isEdit ?? false,
+                    );
               },
             );
           },
@@ -97,15 +104,6 @@ class VerifyCodePage extends BaseStatelessWidget {
         )
       ],
     );
-  }
-
-  @override
-  void onBuild(BuildContext context) {
-    if (ModalRoute.of(context)?.settings.arguments != null) {
-      params =
-          (ModalRoute.of(context)?.settings.arguments) as VerifyCodePageParam;
-    }
-    super.onBuild(context);
   }
 
   ButtonLoadingStatus _buttonLoadingStatus(VerifyCodeState state) {
@@ -140,9 +138,11 @@ class VerifyCodePage extends BaseStatelessWidget {
   ///region Bloc Listeners
 
   void _listenToVerifyCode(BuildContext context, VerifyCodeState state) {
-    Navigator.pushNamed(context, Routes.completeProfile,
-        arguments:
-            CompleteProfilePageParams(phoneNumber: params?.phoneNumber ?? ''));
+    if (params?.isEdit ?? false) {
+      Navigator.pop(context, true);
+    } else {
+      Navigator.pushNamed(context, Routes.landingPage);
+    }
   }
 
   ///endregion

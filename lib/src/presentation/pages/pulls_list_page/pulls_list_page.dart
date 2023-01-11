@@ -93,14 +93,14 @@ class _PullsListPageState
         loading: () {},
         success: () {
           context.dismissModal();
-          KodusSnackBars.showSnackBar(
+          KudosSnackBars.showSnackBar(
             snackType: SnackType.success,
             title: "نظرسنجی با موفقیت حذف شد.",
             context: context,
           );
         },
         failed: (error) {
-          KodusSnackBars.showSnackBar(
+          KudosSnackBars.showSnackBar(
             snackType: SnackType.failure,
             title: error ?? "",
             context: context,

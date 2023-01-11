@@ -12,7 +12,8 @@ extension UserCompanyModelMapper on UserCompanyModel {
       jobPosition: jobPosition,
       avatar: avatar,
       userLastName: userLastName,
-      userName: userName
+      userName: userName,
+      phoneNumber: phoneNumber,
     );
   }
 }

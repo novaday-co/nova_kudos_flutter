@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/strings.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/custom_snackbars_widget.dart';
 
 extension ContextExtensions on BuildContext {
   bool get isDark {
@@ -64,5 +65,13 @@ extension ContextExtensions on BuildContext {
     if(isModalOpen){
       Navigator.pop(this);
     }
+  }
+
+  void showSuccessSnackBar(String title){
+    KudosSnackBars.showSuccessSnackBar(this, title);
+  }
+
+  void showFailedSnackBar(String? title){
+    KudosSnackBars.showFailedSnackBar(this, title);
   }
 }

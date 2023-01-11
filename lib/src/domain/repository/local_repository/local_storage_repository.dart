@@ -17,6 +17,8 @@ abstract class LocalStorageRepository {
 
   Future<void> setUserCompany(UserCompanyModel userCompanyModel);
 
+  Future<void> updateUserCompanyModel(UserCompanyModel userCompanyModel);
+
   Future<UserCompanyModel> getUser();
 
   Future<void> clearUser();

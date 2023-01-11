@@ -39,6 +39,7 @@ import 'package:nova_kudos_flutter/src/presentation/pages/winners_list_page/winn
 
 class RouteGenerator {
   static Map<String, WidgetBuilder> getRoutes(RouteSettings settings) {
+    dynamic param = settings.arguments;
     return {
       Routes.splash: (context) => BlocProvider(
             create: (context) => SplashCubit(
@@ -53,11 +54,19 @@ class RouteGenerator {
             child: const LoginPage(),
           ),
       Routes.verifyCode: (context) => BlocProvider(
-            create: (context) => VerifyCodeCubit(),
-            child: VerifyCodePage(),
+            create: (context) => VerifyCodeCubit(
+              userRepository: KiwiContainer().resolve<UserRepository>(),
+              authRepository: KiwiContainer().resolve<AuthRepository>(),
+            ),
+            child: VerifyCodePage(
+              params: param,
+            ),
           ),
       Routes.completeProfile: (context) => BlocProvider(
-            create: (context) => CompleteProfileCubit(),
+            create: (context) => CompleteProfileCubit(
+              localStorageRepository: KiwiContainer().resolve<LocalStorageRepository>(),
+              userRepository: KiwiContainer().resolve<UserRepository>(),
+            ),
             child: const CompleteProfilePage(),
           ),
       Routes.landingPage: (context) => MultiBlocProvider(
@@ -116,7 +125,9 @@ class RouteGenerator {
             child: const WinnersListPage(),
           ),
       Routes.coinRatePage: (context) => BlocProvider(
-            create: (context) => CoinRateCubit(),
+            create: (context) => CoinRateCubit(
+              companyRepository: KiwiContainer().resolve<CompanyRepository>(),
+            ),
             child: const CoinRatePage(),
           )
     };

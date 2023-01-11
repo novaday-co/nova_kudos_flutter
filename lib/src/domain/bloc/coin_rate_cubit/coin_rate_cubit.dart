@@ -1,17 +1,14 @@
-import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/coin_rate_cubit/coin_rate_state.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/base_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository.dart';
-import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 
 class CoinRateCubit extends BaseCubit<CoinRateState> {
-  CompanyRepository companyRepository =
-      KiwiContainer().resolve<CompanyRepository>();
-  LocalStorageRepository localStorageRepository =
-      KiwiContainer().resolve<LocalStorageRepository>();
+  CompanyRepository companyRepository;
 
-  CoinRateCubit() : super(CoinRateStateInitState());
+  CoinRateCubit({
+    required this.companyRepository,
+  }) : super(CoinRateStateInitState());
 
   void validateCoinRate(String? input) {
     if (input != null && input.isNotEmpty) {

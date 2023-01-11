@@ -103,6 +103,9 @@
   },
   "coinRate": "نرخ هر سکه",
   "enterCoinRate": "نرخ هر سکه را وارد کنید",
+  "errorOccurred": "An error occurred please try again later.",
+  "msgPictureUpdatedSuccess": "عکس پروفایل با موفقیت به روزرسانی شد.",
+  "msgProfileUpdatedSuccess": "پروفایل با موفقیت به روزرسانی شد.",
   "areYouSureToDeleteProduct": "آیا مطمئنید میخواهید {product} را حذف کنید؟",
   "@areYouSureToDeleteProduct": {
     "placeholders": {

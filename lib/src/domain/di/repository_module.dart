@@ -1,6 +1,8 @@
 import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository_impl.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/file_repository/file_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/file_repository/file_repository_impl.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository_impl.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
@@ -18,7 +20,11 @@ class RepositoryModule {
         AuthRepositoryImpl(
             authApi: container.resolve(),
             localStorageRepository:
-                container.resolve<LocalStorageRepository>()));
+            container.resolve<LocalStorageRepository>()));
+
+    KiwiContainer().registerFactory<FileRepository>((container) =>
+        FileRepositoryImpl(
+            fileApi: container.resolve()));
 
     KiwiContainer().registerFactory<CompanyRepository>(
       (container) => CompanyRepositoryImpl(

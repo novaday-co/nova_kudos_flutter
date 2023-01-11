@@ -8,6 +8,7 @@ class UserCompanyModel {
   String? avatar;
   int? coinAmount;
   int? currencyAmount;
+  String? phoneNumber;
 
   UserCompanyModel({
     this.companyId,
@@ -19,5 +20,6 @@ class UserCompanyModel {
     this.avatar,
     this.coinAmount,
     this.currencyAmount,
+    this.phoneNumber,
   });
 }

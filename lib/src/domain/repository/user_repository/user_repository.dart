@@ -1,8 +1,15 @@
 import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
-import 'package:nova_kudos_flutter/src/domain/model/user_company/account_detail_model.dart';
+import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 
-abstract class UserRepository{
+abstract class UserRepository {
+  Future<ResultModel<UserCompanyModel>> getProfile();
 
-  Future<ResultModel<AccountDetailModel>> getProfile();
+  Future<ResultModel> postChangeMobile({
+    required String mobile,
+  });
 
+  Future<ResultModel> postVerifyMobile({
+    required String mobile,
+    required String otpCode,
+  });
 }

@@ -35,7 +35,7 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,C extends Cu
         backgroundColor: backgroundColor(context),
         drawer: drawer(),
         appBar: appBar(context),
-        bottomNavigationBar: bottomNavigation(),
+        bottomNavigationBar: bottomWidget(),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -66,7 +66,7 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,C extends Cu
 
   Widget? drawer() => null;
 
-  Widget? bottomNavigation() => null;
+  Widget? bottomWidget() => null;
 
   String? provideRouteName() => null;
 

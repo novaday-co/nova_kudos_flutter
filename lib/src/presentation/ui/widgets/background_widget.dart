@@ -12,6 +12,8 @@ class BackgroundWidget extends StatelessWidget {
   final double? height;
   final double? width;
   final Color? borderColor;
+  final BoxShape? shape;
+  final Clip clipBehaviour;
 
   const BackgroundWidget({
     Key? key,
@@ -26,24 +28,27 @@ class BackgroundWidget extends StatelessWidget {
     this.width,
     this.borderColor,
     this.onLongPress,
+    this.shape,
+    this.clipBehaviour = Clip.antiAlias,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      width: width,
-      child: Material(
-        color: backgroundColor ?? Theme.of(context).colorScheme.onBackground,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: isBordered
-                ? borderColor ?? Theme.of(context).colorScheme.outline
-                : Colors.transparent,
-          ),
-          borderRadius: BorderRadius.circular(borderRadius ?? 0),
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: backgroundColor ?? Theme.of(context).colorScheme.onBackground,
+          borderRadius: shape == BoxShape.circle ? null:BorderRadius.circular(borderRadius ?? 0),
+          shape: shape ?? BoxShape.rectangle,
+          border: isBordered
+              ? Border.all(
+                  color: borderColor ?? Theme.of(context).colorScheme.outline)
+              : null,
         ),
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: clipBehaviour,
         child: InkWell(
           borderRadius: BorderRadius.circular(borderRadius ?? 0),
           splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.23),
