@@ -19,7 +19,6 @@ import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/default_dialog_st
 import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/dialog_function.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/pagination_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
@@ -56,7 +55,7 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
                 return Row(
                   children: [
                     TextWidget.medium(
-                      (cubit.userCompanyModel?.coinAmount).toString(),
+                      state is SuccessPurchaseRequestState ?state.purchaseModel.coinAmount.toString(): (cubit.userCompanyModel?.coinAmount).toString(),
                       context: context,
                       direction: TextDirection.ltr,
                       additionalStyle: const TextStyle(

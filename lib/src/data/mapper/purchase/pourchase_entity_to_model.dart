@@ -5,6 +5,7 @@ extension PurchaseMapper on PurchaseEntity {
   get mapToModel {
     return PurchaseModel(
       trackingCode: trackingCode,
+      coinAmount: coinAmount,
     );
   }
 }

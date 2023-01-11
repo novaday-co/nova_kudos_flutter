@@ -77,14 +77,8 @@ class ShopCubit extends PaginationCubit<ProductModel> {
     await safeCall(
       apiCall: userRepository.purchaseProduct(productId),
       onSuccess: (response) async {
-        await safeCall(
-          apiCall: userRepository.getProfile(),
-          onSuccess: (profileResponse)async {
-            userCompanyModel=await defaultCompany;
-            emit(PurchaseRequestState.success(response!.data!));
-
-          },
-        );
+        emit(PurchaseRequestState.success(response!.data!));
+        localStorageRepository.setUserCompany(UserCompanyModel(coinAmount: response.data!.coinAmount));
       },
       onFailed: (resultStatus, error) {
         emit(PurchaseRequestState.failed(error));
