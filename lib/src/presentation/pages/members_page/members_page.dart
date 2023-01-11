@@ -109,14 +109,14 @@ class _MembersPageState
         loading: () {},
         success: () {
           context.dismissModal();
-          KodusSnackBars.showSnackBar(
+          KudosSnackBars.showSnackBar(
             snackType: SnackType.success,
             title: context.getStrings.memberDeletedSuccessfully,
             context: context,
           );
         },
         failed: (error) {
-          KodusSnackBars.showSnackBar(
+          KudosSnackBars.showSnackBar(
             snackType: SnackType.failure,
             title: error ?? "",
             context: context,
