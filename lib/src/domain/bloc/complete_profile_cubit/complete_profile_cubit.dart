@@ -1,17 +1,24 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/complete_profile_cubit/complete_profile_state.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/file_cubit/file_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
-import 'package:nova_kudos_flutter/src/presentation/ui/bottom_sheets/media_picker_sheet.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_repository.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/mixins/value_changed_mixin.dart';
 
-class CompleteProfileCubit extends FileCubit {
+class CompleteProfileCubit extends FileCubit<CompleteProfileStates>
+    with ValueChangeChecker<String> {
   LocalStorageRepository localStorageRepository;
+  UserRepository userRepository;
 
   CompleteProfileCubit({
     required this.localStorageRepository,
-  }) : super(CompleteProfileInitState()){
-   getUserCompanyModelFromPref();
+    required this.userRepository,
+  }) : super(CompleteProfileInitState()) {
+    getUserCompanyModelFromPref();
   }
 
   UserCompanyModel? userCompanyModel;
@@ -19,23 +26,63 @@ class CompleteProfileCubit extends FileCubit {
   void getUserCompanyModelFromPref() async {
     emit(const CompleteProfileGetUserState.loading());
     userCompanyModel = await localStorageRepository.getUser();
-    print(userCompanyModel?.avatar);
-    userCompanyModel?.phoneNumber = "0902432424";
+    setInitValue(userCompanyModel?.phoneNumber);
     emit(const CompleteProfileGetUserState.success());
   }
 
-  void profileForm(String? input) {
-    if (input != null && input.isNotEmpty) {
+  void onChangedPhoneNumber(String? phoneNumber) {
+    if (phoneNumber != null &&
+        phoneNumber.isNotEmpty &&
+        isValueChanged(phoneNumber) &&
+        phoneNumber.length == 11) {
       emit(const CompleteProfileFormValidationState.valid());
     } else {
       emit(const CompleteProfileFormValidationState.invalid());
     }
   }
 
-  void selectProfilePicture(BuildContext context) async {
-    final imagePath = await showAccessMediaPickerSheet(context);
-    if (imagePath != null) {
-      emit(CompleteProfilePictureState.selected(imagePath));
-    }
+  void updatePhoneNumberInLocal(String phoneNumber) {
+    setInitValue(phoneNumber);
+    localStorageRepository.updateUserCompanyModel(UserCompanyModel(
+      phoneNumber: phoneNumber,
+    ));
+    emit(const CompleteProfileFormValidationState.invalid());
+  }
+
+  @override
+  Future<void> upload(File file) async {
+    emitUploading();
+    await safeCall(
+      apiCall: fileRepository.upload(
+        url: "users/change-avatar",
+        bodyParameters: FormData.fromMap({
+          "avatar": await MultipartFile.fromFile(file.path,
+              filename: parseFileName(file)),
+        }),
+        onSendProgress: onSendProgress,
+      ),
+      onData: (result) async {
+        await localStorageRepository.updateUserCompanyModel(UserCompanyModel(
+          avatar: result?.data["avatar"],
+        ));
+        emitSuccessUploading();
+      },
+      onError: (failedStatus, error) {
+        emitFailedUploading(error);
+      },
+    );
+  }
+
+  Future<void> postChangePhone(String phoneNumber) async {
+    emit(const ChangePhoneProfileState.loading());
+    await safeCall(
+      apiCall: userRepository.postChangeMobile(mobile: phoneNumber),
+      onData: (result) {
+        emit(const ChangePhoneProfileState.success());
+      },
+      onError: (failedStatus, error) {
+        emit(ChangePhoneProfileState.failed(error));
+      },
+    );
   }
 }
