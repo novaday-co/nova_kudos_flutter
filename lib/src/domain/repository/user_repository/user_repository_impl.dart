@@ -4,7 +4,7 @@ import 'package:nova_kudos_flutter/src/data/mapper/purchase/pourchase_entity_to_
 import 'package:nova_kudos_flutter/src/data/mapper/user_company/user_company_entity_to_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/purchase/purchase_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/result_model.dart';
-import 'package:nova_kudos_flutter/src/domain/model/user_company/account_detail_model.dart';
+import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_repository.dart';
@@ -20,11 +20,35 @@ class UserRepositoryImpl extends UserRepository {
   Future<ResultModel<UserCompanyModel>> getProfile() async {
     final response = await userApi.getProfile();
     if (response.isSuccess) {
-      localStorageRepository.setUserCompany(response.data!.mapToModel);
+      localStorageRepository
+          .setUserCompany(response.data?.mapToModel);
     }
     return ApiToResultMapper.mapTo(
       response: response,
-      dataMapper: () => response.data!.mapToModel,
+      dataMapper: () => response.data?.mapToModel,
+    );
+  }
+
+  @override
+  Future<ResultModel> postChangeMobile({
+    required String mobile,
+  }) async {
+    final response = await userApi.postChangeMobile(mobile: mobile);
+    return ApiToResultMapper.mapTo(
+      response: response,
+      dataMapper: () => response.data,
+    );
+  }
+
+  @override
+  Future<ResultModel> postVerifyMobile({
+    required String mobile,
+    required String otpCode,
+  }) async {
+    final response = await userApi.postVerifyMobile(mobile: mobile, otpCode: otpCode);
+    return ApiToResultMapper.mapTo(
+      response: response,
+      dataMapper: () => response.data,
     );
   }
 

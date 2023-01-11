@@ -42,6 +42,10 @@ class UserCompanyEntity {
   @JsonKey(name: "currency_amount")
   int? currencyAmount;
 
+  @HiveField(10)
+  @JsonKey(name: "mobile")
+  String? phoneNumber;
+
   UserCompanyEntity({
     this.companyId,
     this.companyName,
@@ -52,10 +56,12 @@ class UserCompanyEntity {
     this.avatar,
     this.coinAmount,
     this.currencyAmount,
+    this.phoneNumber,
   });
 
   Map<String, dynamic> toJson() => _$UserCompanyEntityToJson(this);
 
   factory UserCompanyEntity.fromJson(Map<String, dynamic> json) =>
       _$UserCompanyEntityFromJson(json);
+
 }

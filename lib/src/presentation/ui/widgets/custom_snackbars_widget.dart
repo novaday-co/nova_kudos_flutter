@@ -1,12 +1,13 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
+import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/lottie_animations_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 
 enum SnackType { failure, success, normal }
 
-class KodusSnackBars {
+class KudosSnackBars {
   static showSnackBar({
     required SnackType snackType,
     required String title,
@@ -80,5 +81,13 @@ class KodusSnackBars {
       default:
         return Theme.of(context).colorScheme.primary;
     }
+  }
+
+  static showSuccessSnackBar(BuildContext context,String title){
+    showSnackBar(snackType: SnackType.success, title: title, context: context);
+  }
+
+  static showFailedSnackBar(BuildContext context,String? title){
+    showSnackBar(snackType: SnackType.failure, title: title ?? context.getStrings.errorOccurred, context: context);
   }
 }

@@ -183,14 +183,14 @@ class _CoinRatePageState
   void _listenToUpdateCoinSystem(BuildContext context, CoinRateState state) {
     if (state is SuccessCoinRatePostRequestState) {
       systemValueController.text = state.coinSystemModel.systemValue.toString();
-      KodusSnackBars.showSnackBar(
+      KudosSnackBars.showSnackBar(
         snackType: SnackType.success,
         title: context.getStrings
             .updateCoinRate(state.coinSystemModel.coinValue ?? 0),
         context: context,
       );
     } else if (state is FailedCoinRatePostRequestState) {
-      KodusSnackBars.showSnackBar(
+      KudosSnackBars.showSnackBar(
         snackType: SnackType.failure,
         title: state.error ?? "",
         context: context,

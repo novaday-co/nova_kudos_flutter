@@ -4,14 +4,19 @@ import 'package:kiwi/kiwi.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/base_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_state.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_repository.dart';
 
 class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
   late Timer timer;
   String otp = "";
 
-  AuthRepository authRepository = KiwiContainer().resolve<AuthRepository>();
+  AuthRepository authRepository;
+  UserRepository userRepository;
 
-  VerifyCodeCubit() : super(InitVerifyCodeState()) {
+  VerifyCodeCubit({
+    required this.userRepository,
+    required this.authRepository,
+  }) : super(InitVerifyCodeState()) {
     initialTimer();
   }
 
@@ -41,10 +46,16 @@ class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
     }
   }
 
-  void postVerify({required String phoneNumber, required String otp}) async {
+  void postVerify({
+    required String phoneNumber,
+    required String otp,
+    required bool isEdit,
+  }) async {
     emit(const LoadingVerifyRequestState());
     await safeCall(
-      apiCall: authRepository.verifyOtp(mobileNumber: phoneNumber, otp: otp),
+      apiCall: isEdit
+          ? userRepository.postVerifyMobile(mobile: phoneNumber, otpCode: otp)
+          : authRepository.verifyOtp(mobileNumber: phoneNumber, otp: otp),
       onSuccess: (resultModel) {
         emit(const VerifyRequestState.success());
       },

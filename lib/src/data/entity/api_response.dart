@@ -61,13 +61,13 @@ class ApiResponse<T> {
   void showMessage(String message) {
     if (navigatorKey.currentContext != null) {
       if (isSuccess) {
-        KodusSnackBars.showSnackBar(
+        KudosSnackBars.showSnackBar(
           snackType: SnackType.success,
           title: message,
           context: navigatorKey.currentContext!,
         );
       } else {
-        KodusSnackBars.showSnackBar(
+        KudosSnackBars.showSnackBar(
           snackType: SnackType.failure,
           title: message,
           context: navigatorKey.currentContext!,

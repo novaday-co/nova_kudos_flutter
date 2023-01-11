@@ -9,7 +9,7 @@ enum ImageType { asset, file, network }
 
 class ImageLoaderWidget extends StatelessWidget {
   final String imageUrl;
-  final ImageType imageType;
+  final ImageType? imageType;
   final BoxShape boxShape;
   final BoxFit? boxFit;
   final double? height;
@@ -23,7 +23,7 @@ class ImageLoaderWidget extends StatelessWidget {
   const ImageLoaderWidget({
     Key? key,
     required this.imageUrl,
-    required this.imageType,
+    this.imageType,
     this.boxShape = BoxShape.rectangle,
     this.height,
     this.width,
@@ -100,7 +100,7 @@ class ImageLoaderWidget extends StatelessWidget {
               ),
               child: Builder(
                 builder: (context) {
-                  switch (imageType) {
+                  switch (type) {
                     case ImageType.asset:
                       return Image.asset(
                         imageUrl,
@@ -148,6 +148,17 @@ class ImageLoaderWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  ImageType get type {
+    if(imageType != null) return imageType!;
+    if (imageUrl.startsWith("http")) {
+      return ImageType.network;
+    }
+    else if(imageUrl.startsWith("assets")){
+      return ImageType.asset;
+    }
+    return ImageType.file;
   }
 
   Widget _errorWidget(BuildContext context){

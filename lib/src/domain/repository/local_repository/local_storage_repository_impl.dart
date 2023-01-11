@@ -1,4 +1,5 @@
 import 'package:nova_kudos_flutter/src/data/entity/prefrences/preferences_entity.dart';
+import 'package:nova_kudos_flutter/src/data/entity/user_company/user_company_entity.dart';
 import 'package:nova_kudos_flutter/src/data/mapper/settings/preferences_entity_to_model.dart';
 import 'package:nova_kudos_flutter/src/data/mapper/user/user_entity_to_model.dart';
 import 'package:nova_kudos_flutter/src/data/mapper/user_company/user_company_entity_to_model.dart';
@@ -70,6 +71,17 @@ class LocalStorageRepositoryImpl extends LocalStorageRepository {
   @override
   Future<void> setUserCompany(UserCompanyModel userCompanyModel) async =>
       await hive.setUser(userCompanyModel.mapToEntity);
+
+  @override
+  Future<void> updateUserCompanyModel(UserCompanyModel userCompanyModel) async {
+    UserCompanyModel user = await getUser();
+    Map<String,dynamic> data = {
+      ...user.mapToEntity.toJson(),
+      ...userCompanyModel.mapToEntity.toJson(),
+    };
+    await setUserCompany(UserCompanyEntity.fromJson(data).mapToModel);
+  }
+
 
   @override
   Future<UserCompanyModel> getUser() async => (await hive.getUser())!.mapToModel;

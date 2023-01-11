@@ -14,17 +14,16 @@ class ShopCubit extends PaginationCubit<ProductModel> {
   ShopCubit({
     required this.companyRepository,
     required this.userRepository,
-  }) : super(){
+  }) : super() {
     getUser();
   }
 
   UserCompanyModel? userCompanyModel;
 
-  void getUser()async{
+  void getUser() async {
     emit(const GetUserState.loading());
-    userCompanyModel=await defaultCompany;
+    userCompanyModel = await defaultCompany;
     emit(const GetUserState.success());
-
   }
 
   @override
@@ -77,8 +76,11 @@ class ShopCubit extends PaginationCubit<ProductModel> {
     await safeCall(
       apiCall: userRepository.purchaseProduct(productId),
       onSuccess: (response) async {
+        await localStorageRepository.updateUserCompanyModel(UserCompanyModel(
+          coinAmount: response!.data!.coinAmount,
+        ));
+        print((await defaultCompany).companyId);
         emit(PurchaseRequestState.success(response!.data!));
-        localStorageRepository.setUserCompany(UserCompanyModel(coinAmount: response.data!.coinAmount));
       },
       onFailed: (resultStatus, error) {
         emit(PurchaseRequestState.failed(error));

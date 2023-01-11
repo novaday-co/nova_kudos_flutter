@@ -43,7 +43,7 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,
         floatingActionButton: widget.includeFab ? fabWidget : null,
         floatingActionButtonLocation: DockedRightFabLocation(),
         appBar: appBar(context),
-        bottomNavigationBar: bottomNavigation(),
+        bottomNavigationBar: bottomWidget(),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -88,7 +88,7 @@ abstract class BaseStatefulWidgetState<T extends BaseStatefulWidget,
 
   Widget? drawer() => null;
 
-  Widget? bottomNavigation() => null;
+  Widget? bottomWidget() => null;
 
   String? provideRouteName() => null;
 
