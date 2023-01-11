@@ -120,6 +120,7 @@ class _PaginationWidgetState<ItemType, C extends PaginationCubit<ItemType>,
           if (isRefreshing(requestType)) {
             resetPageNumber();
             refreshController.refreshCompleted();
+            refreshController.resetNoData();
           } else if (isPaginating(requestType)) {
             increasePage();
             refreshController.loadComplete();
