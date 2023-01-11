@@ -22,7 +22,7 @@ extension UserCompanyEntityMapper on UserCompanyEntity{
       avatar: avatar,
       jobPosition: jobPosition,
       currencyAmount: currencyAmount,
-      coinAmount: currencyAmount,
+      coinAmount: coinAmount,
     );
   }
 }
