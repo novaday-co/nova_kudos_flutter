@@ -19,6 +19,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/transactions_cubit/transactio
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_list_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/file_repository/file_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_repository.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
@@ -37,7 +38,9 @@ import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/verif
 import 'package:nova_kudos_flutter/src/presentation/pages/winners_list_page/winners_list_page.dart';
 
 class RouteGenerator {
+
   static Map<String, WidgetBuilder> getRoutes(RouteSettings settings) {
+    dynamic param = settings.arguments;
     return {
       Routes.splash: (context) => BlocProvider(
             create: (context) => SplashCubit(
@@ -52,12 +55,18 @@ class RouteGenerator {
             child: const LoginPage(),
           ),
       Routes.verifyCode: (context) => BlocProvider(
-            create: (context) => VerifyCodeCubit(),
-            child: VerifyCodePage(),
+            create: (context) => VerifyCodeCubit(
+              userRepository: KiwiContainer().resolve<UserRepository>(),
+              authRepository: KiwiContainer().resolve<AuthRepository>(),
+            ),
+            child: VerifyCodePage(
+              params: param,
+            ),
           ),
       Routes.completeProfile: (context) => BlocProvider(
             create: (context) => CompleteProfileCubit(
-              localStorageRepository: KiwiContainer().resolve<LocalStorageRepository>()
+              localStorageRepository: KiwiContainer().resolve<LocalStorageRepository>(),
+              userRepository: KiwiContainer().resolve<UserRepository>(),
             ),
             child: const CompleteProfilePage(),
           ),
