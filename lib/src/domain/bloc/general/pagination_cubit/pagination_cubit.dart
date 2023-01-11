@@ -22,13 +22,18 @@ abstract class PaginationCubit<D> extends BaseCubit<BasePaginationState<D>> {
     }
     bool isLastPage = data.meta?.isLastPage() ?? false;
 
-    emit(
-      PaginationState.loaded(
-          isLastPage: isLastPage,
-          items: list,
-          currentPage: data.meta!.currentPage,
-          requestType: requestType),
-    );
+    if(requestType != RequestType.paginate && list.isEmpty){
+      emitEmpty(requestType);
+    }
+    else{
+      emit(
+        PaginationState.loaded(
+            isLastPage: isLastPage,
+            items: list,
+            currentPage: data.meta!.currentPage,
+            requestType: requestType),
+      );
+    }
   }
 
   emitEmpty(RequestType requestType, {String? message}) {
@@ -38,6 +43,8 @@ abstract class PaginationCubit<D> extends BaseCubit<BasePaginationState<D>> {
   emitError(RequestType requestType, {String? message}) {
     emit(PaginationState.errorOccurred(message, requestType));
   }
+
+
 
   Future<void> get({
     RequestType requestType = RequestType.init,

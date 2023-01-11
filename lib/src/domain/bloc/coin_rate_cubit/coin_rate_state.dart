@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:nova_kudos_flutter/src/domain/model/company/coin_system_model.dart';
+import 'package:nova_kudos_flutter/src/domain/model/company/coin/coin_system_model.dart';
 
 part 'coin_rate_state.freezed.dart';
 

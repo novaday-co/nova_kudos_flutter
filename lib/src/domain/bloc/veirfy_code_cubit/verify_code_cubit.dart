@@ -56,10 +56,10 @@ class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
       apiCall: isEdit
           ? userRepository.postVerifyMobile(mobile: phoneNumber, otpCode: otp)
           : authRepository.verifyOtp(mobileNumber: phoneNumber, otp: otp),
-      onData: (resultModel) {
+      onSuccess: (resultModel) {
         emit(const VerifyRequestState.success());
       },
-      onError: (failedStatus, error) {
+      onFailed: (failedStatus, error) {
         emit(VerifyRequestState.failed(error));
       },
     );
@@ -69,11 +69,11 @@ class VerifyCodeCubit extends BaseCubit<VerifyCodeState> {
     emit(const LoadingResendCodeRequestState());
     await safeCall(
       apiCall: authRepository.resendOtp(mobileNumber: mobileNumber),
-      onData: (resultModel) {
+      onSuccess: (resultModel) {
         emit(const ResendCodeRequestStates.success());
         _reset();
       },
-      onError: (failedStatus, error) {
+      onFailed: (failedStatus, error) {
         emit(ResendCodeRequestStates.failed(error));
       },
     );

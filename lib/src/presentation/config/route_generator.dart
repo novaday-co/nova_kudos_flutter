@@ -20,6 +20,7 @@ import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code
 import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_list_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/file_repository/file_repository.dart';
+import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_repository.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
@@ -38,7 +39,6 @@ import 'package:nova_kudos_flutter/src/presentation/pages/verify_code_page/verif
 import 'package:nova_kudos_flutter/src/presentation/pages/winners_list_page/winners_list_page.dart';
 
 class RouteGenerator {
-
   static Map<String, WidgetBuilder> getRoutes(RouteSettings settings) {
     dynamic param = settings.arguments;
     return {
@@ -86,7 +86,10 @@ class RouteGenerator {
                 ),
               ),
               BlocProvider(
-                create: (context) => ShopCubit(),
+                create: (context) => ShopCubit(
+                  companyRepository:
+                      KiwiContainer().resolve<CompanyRepository>(),
+                ),
               ),
               BlocProvider(
                 create: (context) => MembersCubit(),
