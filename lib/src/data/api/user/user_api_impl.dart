@@ -13,4 +13,34 @@ class UserApiImpl extends UserApi {
       resultMapper: (data) => UserCompanyEntity.fromJson(data),
     );
   }
+
+  @override
+  Future<ApiResponse> postChangeMobile({
+    required String mobile,
+  }) async {
+    final response =
+        await apiService.post('users/change-mobile', bodyParameters: {
+      "mobile": mobile,
+    });
+    return ApiResponse.fromResponse(
+      response: response,
+      resultMapper: (data) => data,
+    );
+  }
+
+  @override
+  Future<ApiResponse> postVerifyMobile({
+    required String mobile,
+    required String otpCode,
+  }) async {
+    final response =
+        await apiService.post('users/verify-mobile', bodyParameters: {
+      "mobile": mobile,
+      "otp_code": otpCode,
+    });
+    return ApiResponse.fromResponse(
+      response: response,
+      resultMapper: (data) => data,
+    );
+  }
 }
