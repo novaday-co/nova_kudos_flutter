@@ -25,4 +25,27 @@ class UserRepositoryImpl extends UserRepository {
       dataMapper: () => response.data?.mapToModel,
     );
   }
+
+  @override
+  Future<ResultModel> postChangeMobile({
+    required String mobile,
+  }) async {
+    final response = await userApi.postChangeMobile(mobile: mobile);
+    return ApiToResultMapper.mapTo(
+      response: response,
+      dataMapper: () => response.data,
+    );
+  }
+
+  @override
+  Future<ResultModel> postVerifyMobile({
+    required String mobile,
+    required String otpCode,
+  }) async {
+    final response = await userApi.postVerifyMobile(mobile: mobile, otpCode: otpCode);
+    return ApiToResultMapper.mapTo(
+      response: response,
+      dataMapper: () => response.data,
+    );
+  }
 }
