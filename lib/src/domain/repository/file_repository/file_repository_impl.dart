@@ -71,7 +71,7 @@ class FileRepositoryImpl extends FileRepository {
     );
     return ApiToResultMapper.mapTo(
       response: response,
-      dataMapper: () => null,
+      dataMapper: () => response.data,
     );
   }
 }
