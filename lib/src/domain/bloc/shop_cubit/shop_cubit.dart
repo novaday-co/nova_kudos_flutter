@@ -79,7 +79,7 @@ class ShopCubit extends PaginationCubit<ProductModel> {
         await localStorageRepository.updateUserCompanyModel(UserCompanyModel(
           coinAmount: response!.data!.coinAmount,
         ));
-        print((await defaultCompany).companyId);
+        userCompanyModel = await defaultCompany;
         emit(PurchaseRequestState.success(response!.data!));
       },
       onFailed: (resultStatus, error) {
