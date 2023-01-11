@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/pagination_cubit/pagination_state.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/shop_cubit/shop_cubit.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/shop_cubit/shop_state.dart';
 import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
+import 'package:nova_kudos_flutter/src/domain/model/purchase/purchase_model.dart';
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
+import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/datetime_extension.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/params/create_shop_page_params.dart';
@@ -14,13 +18,19 @@ import 'package:nova_kudos_flutter/src/presentation/ui/components/row_profile_he
 import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/default_dialog_style.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/dialogs/dialog_function.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/base_stateful_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/button_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/icon_widget.dart';
+import 'package:nova_kudos_flutter/src/presentation/ui/widgets/image_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/pagination_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart';
 import 'package:sprintf/sprintf.dart';
 
 class ShopPage extends BaseStatefulWidget {
-  const ShopPage({Key? key}) : super(key: key);
+  const ShopPage({Key? key})
+      : super(
+          key: key,
+          includeFab: true,
+        );
 
   @override
   State<StatefulWidget> createState() => _ShopPageState();
@@ -34,61 +44,79 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
 
   @override
   Widget body(BuildContext context) {
-    return Column(
-      children: [
-        RowProfileHeader(
-          title: context.getStrings.shop,
-          action: FloatingActionButton(
-            mini: true,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            elevation: 0,
-            child: Center(
-              child: IconWidget(
-                icon: Icons.add,
-                iconColor: Theme.of(context).colorScheme.onBackground,
-              ),
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, Routes.createShopPage);
-            },
-          ),
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        Expanded(
-          child: PaginationWidget<ProductModel, ShopCubit>(
-            onData: (productItems) => GridView.builder(
-              shrinkWrap: true,
-              itemCount: productItems.length,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                mainAxisExtent: 160,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                childAspectRatio: 1.1,
-              ),
-              itemBuilder: (context, index) {
-                return GridShopItemWidget(
-                  shopModel: productItems[index],
-                  onShopItemLongPress: () {
-                    _showShopInfoBottomSheet(productItems[index],index);
-                  },
-                  onShopItemClick: () =>
-                      _showPurchaseDialog(productItems[index]),
+    return BlocListener<ShopCubit, BasePaginationState>(
+      listener: _listenToPurchaseProduct,
+      child: Column(
+        children: [
+          RowProfileHeader(
+            title: context.getStrings.shop,
+            action: BlocBuilder<ShopCubit, BasePaginationState>(
+              buildWhen: _buildWhenPurchaseSuccess,
+              builder: (context, state) {
+                return Row(
+                  children: [
+                    TextWidget.medium(
+                      (cubit.userCompanyModel?.coinAmount).toString(),
+                      context: context,
+                      direction: TextDirection.ltr,
+                      additionalStyle: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const ImageLoaderWidget.fromAsset(
+                      imageUrl: Assets.silverCoin,
+                      height: 32,
+                      width: 32,
+                    )
+                  ],
                 );
               },
             ),
-            loadingWidget: const ShopPageSkeleton(),
-            deleteItemListener: _listenToDeleteProduct,
           ),
-        ),
-      ],
+          const SizedBox(
+            height: 24,
+          ),
+          Expanded(
+            child: PaginationWidget<ProductModel, ShopCubit>(
+              onData: (productItems) => GridView.builder(
+                shrinkWrap: true,
+                itemCount: productItems.length,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  mainAxisExtent: 160,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  childAspectRatio: 1.1,
+                ),
+                itemBuilder: (context, index) {
+                  return GridShopItemWidget(
+                    shopModel: productItems[index],
+                    onShopItemLongPress: () {
+                      _showShopInfoBottomSheet(productItems[index], index);
+                    },
+                    onShopItemClick: () =>
+                        _showPurchaseDialog(productItems[index]),
+                  );
+                },
+              ),
+              loadingWidget: const ShopPageSkeleton(),
+              deleteItemListener: _listenToDeleteProduct,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  void _showShopInfoBottomSheet(ProductModel productModel,int index) {
+  @override
+  void onFabClick(BuildContext context) {
+    Navigator.pushNamed(context, Routes.createShopPage);
+    super.onFabClick(context);
+  }
+
+  void _showShopInfoBottomSheet(ProductModel productModel, int index) {
     showKodusBottomSheet(
       context,
       (_) => ShopInfoBottomSheet(
@@ -108,7 +136,7 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
         },
         onTapDelete: () {
           Navigator.pop(context);
-          _showDeleteProductDialog(productModel,index);
+          _showDeleteProductDialog(productModel, index);
         },
       ),
     );
@@ -122,7 +150,7 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
         question: '',
         acceptButtonColor: Theme.of(context).colorScheme.surfaceVariant,
         onAccept: () async {
-          Navigator.pop(context);
+          await cubit.postPurchaseProduct(product.id ?? -1);
         },
         onReject: () {
           Navigator.pop(context);
@@ -142,7 +170,7 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
     );
   }
 
-  void _showDeleteProductDialog(ProductModel product,int index) {
+  void _showDeleteProductDialog(ProductModel product, int index) {
     showKodusDialog(
       context,
       (_) => DialogDefaultStyle(
@@ -160,6 +188,30 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
     );
   }
 
+  void _showSuccessPurchaseProductDialog(PurchaseModel purchaseModel) {
+    showKodusDialog(
+      context,
+      (_) => DialogDefaultStyle(
+        title: context.getStrings.purchaseSuccess,
+        question: context.getStrings
+            .yourTrackingCodeIs(purchaseModel.trackingCode ?? ''),
+        additionTitleStyle: TextStyle(color: Theme.of(context).colorScheme.surfaceVariant),
+        footerChild: CustomButton.fill(
+          context: context,
+          text: context.getStrings.back,
+          height: 36,
+          onPressed: () => context.dismissModal(),
+          additionalTextStyle: const TextStyle(
+            fontSize: 14,
+          ),
+          borderRadius: 8,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          foregroundColor: Theme.of(context).colorScheme.tertiary,
+        ),
+      ),
+    );
+  }
+
   void _listenToDeleteProduct(DeletePaginationItemState<ProductModel> state) {
     state.whenOrNull(
       success: (index) {
@@ -167,4 +219,21 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
       },
     );
   }
+
+  void _listenToPurchaseProduct(
+      BuildContext context, BasePaginationState state) {
+    if (state is PurchaseRequestState) {
+      state.whenOrNull(
+        success: (purchaseModel) {
+          context.dismissModal();
+          _showSuccessPurchaseProductDialog(purchaseModel);
+        },
+        failed: (message) => context.dismissModal(),
+      );
+    }
+  }
+
+  bool _buildWhenPurchaseSuccess(
+          BasePaginationState prv, BasePaginationState current) =>
+      current is SuccessGetUserState || current is SuccessPurchaseRequestState;
 }
