@@ -79,6 +79,7 @@ class RouteGenerator {
                 create: (context) => ShopCubit(
                   companyRepository:
                       KiwiContainer().resolve<CompanyRepository>(),
+                  userRepository: KiwiContainer().resolve<UserRepository>()
                 ),
               ),
               BlocProvider(
