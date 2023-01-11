@@ -6,4 +6,13 @@ abstract class UserApi extends BaseApi{
 
    Future<ApiResponse<UserCompanyEntity>> getProfile();
 
+   Future<ApiResponse> postChangeMobile({
+      required String mobile,
+   });
+
+   Future<ApiResponse> postVerifyMobile({
+      required String mobile,
+      required String otpCode,
+   });
+
 }
