@@ -1,13 +1,11 @@
 import 'package:nova_kudos_flutter/src/data/entity/prefrences/preferences_entity.dart';
 import 'package:nova_kudos_flutter/src/data/entity/user_company/user_company_entity.dart';
 import 'package:nova_kudos_flutter/src/data/mapper/settings/preferences_entity_to_model.dart';
-import 'package:nova_kudos_flutter/src/data/mapper/user/user_entity_to_model.dart';
 import 'package:nova_kudos_flutter/src/data/mapper/user_company/user_company_entity_to_model.dart';
 import 'package:nova_kudos_flutter/src/data/storage/hive/hive.dart';
 import 'package:nova_kudos_flutter/src/data/storage/keeper/keeper_actions.dart';
 import 'package:nova_kudos_flutter/src/domain/mapper/user/user_model_to_entity.dart';
 import 'package:nova_kudos_flutter/src/domain/model/settings/prefrences.dart';
-import 'package:nova_kudos_flutter/src/domain/model/user/user_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/user_company/user_company_model.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 
@@ -75,16 +73,19 @@ class LocalStorageRepositoryImpl extends LocalStorageRepository {
   @override
   Future<void> updateUserCompanyModel(UserCompanyModel userCompanyModel) async {
     UserCompanyModel user = await getUser();
-    Map<String,dynamic> data = {
-      ...user.mapToEntity.toJson(),
-      ...userCompanyModel.mapToEntity.toJson(),
-    };
-    await setUserCompany(UserCompanyEntity.fromJson(data).mapToModel);
+    Map<String, dynamic> oldObj = user.mapToEntity.toJson();
+    Map<String, dynamic> newObj = userCompanyModel.mapToEntity.toJson();
+    oldObj.forEach((key, value) {
+      if (newObj[key] != null) {
+        oldObj[key] = newObj[key];
+      }
+    });
+    await setUserCompany(UserCompanyEntity.fromJson(oldObj).mapToModel);
   }
 
-
   @override
-  Future<UserCompanyModel> getUser() async => (await hive.getUser())!.mapToModel;
+  Future<UserCompanyModel> getUser() async =>
+      (await hive.getUser())!.mapToModel;
 
   @override
   Future<void> deleteToken() async => await keeper.deleteToken();
