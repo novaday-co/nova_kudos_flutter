@@ -43,7 +43,7 @@ class UserCompanyEntity {
   int? currencyAmount;
 
   @HiveField(10)
-  @JsonKey(name: "phone")
+  @JsonKey(name: "mobile")
   String? phoneNumber;
 
   UserCompanyEntity({
@@ -63,4 +63,5 @@ class UserCompanyEntity {
 
   factory UserCompanyEntity.fromJson(Map<String, dynamic> json) =>
       _$UserCompanyEntityFromJson(json);
+
 }
