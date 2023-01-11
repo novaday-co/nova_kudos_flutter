@@ -19,7 +19,6 @@ import 'package:nova_kudos_flutter/src/domain/bloc/transactions_cubit/transactio
 import 'package:nova_kudos_flutter/src/domain/bloc/veirfy_code_cubit/verify_code_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/winners_list_cubit/winners_list_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/auth_repository/auth_repository.dart';
-import 'package:nova_kudos_flutter/src/domain/repository/file_repository/file_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/company_repository/company_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/local_repository/local_storage_repository.dart';
 import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_repository.dart';
@@ -126,7 +125,9 @@ class RouteGenerator {
             child: const WinnersListPage(),
           ),
       Routes.coinRatePage: (context) => BlocProvider(
-            create: (context) => CoinRateCubit(),
+            create: (context) => CoinRateCubit(
+              companyRepository: KiwiContainer().resolve<CompanyRepository>(),
+            ),
             child: const CoinRatePage(),
           )
     };

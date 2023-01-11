@@ -61,13 +61,13 @@ class CompleteProfileCubit extends FileCubit<CompleteProfileStates>
         }),
         onSendProgress: onSendProgress,
       ),
-      onData: (result) async {
+      onSuccess: (result) async {
         await localStorageRepository.updateUserCompanyModel(UserCompanyModel(
           avatar: result?.data["avatar"],
         ));
         emitSuccessUploading();
       },
-      onError: (failedStatus, error) {
+      onFailed: (failedStatus, error) {
         emitFailedUploading(error);
       },
     );
@@ -77,10 +77,10 @@ class CompleteProfileCubit extends FileCubit<CompleteProfileStates>
     emit(const ChangePhoneProfileState.loading());
     await safeCall(
       apiCall: userRepository.postChangeMobile(mobile: phoneNumber),
-      onData: (result) {
+      onSuccess: (result) {
         emit(const ChangePhoneProfileState.success());
       },
-      onError: (failedStatus, error) {
+      onFailed: (failedStatus, error) {
         emit(ChangePhoneProfileState.failed(error));
       },
     );
