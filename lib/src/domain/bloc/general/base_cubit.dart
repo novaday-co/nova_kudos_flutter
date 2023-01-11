@@ -8,8 +8,8 @@ class BaseCubit<T> extends Cubit<T> {
 
   Future<void> safeCall<D>({
     required Future<ResultModel<D>> apiCall,
-    Function(FailedResultStatus?,String?)? onError,
-    Function( ResultModel<D>?)? onData,
+    Function(FailedResultStatus? failedStatus,String? error)? onError,
+    Function( ResultModel<D>? result)? onData,
   }) async {
     try {
       final response = await apiCall;
