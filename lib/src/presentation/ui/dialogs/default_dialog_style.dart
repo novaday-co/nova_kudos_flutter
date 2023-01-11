@@ -7,24 +7,28 @@ class DialogDefaultStyle extends StatefulWidget {
   final String title;
   final String question;
   final Future Function()? onAccept;
-  final VoidCallback onReject;
+  final VoidCallback? onReject;
   final Color? acceptButtonColor;
   final Color? rejectButtonColor;
   final String? acceptButtonText;
   final String? rejectButtonText;
   final Widget? child;
+  final Widget? footerChild;
+  final TextStyle? additionTitleStyle;
 
   const DialogDefaultStyle({
     Key? key,
     required this.title,
     required this.question,
-    required this.onAccept,
-    required this.onReject,
+    this.onAccept,
+    this.onReject,
     this.acceptButtonColor,
     this.rejectButtonColor,
     this.acceptButtonText,
     this.rejectButtonText,
     this.child,
+    this.footerChild,
+    this.additionTitleStyle
   }) : super(key: key);
 
   @override
@@ -47,9 +51,7 @@ class _DialogDefaultStyleState extends State<DialogDefaultStyle> {
       contentPadding: EdgeInsets.zero,
       titlePadding: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16)
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
@@ -60,7 +62,7 @@ class _DialogDefaultStyleState extends State<DialogDefaultStyle> {
                   TextWidget.bold(
                     widget.title,
                     context: context,
-                    additionalStyle: const TextStyle(fontSize: 20),
+                    additionalStyle: const TextStyle(fontSize: 20).merge(widget.additionTitleStyle),
                   ),
                   const SizedBox(
                     height: 20,
@@ -78,50 +80,54 @@ class _DialogDefaultStyleState extends State<DialogDefaultStyle> {
         ),
         Container(
           color: Theme.of(context).colorScheme.onSecondary,
-          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: CustomButton.fill(
-                  context: context,
-                  height: 36,
-                  additionalTextStyle: const TextStyle(
-                    fontSize: 14,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: widget.footerChild ??
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomButton.fill(
+                      context: context,
+                      height: 36,
+                      additionalTextStyle: const TextStyle(
+                        fontSize: 14,
+                      ),
+                      text: widget.acceptButtonText,
+                      backgroundColor: widget.acceptButtonColor ??
+                          Theme.of(context).colorScheme.primary,
+                      onPressed: widget.onAccept != null
+                          ? () async {
+                              changeLoadingState(ButtonLoadingStatus.loading);
+                              await widget.onAccept?.call();
+                              changeLoadingState(ButtonLoadingStatus.normal);
+                            }
+                          : null,
+                      loadingStatus: loadingStatus,
+                      borderRadius: 8,
+                    ),
                   ),
-                  text: widget.acceptButtonText,
-                  backgroundColor: widget.acceptButtonColor ??
-                      Theme.of(context).colorScheme.primary,
-                  onPressed: widget.onAccept != null ? () async {
-                    changeLoadingState(ButtonLoadingStatus.loading);
-                    await widget.onAccept?.call();
-                    changeLoadingState(ButtonLoadingStatus.normal);
-                  } : null,
-                  loadingStatus: loadingStatus,
-                  borderRadius: 8,
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                child: CustomButton.fill(
-                  context: context,
-                  height: 36,
-                  additionalTextStyle: const TextStyle(
-                    fontSize: 14,
+                  const SizedBox(
+                    width: 16,
                   ),
-                  borderRadius: 8,
-                  text: widget.rejectButtonText ?? context.getStrings.cancel,
-                  backgroundColor: widget.rejectButtonColor ??
-                      Theme.of(context).colorScheme.background,
-                  foregroundColor: Theme.of(context).colorScheme.tertiary,
-                  loadingType: ButtonLoadingType.circular,
-                  onPressed: widget.onReject,
-                  isEnable: loadingStatus != ButtonLoadingStatus.loading,
-                ),
+                  Expanded(
+                    child: CustomButton.fill(
+                      context: context,
+                      height: 36,
+                      additionalTextStyle: const TextStyle(
+                        fontSize: 14,
+                      ),
+                      borderRadius: 8,
+                      text:
+                          widget.rejectButtonText ?? context.getStrings.cancel,
+                      backgroundColor: widget.rejectButtonColor ??
+                          Theme.of(context).colorScheme.background,
+                      foregroundColor: Theme.of(context).colorScheme.tertiary,
+                      loadingType: ButtonLoadingType.circular,
+                      onPressed: widget.onReject,
+                      isEnable: loadingStatus != ButtonLoadingStatus.loading,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
         )
       ],
     );

@@ -117,6 +117,16 @@
     }
   },
   "deleteProduct": "حذف محصول",
-  "noItemFound": "آیتمی پیدا نشد!"
-
+  "noItemFound": "آیتمی پیدا نشد!",
+  "purchaseSuccess": "خرید با موفقیت انجام شد",
+  "back": "بازگشت",
+  "yourTrackingCodeIs": "کد پیگیری شما : {trackingCode}",
+  "@yourTrackingCodeIs": {
+    "placeholders": {
+      "trackingCode": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  }
 }
