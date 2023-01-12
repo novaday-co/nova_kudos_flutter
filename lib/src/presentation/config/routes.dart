@@ -8,7 +8,7 @@ abstract class Routes {
   static const notification = _Paths.notification;
   static const profile = _Paths.profile;
   static const landingPage = _Paths.landingPage;
-  static const createShopPage = _Paths.createShopPage;
+  static const createProductPage = _Paths.createProductPage;
   static const transactionsPage = _Paths.transactionsPage;
   static const eventsListPage = _Paths.eventsListPage;
   static const pullsListPage = _Paths.pullsListPage;
@@ -24,7 +24,7 @@ abstract class _Paths {
   static const notification = '/notification';
   static const profile = '/profile';
   static const landingPage = '/landing-page';
-  static const createShopPage = '/create-shop';
+  static const createProductPage = '/create-product';
   static const transactionsPage = '/transaction';
   static const pullsListPage = '/pulls';
   static const eventsListPage = '/events';

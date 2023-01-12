@@ -25,7 +25,7 @@ import 'package:nova_kudos_flutter/src/domain/repository/user_repository/user_re
 import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/coin_rate_page/coin_rate_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/complete_profile/complete_profile_page.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/create_shop_page.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/create_product_page/create_product_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/events_list_page/events_list_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/landing_page/landing_page.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/login_page/login_page.dart';
@@ -105,7 +105,7 @@ class RouteGenerator {
             create: (context) => NotificationCubit(),
             child: const NotificationPage(),
           ),
-      Routes.createShopPage: (context) => BlocProvider(
+      Routes.createProductPage: (context) => BlocProvider(
             create: (context) => CreateShopCubit(),
             child: CreateShopPage(),
           ),
