@@ -64,7 +64,8 @@ class RouteGenerator {
           ),
       Routes.completeProfile: (context) => BlocProvider(
             create: (context) => CompleteProfileCubit(
-              localStorageRepository: KiwiContainer().resolve<LocalStorageRepository>(),
+              localStorageRepository:
+                  KiwiContainer().resolve<LocalStorageRepository>(),
               userRepository: KiwiContainer().resolve<UserRepository>(),
             ),
             child: const CompleteProfilePage(),
@@ -86,10 +87,9 @@ class RouteGenerator {
               ),
               BlocProvider(
                 create: (context) => ShopCubit(
-                  companyRepository:
-                      KiwiContainer().resolve<CompanyRepository>(),
-                  userRepository: KiwiContainer().resolve<UserRepository>()
-                ),
+                    companyRepository:
+                        KiwiContainer().resolve<CompanyRepository>(),
+                    userRepository: KiwiContainer().resolve<UserRepository>()),
               ),
               BlocProvider(
                 create: (context) => MembersCubit(),
@@ -107,7 +107,9 @@ class RouteGenerator {
           ),
       Routes.createProductPage: (context) => BlocProvider(
             create: (context) => CreateShopCubit(),
-            child: CreateShopPage(),
+            child: CreateShopPage(
+              params: param,
+            ),
           ),
       Routes.transactionsPage: (context) => BlocProvider(
             create: (context) => TransactionsCubit(),

@@ -14,8 +14,11 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/tag_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_field_widget.dart';
 
 class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
-  CreateShopPage({Key? key}) : super(key: key);
-  CreateShopPageParams? params;
+  const CreateShopPage({
+    Key? key,
+    required this.params,
+  }) : super(key: key);
+  final CreateShopPageParams? params;
 
   @override
   CustomAppbar? appBar(BuildContext context) {
@@ -46,15 +49,6 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
   }
 
   @override
-  void onBuild(BuildContext context) {
-    if (ModalRoute.of(context)?.settings.arguments != null) {
-      params =
-          ModalRoute.of(context)?.settings.arguments as CreateShopPageParams;
-    }
-    return super.onBuild(context);
-  }
-
-  @override
   Widget body(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -77,7 +71,8 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
                       size: 24,
                       height: 24,
                       width: 24,
-                      iconColor: Theme.of(context).colorScheme.tertiaryContainer,
+                      iconColor:
+                          Theme.of(context).colorScheme.tertiaryContainer,
                     ),
                     const SizedBox(height: 4),
                     TagWidget.rectangle(
@@ -133,7 +128,6 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
           ),
           CustomTextField(
             initValue: params?.count.toString(),
-
             label: context.getStrings.numberOfInventory,
             textInputType: TextInputType.number,
           ),
