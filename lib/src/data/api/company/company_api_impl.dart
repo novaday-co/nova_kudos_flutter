@@ -74,6 +74,7 @@ class CompanyApiImpl extends CompanyApi {
   Future<ApiResponse> postNewProduct({
     required int companyId,
     required ProductModel productModel,
+    ProgressCallback? onSendProgress,
   }) async {
     FormData body = FormData.fromMap(
       {
@@ -92,6 +93,7 @@ class CompanyApiImpl extends CompanyApi {
     final response = await apiService.post(
       'companies/$companyId/market/products',
       bodyParameters: body,
+      onSendProgress: onSendProgress
     );
     return ApiResponse.fromResponse(
       response: response,

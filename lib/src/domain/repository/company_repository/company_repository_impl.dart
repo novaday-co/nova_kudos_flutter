@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:nova_kudos_flutter/src/data/api/company/company_api.dart';
 import 'package:nova_kudos_flutter/src/data/entity/company/product/product_entity.dart';
 import 'package:nova_kudos_flutter/src/data/mapper/api_response_to_result_model.dart';
@@ -76,10 +77,12 @@ class CompanyRepositoryImpl extends CompanyRepository {
   Future<ResultModel> postNewProduct({
     required int companyId,
     required ProductModel productModel,
+    ProgressCallback? onSendProgress,
   }) async {
     final response = await companyApi.postNewProduct(
       companyId: companyId,
       productModel: productModel,
+      onSendProgress: onSendProgress
     );
     return ApiToResultMapper.mapTo(response: response, dataMapper: () => null);
   }
