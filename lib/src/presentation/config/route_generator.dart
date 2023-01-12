@@ -106,7 +106,9 @@ class RouteGenerator {
             child: const NotificationPage(),
           ),
       Routes.createProductPage: (context) => BlocProvider(
-            create: (context) => CreateShopCubit(),
+            create: (context) => CreateShopCubit(
+              companyRepository: KiwiContainer().resolve<CompanyRepository>()
+            ),
             child: CreateShopPage(
               params: param,
             ),
