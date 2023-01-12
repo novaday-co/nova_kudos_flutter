@@ -16,11 +16,12 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/tag_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_field_widget.dart';
 
 class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
+  final CreateShopPageParams? params;
+
   const CreateShopPage({
     Key? key,
     required this.params,
   }) : super(key: key);
-  final CreateShopPageParams? params;
 
   @override
   CustomAppbar? appBar(BuildContext context) {
@@ -67,7 +68,6 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
               buildWhen: _buildWhenProfilePicture,
               builder: (context, state) {
                 return UploadImage<CreateShopCubit>(
-                  uploadImageUrl: "",
                   image: state is SelectedImageFileState
                       ? state.imageFile.path
                       : params?.imageUrl,

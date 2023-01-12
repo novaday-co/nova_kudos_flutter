@@ -80,7 +80,6 @@ class _CompleteProfilePageState
                   child: Column(
                     children: [
                       UploadImage<CompleteProfileCubit>(
-                        uploadImageUrl: cubit.userCompanyModel?.avatar ?? "",
                         image: cubit.userCompanyModel?.avatar,
                         tagAlignment: Alignment.bottomCenter,
                         shape: BoxShape.circle,

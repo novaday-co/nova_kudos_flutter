@@ -10,7 +10,6 @@ import 'package:nova_kudos_flutter/src/presentation/ui/widgets/text_widget.dart'
 
 class UploadImage<C extends FileCubit> extends StatefulWidget {
   final String? image;
-  final String uploadImageUrl;
   final Widget? tagWidget;
   final double? width;
   final double height;
@@ -22,7 +21,6 @@ class UploadImage<C extends FileCubit> extends StatefulWidget {
   const UploadImage({
     Key? key,
     this.image,
-    required this.uploadImageUrl,
     this.tagWidget,
     this.width,
     required this.height,
