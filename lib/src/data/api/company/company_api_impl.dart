@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:nova_kudos_flutter/src/data/entity/api_response.dart';
 
 import 'package:nova_kudos_flutter/src/data/entity/company/coin/coin_system_entity.dart';
 import 'package:nova_kudos_flutter/src/data/entity/company/product/product_entity.dart';
 import 'package:nova_kudos_flutter/src/data/entity/general/paging_resource_entity.dart';
+import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
 
 import 'company_api.dart';
 
@@ -65,6 +67,35 @@ class CompanyApiImpl extends CompanyApi {
     return ApiResponse.fromResponse(
       response: response,
       resultMapper: (data) => null,
+    );
+  }
+
+  @override
+  Future<ApiResponse> postNewProduct({
+    required int companyId,
+    required ProductModel productModel,
+  }) async {
+    FormData body = FormData.fromMap(
+      {
+        "avatar": productModel.avatar != null
+            ? await MultipartFile.fromFile(
+                productModel.avatar ?? '',
+                filename: productModel.avatar?.split('/').last,
+              )
+            : null,
+        "name": productModel.name,
+        "currency": productModel.currency,
+        "amount": productModel.amount,
+        "expiration_date": "2023-11-03",
+      },
+    );
+    final response = await apiService.post(
+      'companies/$companyId/market/products',
+      bodyParameters: body,
+    );
+    return ApiResponse.fromResponse(
+      response: response,
+      resultMapper: (data) => data,
     );
   }
 }

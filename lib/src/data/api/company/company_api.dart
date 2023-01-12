@@ -3,6 +3,7 @@ import 'package:nova_kudos_flutter/src/data/entity/api_response.dart';
 import 'package:nova_kudos_flutter/src/data/entity/company/coin/coin_system_entity.dart';
 import 'package:nova_kudos_flutter/src/data/entity/company/product/product_entity.dart';
 import 'package:nova_kudos_flutter/src/data/entity/general/paging_resource_entity.dart';
+import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
 
 abstract class CompanyApi extends BaseApi {
   Future<ApiResponse<CoinSystemEntity>> getCompanyCoinValue({
@@ -22,5 +23,10 @@ abstract class CompanyApi extends BaseApi {
   Future<ApiResponse> deleteProduct({
     required int companyId,
     required int productId,
+  });
+
+  Future<ApiResponse> postNewProduct({
+    required int companyId,
+    required ProductModel productModel,
   });
 }
