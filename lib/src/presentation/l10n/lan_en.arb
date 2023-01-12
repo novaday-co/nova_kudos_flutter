@@ -128,5 +128,7 @@
         "example": "123"
       }
     }
-  }
+  },
+  "productAddedSuccess": "محصول با موفقیت اضافه شد",
+  "productPrice": "قیمت محصول به ریال"
 }
