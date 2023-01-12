@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/file_cubit/file_cubit.dart';
@@ -17,6 +19,7 @@ class UploadImage<C extends FileCubit> extends StatefulWidget {
   final Color? backgroundColor;
   final Alignment? tagAlignment;
   final Widget? nullImageWidget;
+  final Function(File file)? onSelectImage;
 
   const UploadImage({
     Key? key,
@@ -28,6 +31,7 @@ class UploadImage<C extends FileCubit> extends StatefulWidget {
     this.tagAlignment,
     this.nullImageWidget,
     this.backgroundColor,
+    this.onSelectImage,
   }) : super(key: key);
 
   @override
@@ -152,6 +156,7 @@ class _UploadImageState<C extends FileCubit> extends State<UploadImage> {
     state.isA<SelectImageFileState>()?.when(
       select: (imageFile) {
         image = imageFile.path;
+        widget.onSelectImage?.call(imageFile);
         setState(() {});
       },
     );
