@@ -54,10 +54,9 @@ class CompanyRepositoryImpl extends CompanyRepository {
     );
     return ApiToResultMapper.mapTo(
       response: response,
-      dataMapper: () =>
-          response.data!.mapTo<ProductEntity, ProductModel>(
-            mapper: (ProductEntity product) => product.mapTo,
-          ),
+      dataMapper: () => response.data!.mapTo<ProductEntity, ProductModel>(
+        mapper: (ProductEntity product) => product.mapTo,
+      ),
     );
   }
 
@@ -69,6 +68,18 @@ class CompanyRepositoryImpl extends CompanyRepository {
     final response = await companyApi.deleteProduct(
       companyId: companyId,
       productId: productId,
+    );
+    return ApiToResultMapper.mapTo(response: response, dataMapper: () => null);
+  }
+
+  @override
+  Future<ResultModel> postNewProduct({
+    required int companyId,
+    required ProductModel productModel,
+  }) async {
+    final response = await companyApi.postNewProduct(
+      companyId: companyId,
+      productModel: productModel,
     );
     return ApiToResultMapper.mapTo(response: response, dataMapper: () => null);
   }

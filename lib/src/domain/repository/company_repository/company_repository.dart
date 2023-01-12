@@ -21,4 +21,9 @@ abstract class CompanyRepository {
     required int companyId,
     required int productId,
   });
+
+  Future<ResultModel> postNewProduct({
+    required int companyId,
+    required ProductModel productModel,
+  });
 }
