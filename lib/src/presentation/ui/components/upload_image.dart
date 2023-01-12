@@ -71,8 +71,9 @@ class _UploadImageState<C extends FileCubit> extends State<UploadImage> {
                   builder: (context, state) {
                     return AnimatedCrossFade(
                       duration: const Duration(milliseconds: 600),
-                      crossFadeState: state is UploadingFileState ? CrossFadeState
-                          .showSecond : CrossFadeState.showFirst,
+                      crossFadeState: state is UploadingFileState
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
                       firstChild: const SizedBox(),
                       secondChild: StreamBuilder<double>(
                         initialData: 0,
@@ -87,15 +88,14 @@ class _UploadImageState<C extends FileCubit> extends State<UploadImage> {
                                 alignment: Alignment.bottomCenter,
                                 width: widget.width,
                                 decoration: BoxDecoration(
-                                  color: Theme
-                                      .of(context)
+                                  color: Theme.of(context)
                                       .colorScheme
                                       .onSurface
                                       .withOpacity(0.5),
                                   borderRadius:
-                                  (widget.shape == BoxShape.circle)
-                                      ? null
-                                      : BorderRadius.circular(16),
+                                      (widget.shape == BoxShape.circle)
+                                          ? null
+                                          : BorderRadius.circular(16),
                                 ),
                               ),
                               Center(
@@ -106,7 +106,7 @@ class _UploadImageState<C extends FileCubit> extends State<UploadImage> {
                                     "${((progress.data ?? 0) * 100).toInt()}%",
                                     context: context,
                                     additionalStyle:
-                                    const TextStyle(color: Colors.white),
+                                        const TextStyle(color: Colors.white),
                                   ),
                                 ),
                               )
@@ -122,7 +122,7 @@ class _UploadImageState<C extends FileCubit> extends State<UploadImage> {
           ),
           Align(
             alignment: widget.tagAlignment ?? Alignment.bottomCenter,
-            child: widget.tagWidget,
+            child: image == null ? null : widget.tagWidget,
           )
         ],
       ),
@@ -141,8 +141,8 @@ class _UploadImageState<C extends FileCubit> extends State<UploadImage> {
     );
   }
 
-  bool _buildWhenUploadingProgress(BaseFileState previous,
-      BaseFileState current) {
+  bool _buildWhenUploadingProgress(
+      BaseFileState previous, BaseFileState current) {
     return current is UploadFileState;
   }
 
@@ -158,6 +158,4 @@ class _UploadImageState<C extends FileCubit> extends State<UploadImage> {
       },
     );
   }
-
-
 }

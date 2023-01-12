@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_state.dart';
+import 'package:nova_kudos_flutter/src/domain/bloc/general/file_cubit/file_state.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/create_product_page/params/create_product_page_params.dart';
@@ -33,7 +34,7 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
 
   @override
   Widget? bottomNavigation() {
-    return BlocBuilder<CreateShopCubit, CreateShopState>(
+    return BlocBuilder<CreateShopCubit, BaseFileState>(
       builder: (context, state) => Padding(
         padding: const EdgeInsets.all(16.0),
         child: SafeArea(
@@ -53,39 +54,42 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          BlocBuilder<CreateShopCubit, CreateShopState>(
+          BlocBuilder<CreateShopCubit, BaseFileState>(
             buildWhen: _buildWhenProfilePicture,
             builder: (context, state) {
-              return UploadImage(
-                uploadImageUrl: "/users/change-avatar",
-                image: state is CreateShopPictureState
-                    ? state.imagePath
+              return UploadImage<CreateShopCubit>(
+                uploadImageUrl:"",
+                image: state is SelectedImageFileState
+                    ? state.imageFile.path
                     : params?.imageUrl,
                 height: 90,
+                width: 1000,
                 tagAlignment: Alignment.bottomRight,
-                nullImageWidget: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconWidget(
-                      icon: Assets.iconGallery,
-                      size: 24,
-                      height: 24,
-                      width: 24,
-                      iconColor:
-                          Theme.of(context).colorScheme.tertiaryContainer,
-                    ),
-                    const SizedBox(height: 4),
-                    TagWidget.rectangle(
-                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                      value: context.getStrings.eventPicture,
-                      padding: 4,
-                      textStyle: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
+                nullImageWidget: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconWidget(
+                        icon: Assets.iconGallery,
+                        size: 24,
+                        height: 24,
+                        width: 24,
+                        iconColor:
+                            Theme.of(context).colorScheme.tertiaryContainer,
                       ),
-                    )
-                  ],
+                      const SizedBox(height: 4),
+                      TagWidget.rectangle(
+                        backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                        value: context.getStrings.eventPicture,
+                        padding: 4,
+                        textStyle: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 tagWidget: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -147,8 +151,8 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
   ///region Bloc When Conditions Functions
 
   bool _buildWhenProfilePicture(
-      CreateShopState previous, CreateShopState current) {
-    return current is CreateShopPictureState;
+      BaseFileState previous, BaseFileState current) {
+    return current is SelectedImageFileState;
   }
 
   ///endregion
