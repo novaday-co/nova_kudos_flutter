@@ -16,12 +16,4 @@ class CreateProductFormValidationState extends CreateShopState {
       CreateProductInValidFormState;
 }
 
-@freezed
-class CreateProductState extends CreateShopState with _$CreateProductState{
-  const factory CreateProductState.loading() = LoadingCreateProductState;
 
-  const factory CreateProductState.success() = SuccessCreateProductState;
-
-  const factory CreateProductState.failed(String? error) =
-      FailedCreateProductState;
-}

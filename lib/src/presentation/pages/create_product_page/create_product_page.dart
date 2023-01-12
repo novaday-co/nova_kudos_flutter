@@ -46,7 +46,7 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
             text: context.getStrings.submit,
             loadingStatus: _buttonLoadingStatus(state),
             isEnable: state is CreateProductValidFormState ||
-                state is CreateProductState,
+                state is UploadFileState,
             loadingType: ButtonLoadingType.percentage,
             onPressed: () {
               context.read<CreateShopCubit>().postNewProduct();
@@ -73,6 +73,8 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
                       : params?.imageUrl,
                   height: 90,
                   width: 1000,
+                  onSelectImage: (file) =>
+                      context.read<CreateShopCubit>().setProductImage(file),
                   tagAlignment: Alignment.bottomRight,
                   nullImageWidget: Center(
                     child: Column(
@@ -174,14 +176,14 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
   }
 
   bool _buildWhenCreateButton(BaseFileState previous, BaseFileState current) {
-    return current is CreateProductState ||
-        current is CreateProductFormValidationState;
+    return current is CreateProductFormValidationState ||
+        current is UploadFileState;
   }
 
   ///endregion
   ///region Bloc Listeners
   void _listenToCreateProductState(BuildContext context, BaseFileState state) {
-    state.isA<CreateProductState>()?.whenOrNull(
+    state.isA<UploadFileState>()?.whenOrNull(
           success: () {
             context.showSuccessSnackBar(context.getStrings.productAddedSuccess);
             Navigator.pop(context, true);
@@ -193,10 +195,10 @@ class CreateShopPage extends BaseStatelessWidget<CreateShopCubit> {
   /// endregion
 
   ButtonLoadingStatus _buttonLoadingStatus(BaseFileState state) {
-    if (state is LoadingCreateProductState) {
+    if (state is UploadingFileState) {
       return ButtonLoadingStatus.loading;
     }
-    if (state is SuccessCreateProductState) {
+    if (state is SuccessUploadingFileState) {
       return ButtonLoadingStatus.complete;
     }
     return ButtonLoadingStatus.normal;

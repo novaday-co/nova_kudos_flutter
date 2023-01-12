@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:nova_kudos_flutter/src/domain/bloc/create_shop_cubit/create_shop_state.dart';
 import 'package:nova_kudos_flutter/src/domain/bloc/general/file_cubit/file_cubit.dart';
 import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
@@ -12,33 +14,33 @@ class CreateShopCubit extends FileCubit<CreateShopState> {
     required this.companyRepository,
   }) : super(InitCreateShopState());
 
+
   Future<void> postNewProduct() async {
-    emit(const CreateProductState.loading());
+    emitUploading();
     UserCompanyModel userCompanyModel = await defaultCompany;
-    productModel.avatar = imageFile?.path;
     await safeCall(
       apiCall: companyRepository.postNewProduct(
-        companyId: userCompanyModel.companyId ?? -1,
-        productModel: productModel,
+          companyId: userCompanyModel.companyId ?? -1,
+          productModel: productModel,
+          onSendProgress: onSendProgress
       ),
       onSuccess: (result) {
-        emit(const CreateProductState.success());
+        emitSuccessUploading();
       },
       onFailed: (failedStatus, error) {
-        emit(CreateProductState.failed(error));
+        emitFailedUploading(error);
       },
-    );
-  }
+    );  }
 
   void checkFormValidation() {
     if (productModel.name != null &&
         productModel.currency != null &&
         productModel.amount != null) {
       if (productModel.name!.isNotEmpty &&
-          productModel.currency!.toString().isNotEmpty&&
+          productModel.currency!.toString().isNotEmpty &&
           productModel.amount!.toString().isNotEmpty) {
         emit(const CreateProductFormValidationState.valid());
-      }else{
+      } else {
         emit(const CreateProductFormValidationState.invalid());
       }
     } else {
@@ -52,20 +54,22 @@ class CreateShopCubit extends FileCubit<CreateShopState> {
   }
 
   void setProductAmount(String amount) {
-    if(amount.toString().isNotEmpty){
+    if (amount.toString().isNotEmpty) {
       productModel.amount = int.parse(amount);
-    }else{
-      productModel.amount=null;
+    } else {
+      productModel.amount = null;
     }
     checkFormValidation();
   }
 
   void setProductValue(String currency) {
-    if(currency.toString().isNotEmpty){
+    if (currency.toString().isNotEmpty) {
       productModel.currency = int.parse(currency);
-    }else{
-      productModel.currency=null;
+    } else {
+      productModel.currency = null;
     }
     checkFormValidation();
   }
+
+  setProductImage(File image) => productModel.avatar = image.path;
 }
