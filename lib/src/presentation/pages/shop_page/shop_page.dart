@@ -9,7 +9,7 @@ import 'package:nova_kudos_flutter/src/presentation/config/routes.dart';
 import 'package:nova_kudos_flutter/src/presentation/constants/common/assets.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/context_extensions.dart';
 import 'package:nova_kudos_flutter/src/presentation/helpers/extensions/datetime_extension.dart';
-import 'package:nova_kudos_flutter/src/presentation/pages/create_shop_page/params/create_shop_page_params.dart';
+import 'package:nova_kudos_flutter/src/presentation/pages/create_product_page/params/create_product_page_params.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/shop_page/widgets/grid_shop_item_widget.dart';
 import 'package:nova_kudos_flutter/src/presentation/pages/shop_page/widgets/shop_page_skeleton.dart';
 import 'package:nova_kudos_flutter/src/presentation/ui/bottom_sheets/bottom_sheet_function.dart';
@@ -55,7 +55,9 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
                 return Row(
                   children: [
                     TextWidget.medium(
-                      state is SuccessPurchaseRequestState ?state.purchaseModel.coinAmount.toString(): (cubit.userCompanyModel?.coinAmount).toString(),
+                      state is SuccessPurchaseRequestState
+                          ? state.purchaseModel.coinAmount.toString()
+                          : (cubit.userCompanyModel?.coinAmount).toString(),
                       context: context,
                       direction: TextDirection.ltr,
                       additionalStyle: const TextStyle(
@@ -111,7 +113,9 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
 
   @override
   void onFabClick(BuildContext context) {
-    Navigator.pushNamed(context, Routes.createShopPage);
+    Navigator.pushNamed(context, Routes.createProductPage).then(
+      (isProductCreated) => cubit.get(),
+    );
     super.onFabClick(context);
   }
 
@@ -123,7 +127,7 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
         onTapEdit: () {
           Navigator.pushNamed(
             context,
-            Routes.createShopPage,
+            Routes.createProductPage,
             arguments: CreateShopPageParams(
               imageUrl: productModel.avatar,
               count: productModel.amount,
@@ -194,7 +198,8 @@ class _ShopPageState extends BaseStatefulWidgetState<ShopPage, ShopCubit> {
         title: context.getStrings.purchaseSuccess,
         question: context.getStrings
             .yourTrackingCodeIs(purchaseModel.trackingCode ?? ''),
-        additionTitleStyle: TextStyle(color: Theme.of(context).colorScheme.surfaceVariant),
+        additionTitleStyle:
+            TextStyle(color: Theme.of(context).colorScheme.surfaceVariant),
         footerChild: CustomButton.fill(
           context: context,
           text: context.getStrings.back,

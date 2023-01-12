@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:nova_kudos_flutter/src/domain/model/company/coin/coin_system_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/company/product/product_model.dart';
 import 'package:nova_kudos_flutter/src/domain/model/general/pagination_resource_model.dart';
@@ -20,5 +21,11 @@ abstract class CompanyRepository {
   Future<ResultModel> deleteProduct({
     required int companyId,
     required int productId,
+  });
+
+  Future<ResultModel> postNewProduct({
+    required int companyId,
+    required ProductModel productModel,
+    ProgressCallback? onSendProgress,
   });
 }
