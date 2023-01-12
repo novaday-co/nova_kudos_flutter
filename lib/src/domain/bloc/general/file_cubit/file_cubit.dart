@@ -10,6 +10,7 @@ import 'package:nova_kudos_flutter/src/presentation/ui/bottom_sheets/media_picke
 
 abstract class FileCubit<S extends BaseFileState>
     extends BaseCubit<BaseFileState> {
+  File? _selectedFile;
   FileRepository fileRepository = KiwiContainer().resolve<FileRepository>();
 
   FileCubit(super.initialState);
@@ -28,10 +29,13 @@ abstract class FileCubit<S extends BaseFileState>
     if (state is! UploadingFileState) {
       final imagePath = await showAccessMediaPickerSheet(context);
       if (imagePath != null) {
+        _selectedFile = File(imagePath);
         emit(SelectImageFileState.select(File(imagePath)));
       }
     }
   }
+
+  File? get imageFile => _selectedFile;
 
   Future<void> upload(File file) async {}
 
